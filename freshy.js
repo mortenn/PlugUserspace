@@ -2,6 +2,7 @@
 	var freshy = {
 		host: 'plug.runsafe.no/beta',
 		systems: {
+			freshy: { file: 'freshy.js', name: 'freshy', version: 1 },
 			soundbank: { file: 'soundbank.js', name: 'soundbank', version: 0 }
 		},
 		versionCheck: function()
