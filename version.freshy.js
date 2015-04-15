@@ -1,1 +1,1 @@
-(function(){ window.freshy.currentVersion('freshy', 2); })();
+(function(){ window.freshy.currentVersion('freshy', 3); })();
