@@ -1,1 +1,1 @@
-(function(){ window.freshy.currentVersion('soundbank', 1); })();
+(function(){ window.freshy.currentVersion('freshy', 2); })();

@@ -2,7 +2,7 @@
 	var freshy = {
 		host: 'plug.runsafe.no/beta',
 		systems: {
-			freshy: { file: 'freshy.js', name: 'freshy', version: 1 },
+			freshy: { file: 'freshy.js', name: 'freshy', version: 2 },
 			soundbank: { file: 'soundbank.js', name: 'soundbank', version: 0 }
 		},
 		versionCheck: function()
@@ -24,6 +24,11 @@
 
 	if(!window.freshy)
 		setInterval(function(){ window.freshy.versionCheck(); }, 900000);
+	else
+	{
+		for(var system in window.freshy.systems)
+			freshy.systems[system].version = window.freshy.systems[system].version;
+	}
 
 	window.freshy = freshy;
 	window.freshy.versionCheck();
