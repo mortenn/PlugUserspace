@@ -1,34 +1,32 @@
 (function (){
 	var freshy = {
 		host: 'plug.runsafe.no/beta',
-		systems: {
-			freshy: { file: 'freshy.js', name: 'freshy', version: 3 },
-			soundbank: { file: 'soundbank.js', name: 'soundbank', version: 0 },
-			notify: { file: 'notify.js', name: 'notify', version: 0 }
-		},
+		systems: {},
 		versionCheck: function()
 		{
-			for(var name in window.freshy.systems)
-				$.getScript('https://'+window.freshy.host+'/version.'+window.freshy.systems[name].file);
+			$.getScript('https://'+window.freshy.host+'/version.js');
 		},
 		currentVersion: function(name, ver)
 		{
-			if(ver * 1 > window.freshy.systems[name].version)
+			if(!(name in window.freshy.systems))
+				window.freshy.systems[name] = name == 'freshy' ? ver : 0;
+
+			if(ver * 1 > window.freshy.systems[name])
 			{
-				window.freshy.systems[name].version = ver;
+				window.freshy.systems[name] = ver;
 				if(window.console && window.console.log)
-					window.console.log('Loading version ' + ver + ' of ' + window.freshy.systems[name].file + ' from ' + window.freshy.host);
-				$.getScript('https://'+window.freshy.host+'/' + window.freshy.systems[name].file);
+					window.console.log('Loading version ' + ver + ' of ' + name + '.js from ' + window.freshy.host);
+				$.getScript('https://'+window.freshy.host+'/' + name + '.js');
 			}
 		}
 	};
 
 	if(!window.freshy)
-		setInterval(function(){ window.freshy.versionCheck(); }, 900000);
+		setInterval(function(){ window.freshy.versionCheck(); }, 60000);
 	else
 	{
 		for(var system in window.freshy.systems)
-			freshy.systems[system].version = window.freshy.systems[system].version;
+			freshy.systems = window.freshy.systems;
 	}
 
 	window.freshy = freshy;
