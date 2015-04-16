@@ -25,7 +25,7 @@
 				}
 			}
 		},
-		trigger: function(message)
+		show: function(message)
 		{
 			if(window.notify.active)
 			{
