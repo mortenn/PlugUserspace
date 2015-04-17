@@ -2,7 +2,7 @@
 	var chatalert = {
 		showInformation: function(title, body)
 		{
-			window.chatalert.show('icon-volume-off', title, body, '42a5dc');
+			window.chatalert.show('icon-volume-off', title, body, 'a5dc42');
 		},
 		showWarning: function(title, body)
 		{
@@ -10,7 +10,7 @@
 		},
 		showError: function(title, body)
 		{
-			window.chatalert.show('icon-volume-on', title, body, 'a5dc42');
+			window.chatalert.show('icon-volume-on', title, body, 'a54242');
 		},
 		show: function(icon, title, body, color)
 		{
