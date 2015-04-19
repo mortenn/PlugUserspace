@@ -44,6 +44,9 @@
 		},
 		load: function()
 		{
+			if(!window.noisy.reloaded)
+				window.noisy.trigger('plug.dj chat notifications enabled');
+
 			if("localStorage" in window && window["localStorage"] != null)
 			{
 				window.noisy.noise = window.localStorage['noisy.js-nonoise'] != '1';
@@ -56,7 +59,6 @@
 
 				window.freshy.systemLoaded('noisy');
 			}
-			window.noisy.trigger('plug.dj chat notifications enabled');
 		},
 		save: function()
 		{
@@ -106,11 +108,15 @@
 		initialized: true, // Backwards compatibility
 		sound: null,
 		noise: true,
-		popup: true
+		popup: true,
+		delay: 2,
+		reloaded: false
 	};
 
 	if(!window.noisy)
 		API.on(API.CHAT, function(e){ window.noisy.analyseChat(e); });
+	else
+		noisy.reloaded = true;
 	window.noisy = noisy;
 	window.noisy.load();
 })();
