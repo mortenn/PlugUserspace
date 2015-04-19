@@ -31,7 +31,7 @@
 			if(minute < 10)
 				minute = '0' + minute;
 			chatLog.append($(
-'<div class="cm" style="margin:4px;box-shadow: inset 0 0 0 1px #'+color+';background:#282c35;clear:both">'+
+'<div class="cm userspace-chatalert" style="margin:4px;box-shadow: inset 0 0 0 1px #'+color+';background:#282c35;clear:both">'+
 	'<div class="badge-box" style="width:30px;height:30px"><i class="icon '+icon+'"></i></div>'+
 	'<div class="msg">'+
 		'<div class="from" style="float:none;display:block">'+
