@@ -138,7 +138,7 @@
 							window.soundbank.volume = Math.min(100,Math.max(0, newValue));
 						value = window.soundbank.volume;
 					}
-					window.soundbank.applyVolume();
+					window.soundbank.config.applyVolume();
 				}
 				else if(config.name == 'preload')
 				{
