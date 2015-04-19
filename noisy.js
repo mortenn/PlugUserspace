@@ -51,6 +51,7 @@
 			{
 				window.noisy.noise = window.localStorage['noisy.js-nonoise'] != '1';
 				window.noisy.popup = window.localStorage['noisy.js-nopopup'] != '1';
+				window.noisy.delay = window.localStorage['noisy.js-delay'] * 1;
 				var stored = window.localStorage['noisy.js-sound'];
 				if(stored)
 					window.noisy.sound = stored;
@@ -67,6 +68,7 @@
 				window.localStorage['noisy.js-nonoise'] = window.noisy.noise ? '0' : '1';
  				window.localStorage['noisy.js-nopopup'] = window.noisy.popup ? '0' : '1';
 				window.localStorage['noisy.js-sound'] = window.noisy.sound;
+				window.localStorage['noisy.js-delay'] = window.noisy.delay;
 			}
 		},
 		config: 
@@ -81,18 +83,26 @@
 				}
 				return [
 					{
-						title: 'Chat mentions',
+						title: 'Chat mention desktop notifications',
 						type: 'right',
 						options: [
-							{ type: 'select', name: 'noise', value: window.noisy.noise ? '1' : '0', options: [{value:'0', label:'Sounds disabled'},{value:'1', label:'Sounds enabled'}] },
-							{ type: 'select', name: 'popup', value: window.noisy.popup ? '1' : '0', options: [{value:'0', label:'Popup disabled'},{value:'1', label:'Popup enabled'}] },
-							{ type: 'select', name: 'sound', value: window.noisy.sound, options: sounds }
+							{ type: 'select', name: 'popup', value: window.noisy.popup ? '1' : '0', options: [{value:'0', label:'Off'},{value:'1', label:'On'}] },
+							{ type: 'numberbox', size: 4, name: 'delay', value: window.noisy.delay, legend: ' seconds (-1 = infinite)' }
 						]
 					},
+					{
+						title: 'Chat mention sound notifications',
+						type: 'right',
+						options: [
+							{ type: 'select', name: 'noise', value: window.noisy.noise ? '1' : '0', options: [{value:'0', label:'Off'},{value:'1', label:'On'}] },
+							{ type: 'select', name: 'sound', value: window.noisy.sound, options: sounds }
+						]
+					}
 				]; 
 			},
 			set: function(config, value)
 			{
+				var newValue = undefined;
 				if(config.name == 'noise')
 					window.noisy.noise = value == '1';
 				if(config.name == 'popup')
@@ -102,7 +112,15 @@
 					window.noisy.sound = value;
 					window.soundbank.play(value);
 				}
+				if(config.name == 'delay')
+				{
+					var newValue = value * 1;
+					if(!isNaN(newValue))
+						window.noisy.delay = Math.min(9999, Math.max(-1, newValue));
+					newValue = window.noisy.delay;
+				}
 				window.noisy.save();
+				return newValue;
 			}
 		},
 		initialized: true, // Backwards compatibility
