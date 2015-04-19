@@ -84,7 +84,7 @@
 		},
 		play: function(name)
 		{
-			if(window.soundbank.mute)
+			if(window.soundbank.mute || !name)
 				return;
 
 			if(!window.soundbank.loadedSounds[name] && !window.soundbank.loadNamed(name))

@@ -1,18 +1,26 @@
 (function(){
 	var chatalert = {
-		showInformation: function(title, body)
+		showInformation: function(title, body, play)
 		{
 			window.chatalert.show('icon-volume-off', title, body, 'a5dc42');
+			if(play != undefined)
+				window.soundbank.play(play);
 		},
-		showWarning: function(title, body)
+		showWarning: function(title, body, play)
 		{
 			window.chatalert.show('icon-volume-half', title, body, 'dca542');
-			window.soundbank.play('Mo, Baka!');
+			if(play != undefined)
+				window.soundbank.play(play);
+			else
+				window.soundbank.play('Mo, Baka!');
 		},
-		showError: function(title, body)
+		showError: function(title, body, play)
 		{
 			window.chatalert.show('icon-volume-on', title, body, 'a54242');
-			window.soundbank.play('Tsukki');
+			if(play != undefined)
+				window.soundbank.play(play);
+			else
+				window.soundbank.play('Tsukki');
 		},
 		show: function(icon, title, body, color)
 		{
