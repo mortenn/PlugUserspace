@@ -178,7 +178,7 @@
 				var volume = $('<input type="text" size="3" value="100" />%');
 				var preload = $('<select><option value="0">No</option><option value="1">Yes</option></select>');
 				preload.val(1);
-				var submit = $('<button><i class="icon icon-check-purple" /></button>');
+				var submit = $('<button style="cursor:pointer"><i class="icon icon-check-purple" /></button>');
 				submit.click(function(){ window.soundbank.installCustom(name, file, volume, preload); });
 				volume.keyup(function()
 				{
@@ -189,10 +189,9 @@
 				});
 				return $('<table></table>')
 					.append($('<tr><th>Name</th><th>Volume</th><th>Preload</th></tr>'))
-					.append($('<tr></tr>').append(name).append($('<td></td').append(name), $('<td></td>').append(volume), $('<td></td>').append(preload)))
+					.append($('<tr></tr>').append(name).append($('<td></td').append(name), $('<td></td>').append(volume), $('<td></td>').append(preload), $('<td></td>').append(submit)))
 					.append($('<tr><th colspan="3">Soundfile (must use https://)</th></tr>'))
 					.append($('<tr></tr>').append($('<td colspan="3"></td>').append(file)))
-					.append($('<tr></tr>').append($('<td colspan="3"></td>').append(submit)));
 			},
 			getSoundList: function()
 			{
