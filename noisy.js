@@ -37,10 +37,9 @@
 		},
 		trigger: function(message)
 		{
-			if("notify" in window)
-				window.notify.show(message);
+			window.notify.show(message, window.noisy.delay * 1000);
 
-			if("soundbank" in window && window.noisy.sound)
+			if(window.noisy.sound)
 				window.soundbank.play(window.noisy.sound);
 		},
 		load: function()
