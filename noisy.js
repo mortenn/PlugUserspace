@@ -13,25 +13,25 @@
 
 			if(message.match("@" + me))
 			{
-				$('#chat .msg.cid-'+cid).css('background','rgba(32,32,0,0.8)');
+				//$('#chat .msg.cid-'+cid).css('background','rgba(32,32,0,0.8)');
 				return window.noisy.trigger(username + ': ' + message);
 			}
 
 			if(message.match("@bouncers") && rank >= 2)
 			{
-				$('#chat .msg.cid-'+cid).css('background','rgba(32,32,0,0.8)');
+				//$('#chat .msg.cid-'+cid).css('background','rgba(32,32,0,0.8)');
 				return window.noisy.trigger(username + ': ' + message);
 			}
 
 			if(message.match("@managers") && rank >= 3)
 			{
-				$('#chat .msg.cid-'+cid).css('background','rgba(32,32,0,0.8)');
+				//$('#chat .msg.cid-'+cid).css('background','rgba(32,32,0,0.8)');
 				return window.noisy.trigger(username + ': ' + message);
 			}
 
 			if(message.match("@hosts") && rank >= 4)
 			{
-				$('#chat .msg.cid-'+cid).css('background','rgba(32,32,0,0.8)');
+				//$('#chat .msg.cid-'+cid).css('background','rgba(32,32,0,0.8)');
 				return window.noisy.trigger(username + ': ' + message);
 			}
 		},
