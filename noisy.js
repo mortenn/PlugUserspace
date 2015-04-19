@@ -45,7 +45,11 @@
 		load: function()
 		{
 			if(!window.noisy.reloaded)
-				window.noisy.trigger('plug.dj chat notifications enabled');
+				window.freshy.waitFor('notify', function(){
+					window.freshy.waitFor('soundbank', function(){
+						window.noisy.trigger('plug.dj chat notifications enabled');
+					})
+				});
 
 			if("localStorage" in window && window["localStorage"] != null)
 			{
