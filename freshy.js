@@ -87,6 +87,30 @@
 					window.freshy.waits[system][i]();
 				window.freshy.waits[system] = [];
 			}
+		},
+		config:
+		{
+			get: function()
+			{
+				var channels = [];
+				for(var channel in window.freshy.channels)
+					channels.push({value:channel, label:channel});
+				return [
+					{
+						title: 'Userspace addon updater',
+						type: 'left',
+						options: [ { type: 'select', name: 'channel', value: window.freshy.channel, options: channels } ]
+					}
+				];
+			},
+			set: function(config, value)
+			{
+				if(config.name == 'channel' && value != window.noisy.channel)
+				{
+					window.noisy.channel = value;
+					window.noisy.reload();
+				}
+			}
 		}
 	};
 
