@@ -26,12 +26,15 @@
 			}
 			window.freshy.systemLoaded('notify');
 		},
-		show: function(message)
+		show: function(message, dismiss)
 		{
+			if(!dismiss)
+				dismiss = window.notify.autoDismiss;
 			if(window.notify.active)
 			{
 				var notification = new Notification(message);
-				setTimeout(function(){ notification.close(); }, window.notify.autoDismiss);
+				if(dismiss >= 0)
+					setTimeout(function(){ notification.close(); }, dismiss);
 			}
 		}
 	};
