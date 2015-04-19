@@ -17,6 +17,23 @@
 			}
 			window.soundbank.saveNoises();
 		},
+		installCustom: function(name, file, volume, preload)
+		{
+			if(file.val().trim() == '')
+			{
+				file.focus();
+				return;
+			}
+			if(name.val().trim() == '' || window.soundbank.haveNoise(name.val().trim()))
+			{
+				name.focus();
+				return;
+			}
+			window.soundbank.install(
+				[{ file: file.val().trim(), name: name.val().trim(), volume: volume.val() * 1, preload: preload.val() == 1 }]
+			);
+			window.settings.open();
+		},
 		haveNoise: function(noise)
 		{
 			for(var i = 0; i < window.soundbank.sounds.length; ++i)
@@ -90,6 +107,13 @@
 							{ type: 'custom', content: window.soundbank.config.getSoundList() }
 						]
 					},
+					{
+						title: 'Add custom notification sound',
+						type: 'left',
+						options: [
+							{ type: 'custom', content: window.soundbank.config.getCustomForm() }
+						]
+					}
 				]; 
 			},
 			set: function(config, value)
@@ -132,6 +156,29 @@
 					if(name in window.soundbank.loadedSounds)
 						window.soundbank.loadedSounds[name].volume = (window.soundbank.sounds[i].volume / 100.0) * (window.soundbank.volume / 100.0);
 				}
+			},
+			getCustomForm: function()
+			{
+				var name = $('<input type="text" size="15" />');
+				var file = $('<input type="text" size="28" />');
+				var volume = $('<input type="text" size="3" value="100" />%');
+				var preload = $('<select><option value="0">No</option><option value="1">Yes</option></select>');
+				preload.val(1);
+				var submit = $('<button><i class="icon icon-check-purple" /></button>');
+				submit.click(function(){ window.soundbank.installCustom(name, file, volume, preload); });
+				volume.keyup(function()
+				{
+					var newValue = volume.val() * 1;
+					if(isNaN(newValue) || newValue < 0 || newValue > 100)
+						return false;
+					return true;
+				});
+				return $('<table></table>')
+					.append($('<tr><th>Name</th><th>Volume</th><th>Preload</th></tr>'))
+					.append($('<tr></tr>').append(name).append($('<td></td').append(name), $('<td></td>').append(volume), $('<td></td>').append(preload)))
+					.append($('<tr><th colspan="3">Soundfile (must use https://)</th></tr>'))
+					.append($('<tr></tr>').append($('<td colspan="3"></td>').append(file)))
+					.append($('<tr></tr>').append($('<td colspan="3"></td>').append(submit)));
 			},
 			getSoundList: function()
 			{
