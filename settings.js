@@ -18,9 +18,18 @@
 		{
 			window.settings.cleanup();
 			var sections = $('<div class="container" style="height:85%;margin:2% 0 0 0;overflow:auto"></div>');
+			var side = {
+				left: $('<div style="float:left;width:49%;padding:1px"></div>'),
+				right: $('<div style="float:right;width:49%;padding:1px"></div>')
+			};
 			for(var plugin in window.freshy.systems)
 				if("config" in window[plugin])
-					sections.append(window.settings.build(window[plugin]));
+				{
+					var config = window[plugin].config.get();
+					if(config && config.length > 0)
+						for(var i = 0; i < config.length; ++i)
+							side[config[i].type].append(window.settings.buildBlock(window[plugin], config[i]));
+				}
 
 			var view = $(
 '<div id="the-user-addons" class="user-content" style="position:absolute;z-index: 20000; left:250px; right: 375px; top: 72px; bottom: 72px; background:rgba(0,0,0,0.8);">'+
@@ -30,27 +39,15 @@
 	'</div>'+
 '</div>'
 			);
-			view.children('.section').append(sections);
+			view.children('.section').append(sections.append(side.left, side.right));
 			$('body').append(view);
 			$('#the-user-addons .close-button').click(function(){window.settings.cleanup();});
-		},
-		build: function(plugin)
-		{
-			var config = plugin.config.get();
-			if(!config || config.length == 0)
-				return [];
-
-			var block = $('<div></div>');
-			for(var i = 0; i < config.length; ++i)
-				block.append(window.settings.buildBlock(plugin, config[i]));
-
-			return block;
 		},
 		buildBlock: function(plugin, config)
 		{
 			
 			var block = $(
-'<div style="' + (config.type == 'full' ? 'clear:both;' : 'width:49%;float:'+config.type+';')+'padding:1px">'+
+'<div style="padding:1px">'+
 	'<div class="header" style="margin:5px 0;"><span>'+config.title+'</span></div>'+
 '</div>'
 			);
