@@ -1,7 +1,7 @@
 (function (){
 	var freshy = {
 		channels: {
-			stable: 'i.animemusic.me',
+			stable: 'i.animemusic.me/PlugUserspace',
 			beta: 'plug.runsafe.no/beta'
 		},
 		channel: 'stable',
