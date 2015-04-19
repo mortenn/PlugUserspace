@@ -191,7 +191,7 @@
 			},
 			getSoundList: function()
 			{
-				var list = $('<table><tr><th>Name</th><th>Volume</th><th>Preload</th></table>');
+				var list = $('<table><tr><th style="width:15px;">&nbsp</th><th>Name</th><th>Volume</th><th>Preload</th></table>');
 				for(var i = -1; i < window.soundbank.sounds.length; ++i)
 					list.append(window.soundbank.config.getSoundConfigurator(i));
 				return list;
@@ -200,7 +200,7 @@
 			{
 				if(idx < 0)
 				{
-					var item = $('<tr><td>Master channel</td></tr>');
+					var item = $('<tr><td>&nbsp;</td><td>Master channel</td></tr>');
 					var volume = $('<input style="text-align:right"type="text" size="3"/>');
 					volume.val(window.soundbank.volume);
 						volume.keyup(function(){
@@ -212,7 +212,7 @@
 					return item;
 				}
 				var sound = window.soundbank.sounds[idx];
-				var item = $('<tr></tr>').append($('<td style="cursor:pointer">'+sound.name+'</td></tr>').click(function(){window.soundbank.play(sound.name);}));
+
 				var volume = $('<input style="text-align:right"type="text" size="3"/>');
 				volume.val(sound.volume);
 				volume.keyup(function(){
