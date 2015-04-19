@@ -4,8 +4,7 @@
 			stable: 'i.animemusic.me',
 			beta: 'plug.runsafe.no/beta'
 		},
-		channel: 'beta',
-		//channel: 'stable',
+		channel: 'stable',
 		systems: {},
 		loaded: {},
 		waits: {},
