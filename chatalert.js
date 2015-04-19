@@ -38,13 +38,6 @@
 		}
 	};
 
-	if(!window.chatalert)
-		setTimeout(
-			function(){
-				chatalert.showInformation('Extension loaded', 'This is a test message to let you know freshy successfully loaded chatalert.js!');
-			}, 10
-		);
-
 	window.chatalert = chatalert;
 	window.freshy.systemLoaded('chatalert');
 })();
