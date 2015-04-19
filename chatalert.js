@@ -7,10 +7,12 @@
 		showWarning: function(title, body)
 		{
 			window.chatalert.show('icon-volume-half', title, body, 'dca542');
+			window.soundbank.play('Mo, Baka!');
 		},
 		showError: function(title, body)
 		{
 			window.chatalert.show('icon-volume-on', title, body, 'a54242');
+			window.soundbank.play('Tsukki');
 		},
 		show: function(icon, title, body, color)
 		{
