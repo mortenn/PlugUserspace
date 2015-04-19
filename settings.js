@@ -74,6 +74,33 @@
 			}
 			if(config.type == 'custom')
 				return config.content;
+			if(config.type == 'numberbox')
+			{
+				var box = $('<input style="text-align:right" type="text" size="'+config.size+'" />');
+				box.keyup(function(){ window.settings.textChanged(this); });
+				box.data('plugin', plugin);
+				box.data('config', config);
+				box.val(config.value);
+				if("legend" in config)
+					return $('<span>'+config.legend+'</span>').prepend(box);
+				return box;
+			}
+			if(config.type == 'textbox')
+			{
+				var box = $('<input type="text" size="'+config.size+'" />');
+				box.keyup(function(){ window.settings.textChanged(this); });
+				box.data('plugin', plugin);
+				box.data('config', config);
+				box.val(config.value);
+				if("legend" in config)
+					return $('<span>'+config.legend+'</span>').prepend(box);
+				return box;
+			}
+		},
+		textChanged: function(element)
+		{
+			var box = $(element);
+			box.val(box.data('plugin').config.set(box.data('config'), box.val()));
 		},
 		optionChanged: function(element)
 		{
