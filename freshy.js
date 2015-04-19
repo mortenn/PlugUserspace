@@ -8,6 +8,7 @@
 		systems: {},
 		loaded: {},
 		waits: {},
+		notify: 1,
 
 		host: function() { return window.freshy.channels[window.freshy.channel]; },
 
@@ -31,7 +32,7 @@
 				window.freshy.systems[name] = ver;
 				var fail = function()
 				{
-					if("chatalert" in window)
+					if(window.freshy.notify > 0 && "chatalert" in window)
 						window.chatalert.showError(
 							'Userspace script not loaded',
 							name + ' version ' + ver + ' did not finish loading within reasonable time.<br/>Please check the console for errors.'
@@ -49,6 +50,17 @@
 				var stored = window.localStorage['freshy.js-update-channel'];
 				if(stored)
 					freshy.channel = stored;
+				var notify = window.localStorage['freshy.js-notify'] * 1;
+				if(!isNaN(notify))
+					freshy.notify = notify;
+			}
+		},
+		saveSettings: function()
+		{
+			if("localStorage" in window && window["localStorage"] != null)
+			{
+				window.localStorage['freshy.js-update-channel'] = window.freshy.channel;
+				window.localStorage['freshy.js-notify'] = window.freshy.notify;
 			}
 		},
 		onChatCommand: function(cmd)
@@ -75,7 +87,7 @@
 		},
 		systemLoaded: function(system)
 		{
-			if("chatalert" in window)
+			if(window.freshy.notify > 1 && "chatalert" in window)
 				window.chatalert.showInformation(
 					'Userspace script ' + (window.freshy.loaded[system] ? 'updated' : 'loaded'),
 					'Loaded ' + window.freshy.channel + ' version ' + window.freshy.systems[system] + ' of ' + system + '.js'
@@ -99,8 +111,20 @@
 					{
 						title: 'Userspace addon updater',
 						type: 'left',
-						options: [ { type: 'select', name: 'channel', value: window.freshy.channel, options: channels } ]
-					}
+						options: [
+							{ type: 'select', name: 'channel', value: window.freshy.channel, options: channels },
+							{
+								type: 'select',
+								name: 'notify',
+								value: window.freshy.notify,
+								options: [
+									{ value: 0, label: 'Show nothing' },
+									{ value: 1, label: 'Show errors' },
+									{ value: 2, label: 'Show everything' }
+								]
+							}
+						]
+					},
 				];
 			},
 			set: function(config, value)
@@ -110,6 +134,11 @@
 					window.freshy.channel = value;
 					window.freshy.reload();
 				}
+				if(config.name == 'notify')
+				{
+					window.freshy.notify = value;
+				}
+				window.freshy.saveSettings();
 			}
 		}
 	};
