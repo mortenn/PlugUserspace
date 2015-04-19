@@ -33,11 +33,13 @@
 			if(file.val().trim() == '')
 			{
 				file.focus();
+				file.animate({opacity: 0.5}, 'slow', 'swing', function(){ file.animate({opacity: 1}, 'fast'); });
 				return;
 			}
 			if(name.val().trim() == '' || window.soundbank.haveNoise(name.val().trim()))
 			{
 				name.focus();
+				name.animate({opacity: 0.5}, 'slow', 'swing', function(){ name.animate({opacity: 1}, 'fast'); });
 				return;
 			}
 			window.soundbank.install(
