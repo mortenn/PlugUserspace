@@ -25,10 +25,14 @@
 					if(!(system in window.settings.configuration))
 						window.settings.configuration = JSON.parse(JSON.stringify(window.settings.defaults[system]));
 				for(system in window.settings.configuration)
-					window.freshy.waitFor(system, function(){ window[system].configure(window.settings.configuration[system]); });
+					window.freshy.waitFor(system, function(){ window.settings.pushConfiguration(system); });
 			}
 			else
 				API.chatLog('Your browser does not support local storage, unable to support persistent configuration!');
+		},
+		pushConfiguration: function(system)
+		{
+			window[system].configure(window.settings.configuration[system]);
 		},
 		saveConfiguration: function()
 		{
@@ -39,10 +43,8 @@
 		{
 			window.settings.defaults[system] = defaults;
 			if(!(system in window.settings.configuration))
-			{
 				window.settings.configuration[system] = JSON.parse(JSON.stringify(defaults));
-				window[system].configure(window.settings.configuration[system]);
-			}
+			window.settings.pushConfiguration(system);
 		},
 		open: function()
 		{
