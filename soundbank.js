@@ -220,18 +220,21 @@
 					if(validated != volume.val())
 						volume.val(validated);
 				});
-				item.append($('<td></td>').append(volume));
-				item.append($('<td></td>').append(
-					window.settings.buildOption(window.soundbank, 
-					{
-						type: 'select',
-						name: 'preload',
-						idx: idx,
-						value: window.soundbank.sounds[idx].preload ? '1' : '0',
-						options: [{value:'0',label:'No'},{value:'1',label:'Yes'}]
-					})
+				return $('<tr></tr>')
+					.append($('<td style="cursor:pointer"><i class="icon icon-chat-admin" />&nbsp;</td>').click(function(){window.soundbank.play(sound.name);}))
+					.append($('<td>'+sound.name+'</td>'))
+					.append($('<td></td>').append(volume).append('%'))
+					.append($('<td></td>').append(
+						window.settings.buildOption(window.soundbank, 
+						{
+							type: 'select',
+							name: 'preload',
+							idx: idx,
+							value: window.soundbank.sounds[idx].preload ? '1' : '0',
+							options: [{value:'0',label:'No'},{value:'1',label:'Yes'}]
+						}
+					)
 				));
-				return item;
 			}
 		},
 		mute: false,
