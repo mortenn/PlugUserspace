@@ -104,6 +104,7 @@
 						type: 'left',
 						options: [
 							{ type: 'select', name: 'enabled', value: window.soundbank.mute ? '0' : '1', options: [{value:'0', label:'Sounds disabled'},{value:'1', label:'Sounds enabled'}] },
+							{ type: 'select', name: 'reset', value: 0, options: [{value: 0, label:'Reset'},{value: 1, label:'Reload from host'}] },
 							{ type: 'custom', content: window.soundbank.config.getSoundList() }
 						]
 					},
@@ -144,6 +145,14 @@
 					window.soundbank.sounds[config.idx].preload = (value == '1');
 					if(window.soundbank.sounds[config.idx].preload)
 						window.soundbank.loadSound(window.soundbank.sounds[config.idx]);
+				}
+				else if(config.name == 'reset' && value == 1)
+				{
+					window.soundbank.sounds = [];
+					window.soundbank.loadedSounds = {};
+					window.soundbank.getHostedNoises();
+					window.settings.cleanup();
+					return 0;
 				}
 				window.soundbank.saveNoises();
 				return value;
