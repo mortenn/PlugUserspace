@@ -3,6 +3,17 @@
 		sounds: [],
 		loadedSounds: {},
 		hosts: [ 'https://i.animemusic.me/sounds/soundbank.js' ],
+		configure: function(data)
+		{
+			window.soundbank.hosts = data.hosts;
+			window.soundbank.sounds = data.sounds;
+			window.soundbank.mute = data.mute;
+			window.soundbank.volume = data.volume;
+			for(var i = 0; i < window.soundbank.sounds.length; ++i)
+				if(window.soundbank.sounds[i].preload)
+					window.soundbank.loadSound(window.soundbank.sounds[i]);
+			window.soundbank.getHostedNoises();
+		},
 		install: function(sounds)
 		{
 			var newSounds = [];
@@ -15,7 +26,7 @@
 				if(newSounds[i].preload)
 					window.soundbank.loadSound(newSounds[i]);
 			}
-			window.soundbank.saveNoises();
+			window.soundbank.save();
 		},
 		installCustom: function(name, file, volume, preload)
 		{
@@ -40,31 +51,23 @@
 				if(window.soundbank.sounds[i].name == noise.name)
 					return true;
 		},
-		saveNoises: function()
+		save: function()
 		{
-			if("localStorage" in window && window["localStorage"] != null)
-			{
-				window.localStorage['soundbank-sounds'] = JSON.stringify(window.soundbank.sounds);
-				window.localStorage['soundbank-mute'] = window.soundbank.mute ? '1' : '0';
-			}
+			window.settings.configuration.soundbank = {
+				sounds: window.soundbank.sounds,
+				volume: window.soundbank.volume,
+				hosts: window.soundbank.hosts,
+				mute: window.soundbank.mute
+			};
+			window.settings.saveConfiguration();
 		},
-		loadNoises: function()
+		load: function()
 		{
-			if("localStorage" in window && window["localStorage"] != null && window.localStorage['soundbank-sounds'])
-			{
-				var stored = JSON.parse(window.localStorage['soundbank-sounds']);
-				if(stored)
-				{
-					window.soundbank.sounds = stored;
-					for(var i = 0; i < window.soundbank.sounds.length; ++i)
-						if(window.soundbank.sounds[i].preload)
-							window.soundbank.loadSound(window.soundbank.sounds[i]);
-				}
-				if('soundbank-mute' in window.localStorage)
-					window.soundbank.mute = window.localStorage['soundbank-mute'] == '1';
-			}
-			window.soundbank.getHostedNoises();
 			window.freshy.systemLoaded('soundbank');
+			window.freshy.waitFor('settings', function()
+			{
+				window.settings.setDefaults('soundbank', { hosts: [ 'https://i.animemusic.me/sounds/soundbank.js' ], sounds: [], mute: 0, volume: 100 });
+			});
 		},
 		getHostedNoises: function()
 		{
@@ -154,7 +157,7 @@
 					window.settings.cleanup();
 					return 0;
 				}
-				window.soundbank.saveNoises();
+				window.soundbank.save();
 				return value;
 			},
 			applyVolume: function()
@@ -242,5 +245,5 @@
 	};
 
 	window.soundbank = soundbank;
-	window.soundbank.loadNoises();
+	window.soundbank.load();
 })();
