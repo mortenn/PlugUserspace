@@ -56,6 +56,8 @@
 				window.noisy.noise = window.localStorage['noisy.js-nonoise'] != '1';
 				window.noisy.popup = window.localStorage['noisy.js-nopopup'] != '1';
 				window.noisy.delay = window.localStorage['noisy.js-delay'] * 1;
+				if(isNaN(window.noisy.delay))
+					window.noisy.delay = 2;
 				var stored = window.localStorage['noisy.js-sound'];
 				if(stored)
 					window.noisy.sound = stored;
