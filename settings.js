@@ -12,6 +12,7 @@
 
 			$('#user-menu div.addons').remove();
 			$('#user-menu').append(button);
+			window.freshy.systemLoaded('settings');
 		},
 		open: function()
 		{

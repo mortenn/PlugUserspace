@@ -52,6 +52,10 @@
 				var stored = window.localStorage['noisy.js-sound'];
 				if(stored)
 					window.noisy.sound = stored;
+				else
+					window.freshy.waitFor('settings', function(){ window.settings.open(); });
+
+				window.freshy.systemLoaded('noisy');
 			}
 			window.noisy.trigger('plug.dj chat notifications enabled');
 		},

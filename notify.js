@@ -24,6 +24,7 @@
 					});
 				}
 			}
+			window.freshy.systemLoaded('notify');
 		},
 		show: function(message)
 		{

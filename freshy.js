@@ -7,6 +7,8 @@
 		channel: 'beta',
 		//channel: 'stable',
 		systems: {},
+		loaded: {},
+		waits: {},
 
 		host: function() { return window.freshy.channels[window.freshy.channel]; },
 
@@ -20,7 +22,10 @@
 		currentVersion: function(name, ver)
 		{
 			if(!(name in window.freshy.systems))
+			{
 				window.freshy.systems[name] = name == 'freshy' ? ver : 0;
+				window.freshy.loaded[system] = false;
+			}
 
 			if(ver * 1 > window.freshy.systems[name])
 			{
@@ -51,6 +56,33 @@
 				window.freshy.systems = {};
 				window.freshy.versionCheck();
 			}
+		},
+		waitFor: function(system, callback)
+		{
+			if((system in window.freshy.loaded) && window.freshy.loaded[system])
+				callback();
+			else
+			{
+				if(system in window.freshy.waits)
+					window.freshy.waits[system].push(callback);
+				else
+					window.freshy.waits[system] = [callback];
+			}
+		},
+		systemLoaded: function(system)
+		{
+			if("chatalert" in window)
+				window.chatalert.showInformation(
+					'Userspace script ' + (window.freshy.loaded[system] ? 'updated' : 'loaded'),
+					'Loaded ' + window.freshy.channel + ' version ' + window.freshy.systems[system] + ' of ' + system + '.js'
+				);
+			window.freshy.loaded[system] = true;
+			if(system in window.freshy.waits)
+			{
+				for(var i = 0; i < window.freshy.waits[system].length; ++i)
+					window.freshy.waits[system][i]();
+				window.freshy.waits[system] = [];
+			}
 		}
 	};
 
@@ -66,7 +98,9 @@
 	{
 		for(var system in window.freshy.systems)
 			freshy.systems = window.freshy.systems;
+		freshy.waits = window.freshy.waits;
 		window.freshy = freshy;
 	}
+	window.freshy.systemLoaded('freshy');
 
 })();

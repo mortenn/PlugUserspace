@@ -46,6 +46,11 @@
 				if('soundbank-mute' in window.localStorage)
 					window.soundbank.mute = window.localStorage['soundbank-mute'] == '1';
 			}
+			window.soundbank.getHostedNoises();
+			window.freshy.systemLoaded('soundbank');
+		},
+		getHostedNoises: function()
+		{
 			for(var i = 0; i < window.soundbank.hosts.length; ++i)
 				$.getScript(window.soundbank.hosts[i]);
 		},

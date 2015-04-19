@@ -46,4 +46,5 @@
 		);
 
 	window.chatalert = chatalert;
+	window.freshy.systemLoaded('chatalert');
 })();
