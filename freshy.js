@@ -4,7 +4,7 @@
 			stable: 'i.animemusic.me/PlugUserspace',
 			beta: 'plug.runsafe.no/beta'
 		},
-		channel: 'stable',
+		channel: 'beta',
 		systems: {},
 		loaded: {},
 		waits: {},
@@ -107,8 +107,8 @@
 			{
 				if(config.name == 'channel' && value != window.noisy.channel)
 				{
-					window.noisy.channel = value;
-					window.noisy.reload();
+					window.freshy.channel = value;
+					window.freshy.reload();
 				}
 			}
 		}
