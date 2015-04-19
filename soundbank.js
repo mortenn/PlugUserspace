@@ -208,7 +208,7 @@
 						if(validated != volume.val())
 							volume.val(validated);
 					});
-					item.append($('<td></td>').append(volume));
+					item.append($('<td></td>').append(volume).append('%'));
 					return item;
 				}
 				var sound = window.soundbank.sounds[idx];
