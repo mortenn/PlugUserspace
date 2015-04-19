@@ -1,5 +1,7 @@
 (function(){
 	var settings = {
+		configuration: {},
+		defaults: {},
 		hook: function()
 		{
 			var button = $(
@@ -13,6 +15,34 @@
 			$('#user-menu div.addons').remove();
 			$('#user-menu').append(button);
 			window.freshy.systemLoaded('settings');
+		},
+		loadConfiguration: function()
+		{
+			if("localStorage" in window && window.localStorage != null)
+			{
+				window.settings.configuration = JSON.parse(window.localStorage['Userspace-Config']);
+				for(system in window.settings.defaults)
+					if(!(system in window.settings.configuration))
+						window.settings.configuration = JSON.parse(JSON.stringify(window.settings.defaults[system]));
+				for(system in window.settings.configuration)
+					window.freshy.waitFor(system, function(){ window[system].configure(window.settings.configuration[system]); });
+			}
+			else
+				API.chatLog('Your browser does not support local storage, unable to support persistent configuration!');
+		},
+		saveConfiguration: function()
+		{
+			if("localStorage" in window && window.localStorage != null)
+				window.localStorage['Userspace-Config'] = JSON.stringify(window.settings.configuration);
+		},
+		setDefaults: function(system, defaults)
+		{
+			window.settings.defaults[system] = defaults;
+			if(!(system in window.settings.configuration))
+			{
+				window.settings.configuration[system] = JSON.parse(JSON.stringify(defaults));
+				window[system].configure(window.settings.configuration[system]);
+			}
 		},
 		open: function()
 		{
@@ -128,5 +158,6 @@
 	}
 
 	window.settings = settings;
+	window.settings.loadConfiguration();
 	window.settings.hook();
 })();
