@@ -30,12 +30,17 @@
 			if(ver * 1 > window.freshy.systems[name])
 			{
 				window.freshy.systems[name] = ver;
-				if("chatalert" in window)
-					window.chatalert.showInformation(
-						'Userspace script updated',
-						'Loading ' + window.freshy.channel + ' version ' + ver + ' of ' + name + '.js'
-					);
-				$.getScript('https://'+window.freshy.host()+'/' + name + '.js');
+				var fail = function()
+				{
+					if("chatalert" in window)
+						window.chatalert.showError(
+							'Userspace script not loaded',
+							name + ' version ' + ver + ' did not finish loading within reasonable time.<br/>Please check the console for errors.'
+						);
+				};
+				var timer = setTimeout(fail, 10000);
+				window.freshy.waitFor(name, function(){ clearTimeout(timer); });
+				$.getScript('https://'+window.freshy.host()+'/' + name + '.js')
 			}
 		},
 		loadSettings: function()
