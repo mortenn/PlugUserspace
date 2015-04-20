@@ -54,12 +54,29 @@
 			var defaults = window.noisy.config.values;
 			window.freshy.waitFor('settings', function() { window.settings.setDefaults('noisy', defaults); });
 			window.freshy.systemLoaded('noisy');
+			var chatSound = $('#chat-sound-button');
+			var muteSound = chatSound.children('.icon-chat-sound-on');
+			if(muteSound.length == 1)
+				muteSound.click();
+			chatSound.hide();
+			var noisyMute = $('#noisy-sound-button');
+			noisyMute.remove();
+			noisyMute = $('<div id="noisy-sound-button" class="chat-header-button" style="margin-left:13px"><i class="icon icon-chat-sound-'+(window.noisy.config.values.noise?'on':'off')+'" /></div>');
+			chatSound.after(noisyMute);
+			noisyMute.click(function(){window.noisy.toggleMute();});
+			$('#chat-emoji-button').css('margin-left', '0px');
 		},
 		save: function()
 		{
 			window.settings.configuration.noisy = window.noisy.config.values;
 			window.settings.saveConfiguration();
 		},
+		toggleMute: function()
+		{
+			$('#noisy-sound-button .icon').removeClass('icon-chat-sound-'+(window.noisy.config.values.noise?'on':'off'));
+			window.noisy.config.values.noise = !window.noisy.config.values.noise;
+			$('#noisy-sound-button .icon').addClass('icon-chat-sound-'+(window.noisy.config.values.noise?'on':'off'));
+			},
 		config: 
 		{
 			values: { noise: true, popup: true, delay: 2, sound: undefined },
