@@ -51,13 +51,6 @@
 		},
 		load: function()
 		{
-			if(!window.noisy.reloaded)
-				window.freshy.waitFor('notify', function(){
-					window.freshy.waitFor('soundbank', function(){
-						window.noisy.trigger('plug.dj chat notifications enabled');
-					})
-				});
-
 			var defaults = window.noisy.config.values;
 			window.freshy.waitFor('settings', function() { window.settings.setDefaults('noisy', defaults); });
 			window.freshy.systemLoaded('noisy');
