@@ -170,6 +170,7 @@
 		for(var system in window.freshy.systems)
 			freshy.systems = window.freshy.systems;
 		freshy.waits = window.freshy.waits;
+		freshy.libraries = window.freshy.libraries;
 		window.freshy = freshy;
 	}
 	window.freshy.systemLoaded('freshy');
