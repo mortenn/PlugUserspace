@@ -83,7 +83,7 @@
 		{
 			get: function()
 			{
-				var sounds = [];
+				var sounds = window.noisy.sound ? [] : [{value: '', label: ''}];
 				for(var i = 0; i < window.soundbank.sounds.length; ++i)
 				{
 					var sound = window.soundbank.sounds[i];
