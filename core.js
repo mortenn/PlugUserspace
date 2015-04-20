@@ -5,4 +5,5 @@
 	window.freshy.currentVersion('noisy', 51);
 	window.freshy.currentVersion('notify', 10);
 	window.freshy.currentVersion('settings', 63);
+	window.freshy.currentVersion('senpai', 10);
 })();

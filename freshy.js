@@ -9,7 +9,7 @@
 		loaded: {},
 		waits: {},
 		notify: 1,
-		libraries: ['version'],
+		libraries: ['core'],
 
 		host: function() { return window.freshy.channels[window.freshy.channel]; },
 
