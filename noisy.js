@@ -1,5 +1,17 @@
 (function (){
 	var noisy = {
+		configure: function(data)
+		{
+			window.noisy.noise = data.noise;
+			window.noisy.popup = data.popup;
+			window.noisy.delay = data.delay;
+			if(isNaN(window.noisy.delay))
+				window.noisy.delay = 2;
+			if(data.sound)
+				window.noisy.sound = data.sound;
+			else
+				window.settings.open();
+		},
 		analyseChat: function (chat)
 		{
 			var message = chat.message;
@@ -51,31 +63,21 @@
 					})
 				});
 
-			if("localStorage" in window && window["localStorage"] != null)
+			window.freshy.waitFor('settings', function()
 			{
-				window.noisy.noise = window.localStorage['noisy.js-nonoise'] != '1';
-				window.noisy.popup = window.localStorage['noisy.js-nopopup'] != '1';
-				window.noisy.delay = window.localStorage['noisy.js-delay'] * 1;
-				if(isNaN(window.noisy.delay))
-					window.noisy.delay = 2;
-				var stored = window.localStorage['noisy.js-sound'];
-				if(stored)
-					window.noisy.sound = stored;
-				else
-					window.freshy.waitFor('settings', function(){ window.settings.open(); });
-
-				window.freshy.systemLoaded('noisy');
-			}
+				window.settings.setDefaults('noisy', { noise: true, popup: true, delay: 2, sound: undefined });
+			});
+			window.freshy.systemLoaded('noisy');
 		},
 		save: function()
 		{
-			if("localStorage" in window && window["localStorage"] != null)
-			{
-				window.localStorage['noisy.js-nonoise'] = window.noisy.noise ? '0' : '1';
- 				window.localStorage['noisy.js-nopopup'] = window.noisy.popup ? '0' : '1';
-				window.localStorage['noisy.js-sound'] = window.noisy.sound;
-				window.localStorage['noisy.js-delay'] = window.noisy.delay;
-			}
+			window.settings.configuration.noisy = {
+				noise: window.noisy.noise,
+				popup: window.noisy.popup,
+				delay: window.noisy.delay,
+				sound: window.noisy.sound
+			};
+			window.settings.saveConfiguration();
 		},
 		config: 
 		{
