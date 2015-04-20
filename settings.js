@@ -29,7 +29,12 @@
 					window.freshy.waitFor(system, function(){ window.settings.pushConfiguration(system); });
 			}
 			else
-				API.chatLog('Your browser does not support local storage, unable to support persistent configuration!');
+				window.freshy.waitFor('chatalert', function(){
+					window.chatAlert.showError(
+					 	'Configuration unavailable', 
+						'Your browser does not support local storage, unable to support persistent configuration!'
+					);
+				});
 		},
 		pushConfiguration: function(system)
 		{
@@ -156,7 +161,12 @@
 	else
 	{
 		API.on(API.CHAT_COMMAND, function(e){window.settings.onChatCommand(e);});
-		API.chatLog('Type /conf to access user addon settings');
+		window.freshy.waitFor('chatalert', function(){
+			window.chatalert.showInformation(
+				'Userspace addons loaded',
+				'Type /conf to access user addon settings'
+			);
+		});
 		$('#user-menu .item').click(function(){window.settings.cleanup();});
 	}
 
