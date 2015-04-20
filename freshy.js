@@ -148,7 +148,7 @@
 	{
 		API.on(API.CHAT_COMMAND, function(e){window.freshy.onChatCommand(e);});
 		window.freshy = freshy;
-		setInterval(function(){ window.freshy.versionCheck(); }, 60000);
+		setInterval(function(){ window.freshy.versionCheck(); }, 600000);
 		window.freshy.versionCheck();
 	}
 	else
