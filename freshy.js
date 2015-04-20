@@ -9,10 +9,15 @@
 		loaded: {},
 		waits: {},
 		notify: 1,
+		libraries: ['version'],
 
 		host: function() { return window.freshy.channels[window.freshy.channel]; },
 
-		versionCheck: function() { $.getScript('https://'+window.freshy.host()+'/version.js'); },
+		versionCheck: function()
+		{
+			for(var i = 0; i < window.freshy.libraries.length; ++i)
+				$.getScript('https://'+window.freshy.host()+'/'+window.freshy.libraries[i]+'.js');
+		},
 
 		reload: function()
 		{
@@ -71,6 +76,15 @@
 			{
 				window.freshy.systems = {};
 				window.freshy.versionCheck();
+			}
+			if(/^\/load +[^ ]+/.test(cmd))
+			{
+				var script = /^\/load +([^ ]+)/.exec(cmd);
+				if(script)
+				{
+					window.freshy.libraries.push(script[1]);
+					window.freshy.versionCheck();
+				}
 			}
 		},
 		waitFor: function(system, callback)
