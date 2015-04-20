@@ -2,14 +2,8 @@
 	var noisy = {
 		configure: function(data)
 		{
-			window.noisy.noise = data.noise;
-			window.noisy.popup = data.popup;
-			window.noisy.delay = data.delay;
-			if(isNaN(window.noisy.delay))
-				window.noisy.delay = 2;
-			if(data.sound)
-				window.noisy.sound = data.sound;
-			else
+			window.noisy.config.values = data;
+			if(!data.sound)
 				window.settings.open();
 		},
 		analyseChat: function (chat)
@@ -49,10 +43,11 @@
 		},
 		trigger: function(message)
 		{
-			window.notify.show(message, window.noisy.delay * 1000);
+			if(window.noisy.config.values.popup)
+				window.notify.show(message, window.noisy.config.values.delay * 1000);
 
-			if(window.noisy.sound)
-				window.soundbank.play(window.noisy.sound);
+			if(window.noisy.config.values.sound && window.noisy.config.values.noise)
+				window.soundbank.play(window.noisy.config.values.sound);
 		},
 		load: function()
 		{
@@ -63,30 +58,24 @@
 					})
 				});
 
-			window.freshy.waitFor('settings', function()
-			{
-				window.settings.setDefaults('noisy', { noise: true, popup: true, delay: 2, sound: undefined });
-			});
+			var defaults = window.noisy.config.values;
+			window.freshy.waitFor('settings', function() { window.settings.setDefaults('noisy', defaults); });
 			window.freshy.systemLoaded('noisy');
 		},
 		save: function()
 		{
-			window.settings.configuration.noisy = {
-				noise: window.noisy.noise,
-				popup: window.noisy.popup,
-				delay: window.noisy.delay,
-				sound: window.noisy.sound
-			};
+			window.settings.configuration.noisy = window.noisy.config.values;
 			window.settings.saveConfiguration();
 		},
 		config: 
 		{
+			values: { noise: true, popup: true, delay: 2, sound: undefined },
 			get: function()
 			{
-				var sounds = window.noisy.sound ? [] : [{value: '', label: ''}];
-				for(var i = 0; i < window.soundbank.sounds.length; ++i)
+				var sounds = window.noisy.config.values.sound ? [] : [{value: '', label: ''}];
+				for(var i = 0; i < window.soundbank.config.values.sounds.length; ++i)
 				{
-					var sound = window.soundbank.sounds[i];
+					var sound = window.soundbank.config.values.sounds[i];
 					sounds.push({value: sound.name, label: sound.name});
 				}
 				return [
@@ -94,16 +83,16 @@
 						title: 'Chat mention desktop notifications',
 						type: 'right',
 						options: [
-							{ type: 'select', name: 'popup', value: window.noisy.popup ? '1' : '0', options: [{value:'0', label:'Off'},{value:'1', label:'On'}] },
-							{ type: 'numberbox', size: 4, name: 'delay', value: window.noisy.delay, legend: ' seconds (-1 = infinite)' }
+							{ type: 'select', name: 'popup', value: window.noisy.config.values.popup ? '1' : '0', options: [{value:'0', label:'Off'},{value:'1', label:'On'}] },
+							{ type: 'numberbox', size: 4, name: 'delay', value: window.noisy.config.values.delay, legend: ' seconds (-1 = infinite)' }
 						]
 					},
 					{
 						title: 'Chat mention sound notifications',
 						type: 'right',
 						options: [
-							{ type: 'select', name: 'noise', value: window.noisy.noise ? '1' : '0', options: [{value:'0', label:'Off'},{value:'1', label:'On'}] },
-							{ type: 'select', name: 'sound', value: window.noisy.sound, options: sounds }
+							{ type: 'select', name: 'noise', value: window.noisy.config.values.noise ? '1' : '0', options: [{value:'0', label:'Off'},{value:'1', label:'On'}] },
+							{ type: 'select', name: 'sound', value: window.noisy.config.values.sound, options: sounds }
 						]
 					}
 				]; 
@@ -112,30 +101,26 @@
 			{
 				var newValue = undefined;
 				if(config.name == 'noise')
-					window.noisy.noise = value == '1';
+					window.noisy.config.values.noise = value == '1';
 				if(config.name == 'popup')
-					window.noisy.popup = value == '1';
+					window.noisy.config.values.popup = value == '1';
 				if(config.name == 'sound')
 				{
-					window.noisy.sound = value;
+					window.noisy.config.values.sound = value;
 					window.soundbank.play(value);
 				}
 				if(config.name == 'delay')
 				{
 					var newValue = value * 1;
 					if(!isNaN(newValue))
-						window.noisy.delay = Math.min(9999, Math.max(-1, newValue));
-					newValue = window.noisy.delay;
+						window.noisy.config.values.delay = Math.min(9999, Math.max(-1, newValue));
+					newValue = window.noisy.config.values.delay;
 				}
 				window.noisy.save();
 				return newValue;
 			}
 		},
 		initialized: true, // Backwards compatibility
-		sound: null,
-		noise: true,
-		popup: true,
-		delay: 2,
 		reloaded: false
 	};
 
