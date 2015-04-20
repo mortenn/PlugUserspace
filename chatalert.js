@@ -36,7 +36,7 @@
 	'<div class="msg">'+
 		'<div class="from">'+
 			'<span class="un" style="color:#'+color+'">'+title+'</span>'+
-			'<span class="timestamp" style="color:#'+color+';">'+hour+':'+minute+'</span>'+
+			'<span class="timestamp" style="display:inline;color:#'+color+';">'+hour+':'+minute+'</span>'+
 		'</div>'+
 		'<div class="text cid-undefined">'+body+'</div>'+
 	'</div>'+
