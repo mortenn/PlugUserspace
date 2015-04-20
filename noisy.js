@@ -3,7 +3,7 @@
 		configure: function(data)
 		{
 			window.noisy.config.values = data;
-			if(!data.sound)
+			if(!data.sound && data.noise)
 				window.settings.open();
 		},
 		analyseChat: function (chat)
