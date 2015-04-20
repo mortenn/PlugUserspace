@@ -3,7 +3,7 @@
 		configure: function(data)
 		{
 			window.noisy.config.values = data;
-			if(!data.sound && data.noise)
+			if(data.noise && !data.sound)
 				window.settings.open();
 		},
 		analyseChat: function (chat)
@@ -76,7 +76,7 @@
 			$('#noisy-sound-button .icon').removeClass('icon-chat-sound-'+(window.noisy.config.values.noise?'on':'off'));
 			window.noisy.config.values.noise = !window.noisy.config.values.noise;
 			$('#noisy-sound-button .icon').addClass('icon-chat-sound-'+(window.noisy.config.values.noise?'on':'off'));
-			},
+		},
 		config: 
 		{
 			values: { noise: true, popup: true, delay: 2, sound: undefined },
