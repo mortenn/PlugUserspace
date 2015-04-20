@@ -22,7 +22,7 @@
 			else
 				window.soundbank.play('Tsukki');
 		},
-		show: function(icon, title, body, color)
+		show: function(icon, title, body, color, userClass)
 		{
 			var chatLog = $('#chat-messages');
 			var now = new Date();
@@ -31,12 +31,12 @@
 			if(minute < 10)
 				minute = '0' + minute;
 			chatLog.append($(
-'<div class="cm userspace-chatalert" style="margin:4px;box-shadow: inset 0 0 0 1px #'+color+';background:#282c35;clear:both">'+
-	'<div class="badge-box" style="width:30px;height:30px"><i class="icon '+icon+'"></i></div>'+
+'<div class="cm userspace-chatalert'+(userClass ? ' '+userClass : '')+'" style="margin:4px;box-shadow: inset 0 0 0 1px #'+color+';background:#282c35;clear:both">'+
+	'<div class="badge-box"><i class="icon '+icon+'"></i></div>'+
 	'<div class="msg">'+
-		'<div class="from" style="float:none;display:block">'+
+		'<div class="from">'+
 			'<span class="un" style="color:#'+color+'">'+title+'</span>'+
-			'<span class="timestamp" style="display:inline;color:#'+color+';position:absolute;right:0px">'+hour+':'+minute+'</span>'+
+			'<span class="timestamp" style="color:#'+color+';">'+hour+':'+minute+'</span>'+
 		'</div>'+
 		'<div class="text cid-undefined">'+body+'</div>'+
 	'</div>'+
