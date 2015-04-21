@@ -2,6 +2,8 @@
 	var noisy = {
 		configure: function(data)
 		{
+			if(data.noise != window.noisy.config.values.noise)
+				window.noisy.toggleMute();
 			window.noisy.config.values = data;
 			if(data.noise && !data.sound)
 				window.settings.open();
