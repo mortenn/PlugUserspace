@@ -44,7 +44,7 @@
 		trigger: function(message)
 		{
 			if(window.noisy.config.values.popup)
-				window.notify.show(message, window.noisy.config.values.delay * 1000);
+				window.notify.show($('<span>'+message+'</span>').text(), window.noisy.config.values.delay * 1000);
 
 			if(window.noisy.config.values.sound && window.noisy.config.values.noise)
 				window.soundbank.play(window.noisy.config.values.sound);
