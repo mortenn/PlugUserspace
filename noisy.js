@@ -2,9 +2,8 @@
 	var noisy = {
 		configure: function(data)
 		{
-			if(data.noise != window.noisy.config.values.noise)
-				window.noisy.toggleMute();
 			window.noisy.config.values = data;
+			$('#noisy-sound-button .icon').css('background-position', (window.noisy.config.values.noise?'0px 0px':'-30px 0px'));
 			if(data.noise && !data.sound)
 				window.settings.open();
 		},
@@ -63,7 +62,7 @@
 			chatSound.hide();
 			var noisyMute = $('#noisy-sound-button');
 			noisyMute.remove();
-			noisyMute = $('<div id="noisy-sound-button" class="chat-header-button" style="margin-left:13px"><i class="icon icon-chat-sound-'+(window.noisy.config.values.noise?'on':'off')+'" /></div>');
+			noisyMute = $('<div id="noisy-sound-button" class="chat-header-button" style="margin-left:13px"><i class="icon" style="background:url(https://'+window.freshy.host()+'/sprites.png);" /></div>');
 			chatSound.after(noisyMute);
 			noisyMute.click(function(){window.noisy.toggleMute();});
 			$('#chat-emoji-button').css('margin-left', '0px');
@@ -75,9 +74,8 @@
 		},
 		toggleMute: function()
 		{
-			$('#noisy-sound-button .icon').removeClass('icon-chat-sound-'+(window.noisy.config.values.noise?'on':'off'));
 			window.noisy.config.values.noise = !window.noisy.config.values.noise;
-			$('#noisy-sound-button .icon').addClass('icon-chat-sound-'+(window.noisy.config.values.noise?'on':'off'));
+			$('#noisy-sound-button .icon').css('background-position', (window.noisy.config.values.noise?'0px 0px':'-30px 0px'));
 		},
 		config: 
 		{
