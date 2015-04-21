@@ -295,7 +295,8 @@
 	if(!("senpai" in window))
 	{
 		window.freshy.waitFor('chatalert', function(){
-			senpai.showAlert('Senpaiscript loaded.', 'Type /check to check your song!');
+			if(senpai.enabled())
+				senpai.showAlert('Senpaiscript loaded.', 'Type /check to check your song!');
 		});
 		senpai.setup();
 	}
