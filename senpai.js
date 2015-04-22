@@ -3,7 +3,7 @@
 	// Client running old senpai, abort.
 	if("senpai" in window && "initialized" in window.senpai)
 	{
-		API.chatLog('You are running the old senpai, please consider updating your scripts!');
+		API.chatLog('Make sure you are not running additional versions of SenpaiScript! This is the corrent version https://i.animemusic.me/PlugUserspace/freshy.js');
 		return;
 	}
 
@@ -11,7 +11,7 @@
 		messages: {
 			unknown: {
 				brief: function(){ return 'Unknown song or alternate version.'; },
-				title: function(){ return 'Unknown/Alternate'; },
+				title: function(){ return 'Unknown Song/Alternate Version'; },
 				full: function(){ return 'Your next song is not in our systems, please ensure it follows all rules and is not overplayed.<br>Other videos of the same song might be banned.<br><a target="_new" href="http://s.AnimeMusic.me/plug-guide">Please refer to our room guide.</a>'; },
 				kouhai: function(){ return false },
 				type: 'manual-only',
@@ -63,7 +63,7 @@
 			week: {
 				brief: function(){ return 'Played this week.'; },
 				title: function(){ return 'Replay'; },
-				full: function(){ return 'Your next song has already been played this week, we recommend choosing a different song.'; },
+				full: function(){ return 'Your next song has already been played this week, please choose a different song.'; },
 				kouhai: function(){ return false; },
 				type: 'always',
 				popup: true,
@@ -268,7 +268,7 @@
 			var currentdj = value.dj
 			if(currentdj.id == user.id)
 			{
-				window.senpai.show("It's your turn!", 'Now drop that bass!');
+				window.senpai.show("It's your turn!", 'Make us proud!');
 				window.notify.show("It's your turn.", 2);
 				window.soundbank.play('にゃんぱすー');
 			}
@@ -296,7 +296,7 @@
 	{
 		window.freshy.waitFor('chatalert', function(){
 			if(senpai.enabled())
-				senpai.showAlert('Senpaiscript loaded.', 'Type /check to check your song!');
+				senpai.showAlert('SenpaiScript loaded.', 'Type /check to check your song!');
 		});
 		senpai.setup();
 	}
