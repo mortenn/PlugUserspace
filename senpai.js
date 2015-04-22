@@ -12,7 +12,13 @@
 			unknown: {
 				brief: function(){ return 'Unknown song or alternate version.'; },
 				title: function(){ return 'Unknown Song/Alternate Version'; },
-				full: function(){ return 'Your next song is not in our systems, please ensure it follows all rules and is not overplayed.<br>Other videos of the same song might be banned.<br><a target="_new" href="http://s.AnimeMusic.me/plug-guide">Please refer to our room guide.</a>'; },
+				full: function()
+				{
+					return
+						'Your next song is not in our systems, please ensure it follows all rules and is not overplayed.<br>'+
+						'Other videos of the same song might be banned.<br>'+
+						'<a target="_new" href="http://s.AnimeMusic.me/plug-guide">Please refer to our room guide.</a>';
+				},
 				kouhai: function(){ return false },
 				type: 'manual-only',
 				popup: false,
@@ -22,7 +28,15 @@
 			banned: {
 				brief: function(r){ return 'Banned: '+r.r; },
 				title: function(){ return 'Banned'; },
-				full: function(r){ return 'Your next song is banned!<br>The reason given was:<br><br>&nbsp;&nbsp;&nbsp;&nbsp;'+r.r+'<br><br>Please choose a different song,<br>or you will get skipped.' },
+				full: function(r)
+				{
+					return
+						'Your next song is banned!<br>'+
+						'The reason given was:<br><br>'+
+						'&nbsp;&nbsp;&nbsp;&nbsp;'+r.r+'<br><br>'+
+						'Please choose a different song,'+
+						'<br>or you will get skipped.';
+				},
 				kouhai: function(r){ return 'This song has been banned for "'+r.r+'"!' },
 				type: 'always',
 				popup: true,
@@ -72,7 +86,14 @@
 			ok: {
 				brief: function(){ return 'Seems OK, but check rules.'; },
 				title: function(){ return 'Looks good'; },
-				full: function(r){ return 'This version of your song is not marked as banned or overplayed, but please double check it.<br>Other videos of the same song might be banned.<br><a target="_new" href="http://s.AnimeMusic.me/plug-guide">Please refer to our room guide.</a><br>Last played: '+r.w; },
+				full: function(r)
+				{
+					return
+						'This version of your song is not marked as banned or overplayed, but please double check it.<br>'+
+						'Other videos of the same song might be banned.<br>'+
+						'<a target="_new" href="http://s.AnimeMusic.me/plug-guide">Please refer to our room guide.</a>'+
+						'<br>Last played: '+r.w;
+				},
 				kouhai: function(){ return false; },
 				type: 'manual-only',
 				popup: false,
