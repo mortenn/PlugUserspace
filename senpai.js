@@ -14,8 +14,7 @@
 				title: function(){ return 'Unknown Song/Alternate Version'; },
 				full: function()
 				{
-					return
-						'Your next song is not in our systems, please ensure it follows all rules and is not overplayed.<br>'+
+					return 'Your next song is not in our systems, please ensure it follows all rules and is not overplayed.<br>'+
 						'Other videos of the same song might be banned.<br>'+
 						'<a target="_new" href="http://s.AnimeMusic.me/plug-guide">Please refer to our room guide.</a>';
 				},
@@ -30,8 +29,7 @@
 				title: function(){ return 'Banned'; },
 				full: function(r)
 				{
-					return
-						'Your next song is banned!<br>'+
+					return 'Your next song is banned!<br>'+
 						'The reason given was:<br><br>'+
 						'&nbsp;&nbsp;&nbsp;&nbsp;'+r.r+'<br><br>'+
 						'Please choose a different song,'+
@@ -88,8 +86,7 @@
 				title: function(){ return 'Looks good'; },
 				full: function(r)
 				{
-					return
-						'This version of your song is not marked as banned or overplayed, but please double check it.<br>'+
+					return 'This version of your song is not marked as banned or overplayed, but please double check it.<br>'+
 						'Other videos of the same song might be banned.<br>'+
 						'<a target="_new" href="http://s.AnimeMusic.me/plug-guide">Please refer to our room guide.</a>'+
 						'<br>Last played: '+r.w;
