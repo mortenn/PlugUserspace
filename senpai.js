@@ -33,7 +33,6 @@
 				brief: function(){ return 'Already played in your last 6 turns.'; },
 				title: function(){ return 'Replay'; },
 				full: function(){ return 'You have played that song within your past 6 dj turns, please choose a different song.'; },
-				kouhai: function(){ return 'This song was one of the last 6 played by this user!'; },
 				kouhai: function(r){ return 'Out of the last 6 turns, ' + API.getDJ().username + ' played "' + API.getMedia().title + '" ' + r.rp + ' of them.'; },
 				type: 'always',
 				popup: true,
