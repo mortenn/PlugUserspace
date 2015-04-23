@@ -132,6 +132,22 @@
 				skip: false
 			}
 		},
+		countryList: {
+			US: 10,
+
+			BR: 7, CA: 7, FR: 7, GB: 7,
+
+			AU: 3, CZ: 3, LT: 3,
+
+			ES: 2, MY: 2, NO: 2, RU: 2, SE: 2, SG: 2, TH: 2,
+
+			AE: 1, AR: 1, BE: 1, BG: 1, CH: 1, CL: 1, DK: 1, EE: 1, FI: 1, GR: 1, HK: 1,
+			HR: 1, HU: 1, ID: 1, IE: 1, IN: 1, IS: 1, IT: 1, LV: 1, MX: 1, NL: 1, NZ: 1,
+			PE: 1, PH: 1, PL: 1, PT: 1, RO: 1, RS: 1, SK: 1, SK: 1, TR: 1, TW: 1, UA: 1,
+			VN: 1,
+
+			DE: 0, JP: 0 // Sorry..
+		},
 		setup: function()
 		{
 			if(!senpai.enabled()) return;
@@ -197,14 +213,74 @@
 			var nextSong = API.getNextMedia();
 			songID = nextSong.media.cid;
 			window.senpai.pos = undefined;
-			window.senpai.startCheck(songID);
+			window.senpai.startCheck(nextSong.media);
 		},
-		startCheck: function(songID) {
+		startCheck: function(media) {
 			if(!window.senpai.enabled()) return;
+			if(media.format == 1)
+				$.getJSON(
+					'https://gdata.youtube.com/feeds/api/videos/'+media.cid+'?v=2&alt=jsonc',
+					function(response)
+					{
+						if("restrictions" in response.data)
+						{
+							var score = 0;
+							var allowed = 0;
+							var blocked = 0;
+							for(var i = 0; i < response.data.restrictions.length; ++i)
+							{
+								if(response.data.restrictions[i].type == 'country')
+								{
+									var list = response.data.restrictions[i].countries.split(' ');
+									if(response.data.restrictions[i].relationship == 'allow')
+									{
+										allowed += list.length;
+										/*if(list.length < 20)
+											window.chatalert.show('icon-volume-on', 'Country restrictions!', 'This video is only allowed in ' + list.length + ' countries!', 'c42e3b', 'senpai');
+										else
+											window.chatalert.show('icon-volume-on', 'Country restrictions!', 'This video is only allowed in these countries: ' + response.data.restrictions[i].countries, 'c42e3b', 'senpai');*/
+									}
+									if(response.data.restrictions[i].relationship == 'deny')
+									{
+										blocked += list.length;
+										for(var c = 0; c < list.length; ++c)
+											if(list[c] in window.senpai.countryList)
+												score += window.senpai.countryList[list[c]];
+										/*if(list.length > 5)
+											window.chatalert.show('icon-volume-on', 'Country restrictions!', 'This video is blocked in ' + list.length + ' countries!', 'c42e3b', 'senpai');
+										else
+											window.chatalert.show('icon-volume-on', 'Country restrictions!', 'This video is blocked in these countries: ' + response.data.restrictions[i].countries, 'c42e3b', 'senpai');*/
+									}
+									if(score > 16 || (blocked == 0 && allowed < 20))
+									{
+										window.senpai.checkResult({id:media.cid, b:0, u:1, r: 'Blocked in too many countries!', w: ''}, media);
+										return;
+									}
+								}
+							}
+						}
+						window.senpai.continueCheck(media);
+					}
+				).fail(function(e){ window.senpai.checkResult({id:media.cid, b:0, u:1, r: e.responseJSON.error.message}); }, media);
+			else if(media.format == 2)
+				SC.get('/tracks/'+media.cid+'.json', function(response)
+				{
+					if("errors" in response)
+						window.senpai.checkResult({id:media.cid, b:0, u:1, r:response.errors[0].error_message, w:''}, media);
+					else
+						window.senpai.continueCheck(media);
+				});
+			else
+				console.log(media);
+		},
+		continueCheck: function(media)
+		{
 			if(window.senpai.triggerCooldown())
 				$.getJSON(
-					'https://i.animemusic.me/animemusic/check.php?dj=' + API.getUser().id + '&id=' + songID + '&pos=' + API.getWaitListPosition() + '&source=senpai',
-					window.senpai.checkResult
+					'https://i.animemusic.me/animemusic/check.php?dj=' + API.getUser().id + '&id=' + media.cid + '&pos=' + API.getWaitListPosition() + '&source=senpai',
+					function(result){
+						window.senpai.checkResult(result, media);
+					}
 				);
 		},
 		triggerCooldown: function()
@@ -216,13 +292,13 @@
 			setTimeout(function() { window.senpai.cooldown = false; }, 3000);
 			return true;
 		},
-		checkResult: function(result)
+		checkResult: function(result, media)
 		{
 			if(!window.senpai.enabled()) return;
-			window.senpai.cache[result.id] = { checked: Date.now(), result: result, message: '' };
-			window.senpai.parseResult(result);
+			if(!result)
+				console.log(media);
+			window.senpai.parseResult(result, media);
 			window.senpai.tagNextMedia();
-			window.senpai.tagPlaylist();
 		},
 		getVerdict: function(result)
 		{
@@ -230,6 +306,7 @@
 
 			if(!result) return window.senpai.messages.unknown;
 
+			if(result.u == 1) return window.senpai.messages.unavailable;
 			if(result.b == 1) return window.senpai.messages.banned;
 			if(result.rp > 0) return window.senpai.messages.toosoon;
 			if(result.o == 1) return window.senpai.messages.overplayed;
@@ -241,13 +318,17 @@
 
 			return window.senpai.messages.error;
 		},
-		parseResult: function(result)
+		parseResult: function(result, media)
 		{
 			if(!window.senpai.enabled()) return;
+			if(!result)
+				return;
+			window.senpai.cache[result.id] = { checked: Date.now(), result: result, message: '', media: media };
 			var verdict = window.senpai.getVerdict(result);
 			window.senpai.cache[result.id].result = result;
 			window.senpai.cache[result.id].verdict = verdict;
 			window.senpai.cache[result.id].message = verdict.brief(result);
+			$('span[senpai-media-id="'+result.id+'"]').remove();
 
 			if(verdict.type == 'manual-only' && window.senpai.pos !== undefined)
 				return;
@@ -317,8 +398,7 @@
 
 			if (window.senpai.pos < 6 || window.senpai.pos == 49 || window.senpai.pos % 10 == 1) {
 				var nextSong = API.getNextMedia();
-				songID = nextSong.media.cid;
-				window.senpai.startCheck(songID);
+				window.senpai.startCheck(nextSong.media);
 			}
 		},
 		showAlert: function(title, message)
