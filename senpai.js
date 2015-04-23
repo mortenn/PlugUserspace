@@ -202,10 +202,11 @@
 				button = $('<div id="playlist-check-button" class="button" style="right:350px;"><span>Check</span></div>');
 				$('#playlist-edit-button').before(button);
 				button.click(function() { window.senpai.manualCheck(); });
-				window.senpai.tagPlaylist();
+				window.senpai.startTagPlaylist();
 			}
+			else
+				window.senpai.stopTagPlaylist();
 
-			window.senpai.tagPlaylist();
 			window.senpai.tagNextMedia();
 		},
 		manualCheck: function() {
@@ -347,19 +348,67 @@
 
 			if(verdict.popup && window.senpai.pos < 5)
 				window.notify.show(verdict.full(result), 5);
+		},
+		startTagPlaylist: function()
+		{
+			if(!window.senpai.playlistUpdateInterval)
+				window.senpai.playlistUpdateInterval = setInterval(function(){ window.senpai.tagPlaylist(); }, 500);
+		},
+		stopTagPlaylist: function()
+		{
+			if(window.senpai.playlistUpdateInterval)
+			{
+				clearInterval(window.senpai.playlistUpdateInterval);
+				window.senpai.playlistUpdateInterval = false;
 			}
 		},
 		tagPlaylist: function()
 		{
-			$('#media-panel .meta .senpai').remove();
-			for (var id in window.senpai.cache) {
-				if (window.senpai.cache[id] && window.senpai.cache[id].message)
+			var targets = $('#media-panel .media-list .row .meta:not(#media-panel .media-list .row .meta:has(.senpai))');
+			if(!targets || targets.length == 0)
+				return;
+			for(var i = 0; i < targets.length; ++i)
+			{
+				var data = false;
+				var row = $(targets[i]);
+				var icon = row.parent().children('img[src*="i.ytimg.com/vi/"]');
+				if(icon.length == 1)
 				{
-					if(window.senpai.cache[id].verdict.skip)
-						$('#media-panel img[src*="/' + id + '/"]').parent().children('.meta').prepend($('<span class="senpai" style="top:0px">Senpai says: <em style="color:red;">' + window.senpai.cache[id].message + '</em></span>'));
+					var id = /i.ytimg.com\/vi\/([^\/]+)\/default.jpg/.exec(icon.attr('src'))[1];
+					if(id in window.senpai.cache && window.senpai.cache[id].message)
+						data = window.senpai.cache[id];
 					else
-						$('#media-panel img[src*="/' + id + '/"]').parent().children('.meta').prepend($('<span class="senpai" style="top:0px">Senpai says: ' + window.senpai.cache[id].message + '</span>'));
+						console.log('Data not loaded for youtube id ' + id);
 				}
+				else
+				{
+					var author = row.children('.author').text();
+					var title = row.children('.title').text();
+					for(var id in window.senpai.cache)
+						if('media' in window.senpai.cache[id])
+						{
+							if(window.senpai.cache[id].media.author != author)
+								continue;
+							if(window.senpai.cache[id].media.title != title)
+								continue;
+
+							data = window.senpai.cache[id];
+							break;
+						}
+					if(!data)
+						console.log('Unable to locate data for soundcloud track ' + author + ' - ' + title);
+				}
+				if(!data)
+					data = { message: '<em style="padding-right:5px;color:orange">Unknown status</em>', result: { w: '' }, verdict: { skip: false } };
+
+				var message = data.message;
+				if(data.verdict.skip)
+					message = '<em style="padding-right:5px;color:red">'+message+'</em>';
+
+				if(data.result.w.length > 8)
+					message += ' <span style="display:inline;position:static;font-size:8px;color:#aaa !important">('+data.result.w+')</span>';
+				
+				row.prepend($('<span class="senpai" senpai-media-id="'+id+'" style="top:0px">Senpai says: ' + message + '</span>'));
 			}
 		},
 		tagNextMedia: function()
@@ -411,7 +460,8 @@
 		enabled: function() { return /plug.dj\/hummingbird-me$/.test(document.location); },
 		cache: {},
 		cooldown: false,
-		pos: undefined
+		pos: undefined,
+		playlistUpdateInterval: false
 	};
 	if(!("senpai" in window))
 	{
@@ -421,6 +471,8 @@
 		});
 		senpai.setup();
 	}
+	else
+		senpai.cache = window.senpai.cache;
 	senpai.startup();
 	window.senpai = senpai;
 })();
