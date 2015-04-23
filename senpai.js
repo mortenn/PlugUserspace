@@ -439,7 +439,7 @@
 			var currentdj = value.dj
 			if(currentdj.id == user.id)
 			{
-				window.senpai.show("It's your turn!", 'Make us proud!');
+				window.senpai.showAlert("It's your turn!", 'Make us proud!');
 				window.notify.show("It's your turn.", 2);
 				window.soundbank.play('にゃんぱすー');
 			}
