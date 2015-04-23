@@ -86,7 +86,8 @@
 				for(var i = 0; i < window.soundbank.config.values.sounds.length; ++i)
 				{
 					var sound = window.soundbank.config.values.sounds[i];
-					sounds.push({value: sound.name, label: sound.name});
+					if(!sound.hidden)
+						sounds.push({value: sound.name, label: sound.name});
 				}
 				return [
 					{
