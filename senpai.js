@@ -22,7 +22,8 @@
 				type: 'manual-only',
 				popup: false,
 				category: 'information',
-				skip: false
+				skip: false,
+				play: false
 			},
 			banned: {
 				brief: function(r){ return 'Banned: '+r.r; },
@@ -39,7 +40,26 @@
 				type: 'always',
 				popup: true,
 				category: 'error',
-				skip: true
+				skip: true,
+				play: 'Hidoi'
+			},
+			unavailable: {
+				brief: function(r){ return 'Unavailable: '+r.r; },
+				title: function(){ return 'Unavailable'; },
+				full: function(r)
+				{
+					return 'Your next song is unavailable!<br>'+
+						'The reason given was:<br><br>'+
+						'&nbsp;&nbsp;&nbsp;&nbsp;'+r.r+'<br><br>'+
+						'Please choose a different song,'+
+						'<br>or you will get skipped.';
+				},
+				kouhai: function(r){ return 'This song is unavailable due to "'+r.r+'"!' },
+				type: 'always',
+				popup: true,
+				category: 'error',
+				skip: true,
+				play: 'Hidoi'
 			},
 			toosoon: {
 				brief: function(){ return 'Already played in your last 6 turns.'; },
@@ -49,7 +69,8 @@
 				type: 'always',
 				popup: true,
 				category: 'error',
-				skip: true
+				skip: true,
+				play: 'Hidoi'
 			},
 			overplayed: {
 				brief: function(){ return 'Overplayed.'; },
@@ -59,7 +80,8 @@
 				type: 'always',
 				popup: true,
 				category: 'error',
-				skip: true
+				skip: true,
+				play: 'Ongaku asobi janai!'
 			},
 			today: {
 				brief: function(){ return 'Played today.'; },
@@ -69,7 +91,8 @@
 				type: 'always',
 				popup: true,
 				category: 'error',
-				skip: true
+				skip: true,
+				play: 'Hidoi'
 			},
 			week: {
 				brief: function(){ return 'Played this week.'; },
@@ -79,7 +102,8 @@
 				type: 'always',
 				popup: true,
 				category: 'warning',
-				skip: false
+				skip: false,
+				play: 'Ongaku asobi janai!'
 			},
 			ok: {
 				brief: function(){ return 'Seems OK, but check rules.'; },
@@ -237,12 +261,12 @@
 			else if(verdict.category == 'error')
 				window.chatalert.show('icon-volume-on', verdict.title(result), verdict.full(result), 'c42e3b', 'senpai');
 
-			if(verdict.popup && window.senpai.pos < 5)
-			{
-				window.notify.show(verdict.full(result), 5);
-				window.soundbank.play('Mo, baka!');
-			}
+			if(verdict.play && window.senpai.pos < 5)
+				window.soundbank.play(verdict.play);
 
+			if(verdict.popup && window.senpai.pos < 5)
+				window.notify.show(verdict.full(result), 5);
+			}
 		},
 		tagPlaylist: function()
 		{
