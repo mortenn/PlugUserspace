@@ -21,7 +21,15 @@
 			if("localStorage" in window && window.localStorage != null)
 			{
 				if('Userspace-Config' in window.localStorage && window.localStorage['Userspace-Config'])
-					window.settings.configuration = JSON.parse(window.localStorage['Userspace-Config']);
+					try
+					{
+						window.settings.configuration = JSON.parse(window.localStorage['Userspace-Config']);
+					}
+					catch(e)
+					{
+						console.log(e);
+						window.settings.configuration = {};
+					}
 				for(system in window.settings.defaults)
 					if(!(system in window.settings.configuration))
 						window.settings.configuration = JSON.parse(JSON.stringify(window.settings.defaults[system]));
