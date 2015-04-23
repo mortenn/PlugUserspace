@@ -41,7 +41,7 @@
 				popup: true,
 				category: 'error',
 				skip: true,
-				play: 'Hidoi'
+				play: 'Ongaku asobi janai!'//Hidoi'
 			},
 			unavailable: {
 				brief: function(r){ return 'Unavailable: '+r.r; },
@@ -59,7 +59,7 @@
 				popup: true,
 				category: 'error',
 				skip: true,
-				play: 'Hidoi'
+				play: 'Ongaku asobi janai!'//Hidoi'
 			},
 			toosoon: {
 				brief: function(){ return 'Already played in your last 6 turns.'; },
@@ -70,7 +70,7 @@
 				popup: true,
 				category: 'error',
 				skip: true,
-				play: 'Hidoi'
+				play: 'Ongaku asobi janai!'//Hidoi'
 			},
 			overplayed: {
 				brief: function(){ return 'Overplayed.'; },
@@ -92,7 +92,7 @@
 				popup: true,
 				category: 'error',
 				skip: true,
-				play: 'Hidoi'
+				play: 'Ongaku asobi janai!'//Hidoi'
 			},
 			week: {
 				brief: function(){ return 'Played this week.'; },
