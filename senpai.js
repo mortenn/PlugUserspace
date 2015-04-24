@@ -322,14 +322,12 @@
 		parseResult: function(result, media)
 		{
 			if(!window.senpai.enabled()) return;
-			if(!result)
-				return;
-			window.senpai.cache[result.id] = { checked: Date.now(), result: result, message: '', media: media };
+			window.senpai.cache[media.id] = { checked: Date.now(), result: result, message: '', media: media };
 			var verdict = window.senpai.getVerdict(result);
-			window.senpai.cache[result.id].result = result;
-			window.senpai.cache[result.id].verdict = verdict;
-			window.senpai.cache[result.id].message = verdict.brief(result);
-			$('span[senpai-media-id="'+result.id+'"]').remove();
+			window.senpai.cache[media.id].result = result;
+			window.senpai.cache[media.id].verdict = verdict;
+			window.senpai.cache[media.id].message = verdict.brief(result);
+			$('span[senpai-media-id="'+media.id+'"]').remove();
 
 			if(verdict.type == 'manual-only' && window.senpai.pos !== undefined)
 				return;
