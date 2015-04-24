@@ -296,8 +296,6 @@
 		checkResult: function(result, media)
 		{
 			if(!window.senpai.enabled()) return;
-			if(!result)
-				console.log(media);
 			window.senpai.parseResult(result, media);
 			window.senpai.tagNextMedia();
 		},
