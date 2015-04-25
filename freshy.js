@@ -97,6 +97,10 @@
 				var script = /^\/load +([^ ]+)/.exec(cmd);
 				if(script)
 				{
+					for(var i = 0; i < window.freshy.libraries.length; ++i)
+						if(window.freshy.libraries[i] == script[1])
+							return;
+
 					window.freshy.libraries.push(script[1]);
 					window.freshy.versionCheck();
 				}
