@@ -42,8 +42,8 @@
 			},
 			set: function(config, value)
 			{
-				window.noisy.config.values[config.name] = value == '1';
-				if(window.noisy.config.values.autoload && !("plugCubed" in window))
+				window.cubicle.config.values[config.name] = value == '1';
+				if(window.cubicle.config.values.autoload && !("plugCubed" in window))
 					$.getScript('https://d1rfegul30378.cloudfront.net/files/plugCubed.js');
 				window.cubicle.save();
 				return value;
