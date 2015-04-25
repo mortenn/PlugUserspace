@@ -252,12 +252,12 @@
 										else
 											window.chatalert.show('icon-volume-on', 'Country restrictions!', 'This video is blocked in these countries: ' + response.data.restrictions[i].countries, 'c42e3b', 'senpai');*/
 									}
-									if(score > 16 || (blocked == 0 && allowed < 20))
-									{
-										window.senpai.checkResult({id:media.cid, b:0, u:1, r: 'Blocked in too many countries!', w: ''}, media);
-										return;
-									}
 								}
+							}
+							if(score > 16 || (blocked == 0 && allowed < 20))
+							{
+								window.senpai.checkResult({id:media.cid, b:0, u:1, r: 'Blocked in too many countries!', w: ''}, media);
+								return;
 							}
 						}
 						window.senpai.continueCheck(media);
