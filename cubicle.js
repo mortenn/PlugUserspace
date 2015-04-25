@@ -27,7 +27,7 @@
 		},
 		config:
 		{
-			values: { },
+			values: { autoload: true },
 			get: function()
 			{
 				return [
