@@ -6,6 +6,7 @@
 		},
 		channel: 'stable',
 		systems: {},
+		failure: {},
 		loaded: {},
 		waits: {},
 		notify: 1,
@@ -35,6 +36,7 @@
 			if(ver * 1 > window.freshy.systems[name])
 			{
 				window.freshy.systems[name] = ver;
+				window.freshy.failure[name] = ver;
 				var fail = function()
 				{
 					if(window.freshy.notify > 0 && "chatalert" in window)
@@ -72,6 +74,8 @@
 		{
 			if(cmd == '/update')
 				window.freshy.versionCheck();
+			if(cmd == '/status')
+				window.freshy.statusMessage();
 			if(cmd == '/reload')
 			{
 				window.freshy.systems = {};
@@ -87,6 +91,18 @@
 				}
 			}
 		},
+		statusMessage: function()
+		{
+			var message = 'Currently on the <em>' + window.freshy.channel + '</em> updates channel<br>';
+			for(var system in window.freshy.systems)
+			{
+				message += system + ' version ' + window.freshy.systems[system] + ': ' +
+					(system in window.freshy.failure && window.freshy.failure[system] ? '<em style="color:red">loading error</em>' : 
+						(system in window ? '<em style="color:green">running</em>' : '<em style="color:red">not running</em>')) +
+					'<br>';
+			}
+			window.chatalert.showInformation('Userspace addons', message);
+		},
 		waitFor: function(system, callback)
 		{
 			if((system in window.freshy.loaded) && window.freshy.loaded[system])
@@ -101,6 +117,7 @@
 		},
 		systemLoaded: function(system)
 		{
+			window.freshy.failure[system] = false;
 			if(window.freshy.notify > 1 && "chatalert" in window)
 				window.chatalert.showInformation(
 					'Userspace script ' + (window.freshy.loaded[system] ? 'updated' : 'loaded'),
