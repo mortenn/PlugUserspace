@@ -184,7 +184,7 @@
 			},
 			getSoundList: function()
 			{
-				var list = $('<table style="position:relative"><tr><th style="width:15px;">&nbsp</th><th>Name</th><th>Volume</th><th>Preload</th></table>');
+				var list = $('<table style="position:relative"><tr><th style="width:15px;">&nbsp;</th><th>Name</th><th>Volume</th><th>Preload</th></table>');
 				for(var i = -1; i < window.soundbank.config.values.sounds.length; ++i)
 					if(i < 0 || !window.soundbank.config.values.sounds[i].hidden)
 						list.append(window.soundbank.config.getSoundConfigurator(i));
