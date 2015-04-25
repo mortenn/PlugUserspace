@@ -103,6 +103,7 @@
 
 					window.freshy.libraries.push(script[1]);
 					window.freshy.versionCheck();
+					window.freshy.saveSettings();
 				}
 			}
 		},
