@@ -360,6 +360,11 @@
 		},
 		tagPlaylist: function()
 		{
+			if($('#playlist-panel').css('display') == 'none')
+			{
+				window.senpai.stopTagPlaylist();
+				return;
+			}
 			var targets = $('#media-panel .media-list .row .meta:not(#media-panel .media-list .row .meta:has(.senpai))');
 			if(!targets || targets.length == 0)
 				return;
