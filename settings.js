@@ -78,7 +78,7 @@
 				right: $('<div style="float:right;width:49%;padding:1px"></div>')
 			};
 			for(var plugin in window.freshy.systems)
-				if("config" in window[plugin])
+				if(plugin in window && "config" in window[plugin])
 				{
 					var config = window[plugin].config.get();
 					if(config && config.length > 0)
