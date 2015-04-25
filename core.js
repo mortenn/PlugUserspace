@@ -6,5 +6,5 @@
 	window.freshy.currentVersion('notify', 10);
 	window.freshy.currentVersion('settings', 66);
 	window.freshy.currentVersion('senpai', 107);
-	window.freshy.currentVersion('cubicle', 14);
+	window.freshy.currentVersion('cubicle', 15);
 })();

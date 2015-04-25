@@ -38,8 +38,14 @@
 			set: function(config, value)
 			{
 				window.cubicle.config.values[config.name] = value == '1';
-				if(window.cubicle.config.values.autoload && !("plugCubed" in window))
-					$.getScript('https://d1rfegul30378.cloudfront.net/files/plugCubed.js');
+				if(window.cubicle.config.values.autoload)
+				{
+					if(!("plugCubed" in window))
+						$.getScript('https://d1rfegul30378.cloudfront.net/files/plugCubed.js');
+				}
+				else if("plugCubed" in window)
+					plugCubed.close();
+
 				window.cubicle.save();
 				return value;
 			}
