@@ -176,7 +176,7 @@
 						return false;
 					return true;
 				});
-				return $('<table></table>')
+				return $('<table style="position:relative"></table>')
 					.append($('<tr><th>Name</th><th>Volume</th><th>Preload</th></tr>'))
 					.append($('<tr></tr>').append(name).append($('<td></td').append(name), $('<td></td>').append(volume), $('<td></td>').append(preload), $('<td></td>').append(submit)))
 					.append($('<tr><th colspan="3">Soundfile (must use https://)</th></tr>'))
