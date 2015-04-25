@@ -33,8 +33,6 @@
 				for(system in window.settings.defaults)
 					if(!(system in window.settings.configuration))
 						window.settings.configuration = JSON.parse(JSON.stringify(window.settings.defaults[system]));
-				for(system in window.settings.configuration)
-					window.freshy.waitFor(system, function(){ window.settings.pushConfiguration(system); });
 			}
 			else
 				window.freshy.waitFor('chatalert', function(){
