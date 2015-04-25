@@ -365,6 +365,8 @@
 				window.senpai.stopTagPlaylist();
 				return;
 			}
+			if(window.senpai.getActivePlaylist() != window.senpai.getCurrentPlaylist())
+				return;
 			var targets = $('#media-panel .media-list .row .meta:not(#media-panel .media-list .row .meta:has(.senpai))');
 			if(!targets || targets.length == 0)
 				return;
