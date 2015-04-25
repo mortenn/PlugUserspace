@@ -175,4 +175,7 @@
 	}
 	window.freshy.systemLoaded('freshy');
 
+	if("console" in window && window.console)
+		window.console.log('Plug Userspace Addon manager by docpify loaded. Report issues to @docpify in hummingbird-me or by email: morten@runsafe.no');
+
 })();
