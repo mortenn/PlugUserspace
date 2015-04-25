@@ -60,6 +60,17 @@
 		},
 		open: function()
 		{
+			for(var plugin in window.freshy.systems)
+			{
+				var n = 0;
+				if(!(plugin in window))
+				{
+					n++;
+					freshy.waitFor(plugin, function(){ n--; if(n == 0) window.settings.open(); });
+				}
+				if(n > 0)
+					return;
+			}
 			window.settings.cleanup();
 			var sections = $('<div class="container" style="height:85%;margin:2% 0 0 0;overflow:auto"></div>');
 			var side = {
