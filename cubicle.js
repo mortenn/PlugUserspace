@@ -12,11 +12,6 @@
 			if("plugCubed" in window)
 				return;
 
-			if(!("autoload" in config))
-			{
-				window.cubicle.config.values.autoload = false;
-				window.settings.open();
-			}
 			else if(config.autoload)
 				$.getScript('https://d1rfegul30378.cloudfront.net/files/plugCubed.js');
 		},
