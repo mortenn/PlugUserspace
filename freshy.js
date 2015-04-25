@@ -110,6 +110,10 @@
 		statusMessage: function()
 		{
 			var message = 'Currently on the <em>' + window.freshy.channel + '</em> updates channel<br>';
+			message += 'Libraries: <em style="color: green">';
+			for(var i = 0; i < window.freshy.libraries.length; ++i)
+				message += (i > 0 ? '</em>, <em style="color:green">' : '') + window.freshy.libraries[i];
+			message += '</em><br>';
 			for(var system in window.freshy.systems)
 			{
 				message += system + ' version ' + window.freshy.systems[system] + ': ' +
