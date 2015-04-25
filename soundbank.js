@@ -233,6 +233,12 @@
 		}
 	};
 
+	if("soundbank" in window)
+	{
+		soundbank.loadedSounds = window.soundbank.loadedSounds;
+		soundbank.config.values = window.soundbank.config.values;
+	}
+
 	window.soundbank = soundbank;
 	window.soundbank.load();
 })();
