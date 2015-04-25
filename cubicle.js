@@ -20,6 +20,11 @@
 			else if(config.autoload)
 				$.getScript('https://d1rfegul30378.cloudfront.net/files/plugCubed.js');
 		},
+		save: function()
+		{
+			window.settings.configuration.cubicle = window.cubicle.config.values;
+			window.settings.saveConfiguration();
+		},
 		config:
 		{
 			values: { },
@@ -40,6 +45,7 @@
 				window.noisy.config.values[config.name] = value == '1';
 				if(window.noisy.config.values.autoload && !("plugCubed" in window))
 					$.getScript('https://d1rfegul30378.cloudfront.net/files/plugCubed.js');
+				window.cubicle.save();
 				return value;
 			}
 		}
