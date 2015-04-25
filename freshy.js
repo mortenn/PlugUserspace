@@ -60,6 +60,16 @@
 				var notify = window.localStorage['freshy.js-notify'] * 1;
 				if(!isNaN(notify))
 					freshy.notify = notify;
+				try
+				{
+					var libraries = JSON.parse(window.localStorage['freshy.js-libraries']);
+					if(libraries && libraries.length > 0 && libraries[0] == 'core')
+						freshy.libraries = libraries;
+				}
+				catch(e)
+				{
+					console.log(e);
+				}
 			}
 		},
 		saveSettings: function()
@@ -68,6 +78,7 @@
 			{
 				window.localStorage['freshy.js-update-channel'] = window.freshy.channel;
 				window.localStorage['freshy.js-notify'] = window.freshy.notify;
+				window.localStorage['freshy.js-libraries'] = JSON.stringify(window.freshy.libraries);
 			}
 		},
 		onChatCommand: function(cmd)
