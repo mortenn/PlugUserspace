@@ -67,7 +67,7 @@
 	"This song is unavailable due to \"{reason}\"!": "Această melodie nu este disponibilă pentru motivul: \"{reason}\"!",
 
 	"Already played in your last 6 turns.": "Deja aleasă in ultimele 6 rânduri.",
-	"Replay": "Repetă",
+	"Replay": "Se repetă",
 	"You have played that song within your past 6 dj turns, please choose a different song.":
 		"Ai ales deja această melodie in ultimele tale 6 rânduri, te rugăm să alegi o alta melodie.:",
 	"Out of the last 6 turns, {username} played \"{title}\" {number} of them.":
@@ -78,12 +78,12 @@
 	"This song is overplayed -_-;": "Această melodia este aleasă prea des -_-;",
 
 	"Played today.": "Aleasă azi.",
-	"Replay": "Repetă",
+	"Replay": "Se repetă",
 	"Your next song has already been played in the last 24 hours, please choose a different song.":
 		"Melodia ta următoare a fost aleasă deja în ultimele 24 de ore, te rugăm să alegi o alta melodie.:",
 
 	"Played this week.": "Aleasă săptămâna aceasta.",
-	"Replay": "Repetă",
+	"Replay": "Se repetă",
 	"Your next song has already been played this week, please choose a different song.":
 		"Melodia ta următoare a fost aleasă deja săptămâna aceasta, te rugăm să alegi o alta melodie.:",
 
@@ -115,5 +115,9 @@
 	"AMV": "AMV",
 	"NSFW (Against Terms of Service": "NSFW (Împotriva Termenilor și condițiilor",
 	"Not available": "Indisponibil",
-	"Extended/Looped": "Extinsă/Repetă aceeași parte:"
+	"Extended/Looped": "Extinsă/Se repetă aceeași parte:",
+
+	"Loaded stable version": "Versiune stabilă încărcată",
+	"Userspace addons loaded": "Plugin-urile userspace încărcate",
+	"Type /conf to access user addon settings": "Tastează /conf pentru a accesa setările de plugin"
 }
