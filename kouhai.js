@@ -29,12 +29,65 @@
 				clearTimeout(window.kouhai.timeout);
 			window.kouhai.timeout = setTimeout(window.kouhai.startCheck, 5000);
 		},
-		startCheck: function(songID)
+		startCheck: function()
 		{
 			if(!window.kouhai.enabled())
 				return;
 			window.kouhai.timeout = false;
-			$.getJSON('https://i.animemusic.me/animemusic/check.php?dj=' + API.getDJ().id + '&id=' + API.getMedia().cid + '&source=kouhai', window.kouhai.checkResult);
+			window.kouhai.youtubeCheck(API.getMedia(), API.getDJ());
+		},
+		youtubeCheck: function(media, dj)
+		{
+			if(media.format == 1)
+			{
+				$.getJSON(
+					'https://gdata.youtube.com/feeds/api/videos/'+media.cid+'?v=2&alt=jsonc',
+					function(response)
+					{
+						if("restrictions" in response.data)
+						{
+							var score = 0;
+							var allowed = 0;
+							var blocked = 0;
+							for(var i = 0; i < response.data.restrictions.length; ++i)
+							{
+								if(response.data.restrictions[i].type == 'country')
+								{
+									var list = response.data.restrictions[i].countries.split(' ');
+									if(response.data.restrictions[i].relationship == 'allow')
+										allowed += list.length;
+									if(response.data.restrictions[i].relationship == 'deny')
+									{
+										blocked += list.length;
+										for(var c = 0; c < list.length; ++c)
+											if(list[c] in window.senpai.countryList)
+												score += window.senpai.countryList[list[c]];
+									}
+								}
+							}
+							if(score > 16 || (blocked == 0 && allowed < 20))
+							{
+								window.kouhai.checkResult({id:media.cid, b:0, u:1, r: _('Blocked in too many countries!'), w: ''}, media);
+								return;
+							}
+						}
+						window.kouhai.continueCheck(media, dj);
+					}
+				).fail(function(e){ window.kouhai.checkResult({id:media.cid, b:0, u:1, r: e.responseJSON.error.message}); }, media);
+			}
+			else if(media.format == 2)
+				SC.get('/tracks/'+media.cid+'.json', function(response)
+				{
+					if("errors" in response)
+					{
+						window.kouhai.checkResult({id:media.cid, b:0, u:1, r:_(response.errors[0].error_message), override: true, w:''});
+					}
+					window.kouhai.continueCheck(media, dj);
+				});
+		},
+		continueCheck: function(media, dj)
+		{
+			$.getJSON('https://i.animemusic.me/animemusic/check.php?dj=' + dj.id + '&id=' + media.cid + '&source=kouhai', window.kouhai.checkResult);
 		},
 		checkResult: function(result)
 		{
