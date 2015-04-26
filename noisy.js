@@ -137,7 +137,6 @@
 				return newValue;
 			}
 		},
-		initialized: true, // Backwards compatibility
 		reloaded: false
 	};
 
