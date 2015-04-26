@@ -76,6 +76,7 @@
 				{ value: 'en', label: 'English' },
 				{ value: 'fr', label: 'Français' },
 				{ value: 'nb', label: 'Norsk (bokmål)' },
+				{ value: 'ro', label: 'Română' },
 			],
 			values: { language: 'en' },
 			get: function()
