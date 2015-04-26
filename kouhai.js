@@ -8,7 +8,7 @@
 	var kouhai = {
 		enabled: function()
 		{
-			return window.senpai.enabled() && API.getUser().role >= 2;
+			return "senpai" in window && window.senpai.enabled() && API.getUser().role >= 2;
 		},
 		setup: function()
 		{
