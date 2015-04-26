@@ -105,7 +105,8 @@
 			if(verdict.popup)
 			{
 				window.notify.show(message, 10);
-				window.soundbank.play('Master');
+				if(verdict.kouhaiPlay)
+					window.soundbank.play(verdict.kouhaiPlay);
 			}
 		},
 		showAlert: function(title, message)

@@ -25,6 +25,7 @@
 						'<a target="_new" href="http://s.AnimeMusic.me/plug-guide">Please refer to our room guide.</a>');
 				},
 				kouhai: function(){ return false },
+				kouhaiPlay: false,
 				type: 'manual-only',
 				popup: false,
 				category: 'information',
@@ -44,6 +45,7 @@
 						.replace('{reason}',_(r.r));
 				},
 				kouhai: function(r){ return _('This song has been banned for "{reason}"!').replace('{reason}', _(r.r)); },
+				kouhaiPlay: 'Master',
 				type: 'always',
 				popup: true,
 				category: 'error',
@@ -63,6 +65,7 @@
 						.replace('{reason}',_(r.r));
 				},
 				kouhai: function(r){ return _('This song is unavailable due to "{reason}"!').replace('{reason}',_(r.r)); },
+				kouhaiPlay: 'Master',
 				type: 'always',
 				popup: true,
 				category: 'error',
@@ -80,6 +83,7 @@
 						.replace('{title}',API.getMedia().title)
 						.replace('{number}',r.rp);
 				},
+				kouhaiPlay: 'Master',
 				type: 'always',
 				popup: true,
 				category: 'error',
@@ -91,6 +95,7 @@
 				title: function(){ return _('Overplayed'); },
 				full: function(){ return _('Your next song is overplayed, please choose a different song.'); },
 				kouhai: function(){ return _('This song is overplayed -_-;'); },
+				kouhaiPlay: false,
 				type: 'always',
 				popup: true,
 				category: 'error',
@@ -102,6 +107,7 @@
 				title: function(){ return _('Replay'); },
 				full: function(){ return _('Your next song has already been played in the last 24 hours, please choose a different song.'); },
 				kouhai: function(){ return false; },
+				kouhaiPlay: 'Master',
 				type: 'always',
 				popup: true,
 				category: 'error',
@@ -113,6 +119,7 @@
 				title: function(){ return _('Replay'); },
 				full: function(){ return _('Your next song has already been played this week, please choose a different song.'); },
 				kouhai: function(){ return false; },
+				kouhaiPlay: false,
 				type: 'always',
 				popup: true,
 				category: 'warning',
@@ -130,6 +137,7 @@
 						'<br>Last played: {timestamp}').replace('{timestamp}',r.w);
 				},
 				kouhai: function(){ return false; },
+				kouhaiPlay: false,
 				type: 'manual-only',
 				popup: false,
 				category: 'information',
@@ -140,6 +148,7 @@
 				title: function(){ return _('Oops!'); },
 				full: function(r){ return _('Error: Please send this to Uricorn: {id}').replace('{id}',r.id); },
 				kouhai: function(r){ return _('Error: Please send this to Uricorn: {id}').replace('{id}',r.id); },
+				kouhaiPlay: false,
 				type: 'always',
 				popup: false,
 				category: 'error',
