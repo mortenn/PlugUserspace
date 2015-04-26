@@ -9,7 +9,7 @@
 	// Client running old senpai, abort.
 	if("senpai" in window && "initialized" in window.senpai)
 	{
-		API.chatLog(_('Make sure you are not running additional versions of SenpaiScript! This is the correct version https://i.animemusic.me/PlugUserspace/freshy.js'));
+		API.chatLog('Make sure you are not running additional versions of SenpaiScript! The current version can be found here http://AnimeMusic.me/SenpaiScript');
 		return;
 	}
 
