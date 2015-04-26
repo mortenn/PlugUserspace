@@ -110,6 +110,29 @@
 					window.freshy.libraries.push(script[1]);
 					window.freshy.versionCheck();
 					window.freshy.saveSettings();
+					window.chatalert.showInformation(_('Library loaded'), _('The {library} library will be loaded each time you restart the page.').replace('{library}', script[1]));
+				}
+			}
+			if(/^\/unload +[^ ]+/.test(cmd))
+			{
+				var script = /^\/unload +([^ ]+)/.exec(cmd);
+				if(script)
+				{
+					var libraries = [];
+					var removed = false;
+					for(var i = 0; i < window.freshy.libraries.length; ++i)
+						if(window.freshy.libraries[i] != script[1])
+							libraries.push(window.freshy.libraries[i]);
+						else
+							removed = true;
+
+					if(removed)
+					{
+						window.freshy.libraries = libraries;
+						window.freshy.versionCheck();
+						window.freshy.saveSettings();
+						window.chatalert.showInformation(_('Library unloaded'), _('The {library} library will not be loaded the next time you restart the page.').replace('{library}', script[1]));
+					}
 				}
 			}
 		},
