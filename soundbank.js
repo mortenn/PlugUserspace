@@ -1,4 +1,10 @@
 (function (){
+	var _ = function(m)
+	{
+		if("babelfish" in window)
+			return window.babelfish.translate(m);
+		return m;
+	};
 	var soundbank = {
 		loadedSounds: {},
 		configure: function(data)
@@ -94,16 +100,16 @@
 			{
 				return [
 					{
-						title: 'Sound notifications',
+						title: _('Sound notifications'),
 						type: 'left',
 						options: [
-							{ type: 'select', name: 'enabled', value: window.soundbank.config.values.mute ? '0' : '1', options: [{value:'0', label:'Sounds disabled'},{value:'1', label:'Sounds enabled'}] },
-							{ type: 'select', name: 'reset', value: 0, options: [{value: 0, label:'Reset'},{value: 1, label:'Reload from host'}] },
+							{ type: 'select', name: 'enabled', value: window.soundbank.config.values.mute ? '0' : '1', options: [{value:'0', label:_('Sounds disabled')},{value:'1', label:_('Sounds enabled')}] },
+							{ type: 'select', name: 'reset', value: 0, options: [{value: 0, label:_('Reset')},{value: 1, label:_('Reload from host')}] },
 							{ type: 'custom', content: window.soundbank.config.getSoundList() }
 						]
 					},
 					{
-						title: 'Add custom notification sound',
+						title: _('Add custom notification sound'),
 						type: 'left',
 						options: [
 							{ type: 'custom', content: window.soundbank.config.getCustomForm() }
@@ -165,7 +171,7 @@
 				var name = $('<input type="text" size="15" />');
 				var file = $('<input type="text" size="28" />');
 				var volume = $('<input type="text" size="3" value="100" />%');
-				var preload = $('<select><option value="0">No</option><option value="1">Yes</option></select>');
+				var preload = $('<select><option value="0">'+_('No')+'</option><option value="1">'+_('Yes')+'</option></select>');
 				preload.val(1);
 				var submit = $('<button style="cursor:pointer"><i class="icon icon-check-purple" /></button>');
 				submit.click(function(){ window.soundbank.installCustom(name, file, volume, preload); });
@@ -177,14 +183,14 @@
 					return true;
 				});
 				return $('<table style="position:relative"></table>')
-					.append($('<tr><th>Name</th><th>Volume</th><th>Preload</th></tr>'))
+					.append($('<tr><th>'+_('Name')+'</th><th>'+_('Volume')+'</th><th>'+_('Preload')+'</th></tr>'))
 					.append($('<tr></tr>').append(name).append($('<td></td').append(name), $('<td></td>').append(volume), $('<td></td>').append(preload), $('<td></td>').append(submit)))
-					.append($('<tr><th colspan="3">Soundfile (must use https://)</th></tr>'))
+					.append($('<tr><th colspan="3">'+_('Soundfile (must use https://)')+'</th></tr>'))
 					.append($('<tr></tr>').append($('<td colspan="3"></td>').append(file)))
 			},
 			getSoundList: function()
 			{
-				var list = $('<table style="position:relative"><tr><th style="width:15px;">&nbsp;</th><th>Name</th><th>Volume</th><th>Preload</th></table>');
+				var list = $('<table style="position:relative"><tr><th style="width:15px;">&nbsp;</th><th>'+_('Name')+'</th><th>'+_('Volume')+'</th><th>'+_('Preload')+'</th></table>');
 				for(var i = -1; i < window.soundbank.config.values.sounds.length; ++i)
 					if(i < 0 || !window.soundbank.config.values.sounds[i].hidden)
 						list.append(window.soundbank.config.getSoundConfigurator(i));
@@ -194,7 +200,7 @@
 			{
 				if(idx < 0)
 				{
-					var item = $('<tr><td>&nbsp;</td><td>Master channel</td></tr>');
+					var item = $('<tr><td>&nbsp;</td><td>'+_('Master channel')+'</td></tr>');
 					var volume = $('<input style="text-align:right"type="text" size="3"/>');
 					volume.val(window.soundbank.config.values.volume);
 						volume.keyup(function(){
@@ -225,7 +231,7 @@
 							name: 'preload',
 							idx: idx,
 							value: window.soundbank.config.values.sounds[idx].preload ? '1' : '0',
-							options: [{value:'0',label:'No'},{value:'1',label:'Yes'}]
+							options: [{value:'0',label:_('No')},{value:'1',label:_('Yes')}]
 						}
 					)
 				));

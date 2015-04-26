@@ -1,4 +1,10 @@
 (function (){
+	var _ = function(m)
+	{
+		if("babelfish" in window)
+			return window.babelfish.translate(m);
+		return m;
+	};
 	var freshy = {
 		channels: {
 			stable: 'i.animemusic.me/PlugUserspace',
@@ -41,8 +47,8 @@
 				{
 					if(window.freshy.notify > 0 && "chatalert" in window)
 						window.chatalert.showError(
-							'Userspace script not loaded',
-							name + ' version ' + ver + ' did not finish loading within reasonable time.<br/>Please check the console for errors.'
+							_('Userspace script not loaded'),
+							name + ' ' + ver + ' '+ _('did not finish loading within reasonable time.')+'<br/>'+_('Please check the console for errors.')
 						);
 				};
 				var timer = setTimeout(fail, 10000);
@@ -109,19 +115,20 @@
 		},
 		statusMessage: function()
 		{
-			var message = 'Currently on the <em>' + window.freshy.channel + '</em> updates channel<br>';
-			message += 'Libraries: <em style="color: green">';
+			var message = _('Currently on the <em>{channel}</em> updates channel').replace('{channel}', _(window.freshy.channel));
+			message += '<br>'+_('Libraries')+': <em style="color: green">';
 			for(var i = 0; i < window.freshy.libraries.length; ++i)
 				message += (i > 0 ? '</em>, <em style="color:green">' : '') + window.freshy.libraries[i];
 			message += '</em><br>';
 			for(var system in window.freshy.systems)
 			{
-				message += system + ' version ' + window.freshy.systems[system] + ': ' +
-					(system in window.freshy.failure && window.freshy.failure[system] ? '<em style="color:red">loading error</em>' : 
-						(system in window ? '<em style="color:green">running</em>' : '<em style="color:red">not running</em>')) +
+				message += _('{system} version {version}:').replace('{system}',system).replace('{version}', window.freshy.systems[system]) + 
+					' ' +
+					(system in window.freshy.failure && window.freshy.failure[system] ? '<em style="color:red">'+_('loading error')+'</em>' : 
+						(system in window ? '<em style="color:green">'+_('running')+'</em>' : '<em style="color:red">'+_('not running')+'</em>')) +
 					'<br>';
 			}
-			window.chatalert.showInformation('Userspace addons', message);
+			window.chatalert.showInformation(_('Userspace addons'), message);
 		},
 		waitFor: function(system, callback)
 		{
@@ -138,11 +145,15 @@
 		systemLoaded: function(system)
 		{
 			window.freshy.failure[system] = false;
-			if(window.freshy.notify > 1 && "chatalert" in window)
-				window.chatalert.showInformation(
-					'Userspace script ' + (window.freshy.loaded[system] ? 'updated' : 'loaded'),
-					'Loaded ' + window.freshy.channel + ' version ' + window.freshy.systems[system] + ' of ' + system + '.js'
-				);
+			if(window.freshy.notify > 1)
+				window.freshy.waitFor('babelfish', function(){
+					window.freshy.waitFor('chatalert', function(){
+						window.chatalert.showInformation(
+							_('Userspace script ' + (window.freshy.loaded[system] ? 'updated' : 'loaded')),
+							_('Loaded ' + window.freshy.channel + ' version')+' '+ window.freshy.systems[system] + ' '+_('of')+' ' + system + '.js'
+						);
+					});
+				});
 			window.freshy.loaded[system] = true;
 			if(system in window.freshy.waits)
 			{
@@ -157,10 +168,10 @@
 			{
 				var channels = [];
 				for(var channel in window.freshy.channels)
-					channels.push({value:channel, label:channel});
+					channels.push({value:channel, label:_(channel)});
 				return [
 					{
-						title: 'Userspace addon updater',
+						title: _('Userspace addon updater'),
 						type: 'left',
 						options: [
 							{ type: 'select', name: 'channel', value: window.freshy.channel, options: channels },
@@ -169,9 +180,9 @@
 								name: 'notify',
 								value: window.freshy.notify,
 								options: [
-									{ value: 0, label: 'Show nothing' },
-									{ value: 1, label: 'Show errors' },
-									{ value: 2, label: 'Show everything' }
+									{ value: 0, label: _('Show nothing') },
+									{ value: 1, label: _('Show errors') },
+									{ value: 2, label: _('Show everything') }
 								]
 							}
 						]

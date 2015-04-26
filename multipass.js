@@ -1,4 +1,10 @@
 (function(){
+	var _ = function(m)
+	{
+		if("babelfish" in window)
+			return window.babelfish.translate(m);
+		return m;
+	};
 	var multipass = {
 		setup: function()
 		{
@@ -72,10 +78,10 @@
 									var list = response.data.restrictions[i].countries.split(' ');
 									var reason = false;
 									if(response.data.restrictions[i].relationship == 'allow' && list.length < 20)
-										reason = 'Blocked in all but '+list.length+' countries!';
+										reason = 'Blocked in too many countries!';
 
 									if(response.data.restrictions[i].relationship == 'deny' && list.length > 5)
-										reason = 'Blocked in '+list.length+' countries!';
+										reason = 'Blocked in too many countries!';
 
 									if(reason)
 										window.multipass.pushCache(
@@ -102,7 +108,7 @@
 				if("errors" in response)
 					window.multipass.pushCache(
 						media,
-						{id:media.cid, b:0, u:1, r:response.errors[0].error_message, override: true, w:''},
+						{id:media.cid, b:0, u:1, r:_(response.errors[0].error_message), override: true, w:''},
 						window.senpai.messages.unavailable
 					);
 			});

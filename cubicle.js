@@ -1,4 +1,10 @@
 (function(){
+	var _ = function(m)
+	{
+		if("babelfish" in window)
+			return window.babelfish.translate(m);
+		return m;
+	};
 	var cubicle = {
 		load: function()
 		{
@@ -27,10 +33,10 @@
 			{
 				return [
 					{
-						title: 'Run Plug³ on startup',
+						title: _('Run Plug³ on startup'),
 						type: 'right',
 						options: [
-							{ type: 'select', name: 'autoload', value: window.cubicle.config.values.autoload ? '1' : '0', options: [{value:'0', label:'No'},{value:'1', label:'Yes'}] },
+							{ type: 'select', name: 'autoload', value: window.cubicle.config.values.autoload ? '1' : '0', options: [{value:'0', label:_('No')},{value:'1', label:_('Yes')}] },
 						]
 					}
 				]; 

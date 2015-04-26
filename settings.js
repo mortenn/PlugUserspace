@@ -1,4 +1,10 @@
 (function(){
+	var _ = function(m)
+	{
+		if("babelfish" in window)
+			return window.babelfish.translate(m);
+		return m;
+	};
 	var settings = {
 		configuration: {},
 		defaults: {},
@@ -7,7 +13,7 @@
 			var button = $(
 '<div class="item addons" data-value="addons">'+
 	'<i class="icon icon-import" />'+
-	'<span class="label">Userspace addons</span>'+
+	'<span class="label">'+_('Userspace addons')+'</span>'+
 '</div>'
 			);
 			button.click(function(){ window.settings.open(); });
@@ -37,8 +43,8 @@
 			else
 				window.freshy.waitFor('chatalert', function(){
 					window.chatAlert.showError(
-					 	'Configuration unavailable', 
-						'Your browser does not support local storage, unable to support persistent configuration!'
+					 	_('Configuration unavailable'), 
+						_('Your browser does not support local storage, unable to support persistent configuration!')
 					);
 				});
 		},
@@ -90,7 +96,7 @@
 '<div id="the-user-addons" class="user-content" style="position:absolute;z-index: 20000; left:250px; right: 375px; top: 72px; bottom: 72px; background:rgba(0,0,0,0.8);">'+
 	'<div class="application section" style="height:100%">'+
 		'<div style="width:30px;height:30px;float:right;cursor:pointer" class="close-button"><i class="icon icon-x-white" /></div>'+
-		'<h1>Userspace addon settings</h1>'+
+		'<h1>'+_('Userspace addon settings')+'</h1>'+
 	'</div>'+
 '</div>'
 			);
@@ -179,10 +185,12 @@
 	{
 		API.on(API.CHAT_COMMAND, function(e){window.settings.onChatCommand(e);});
 		window.freshy.waitFor('chatalert', function(){
-			window.chatalert.showInformation(
-				'Userspace addons loaded',
-				'Type /conf to access user addon settings'
-			);
+			window.freshy.waitFor('babelfish', function(){
+				window.chatalert.showInformation(
+					_('Userspace addons loaded'),
+					_('Type /conf to access user addon settings')
+				);
+			});
 		});
 		$('#user-menu .item').click(function(){window.settings.cleanup();});
 	}

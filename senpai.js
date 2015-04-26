@@ -1,22 +1,28 @@
 (function() {
+	var _ = function(m)
+	{
+		if("babelfish" in window)
+			return window.babelfish.translate(m);
+		return m;
+	};
 
 	// Client running old senpai, abort.
 	if("senpai" in window && "initialized" in window.senpai)
 	{
-		API.chatLog('Make sure you are not running additional versions of SenpaiScript! This is the corrent version https://i.animemusic.me/PlugUserspace/freshy.js');
+		API.chatLog(_('Make sure you are not running additional versions of SenpaiScript! This is the corrent version https://i.animemusic.me/PlugUserspace/freshy.js'));
 		return;
 	}
 
 	var senpai = {
 		messages: {
 			unknown: {
-				brief: function(){ return 'Unknown song or alternate version.'; },
-				title: function(){ return 'Unknown Song/Alternate Version'; },
+				brief: function(){ return _('Unknown song or alternate version.'); },
+				title: function(){ return _('Unknown Song/Alternate Version'); },
 				full: function()
 				{
-					return 'Your next song is not in our systems, please ensure it follows all rules and is not overplayed.<br>'+
+					return _('Your next song is not in our systems, please ensure it follows all rules and is not overplayed.<br>'+
 						'Other videos of the same song might be banned.<br>'+
-						'<a target="_new" href="http://s.AnimeMusic.me/plug-guide">Please refer to our room guide.</a>';
+						'<a target="_new" href="http://s.AnimeMusic.me/plug-guide">Please refer to our room guide.</a>');
 				},
 				kouhai: function(){ return false },
 				type: 'manual-only',
@@ -26,17 +32,18 @@
 				play: false
 			},
 			banned: {
-				brief: function(r){ return 'Banned: '+r.r; },
-				title: function(){ return 'Banned'; },
+				brief: function(r){ return _('Banned')+': '+_(r.r); },
+				title: function(){ return _('Banned'); },
 				full: function(r)
 				{
-					return 'Your next song is banned!<br>'+
+					return _('Your next song is banned!<br>'+
 						'The reason given was:<br><br>'+
-						'&nbsp;&nbsp;&nbsp;&nbsp;'+r.r+'<br><br>'+
+						'&nbsp;&nbsp;&nbsp;&nbsp;{reason}<br><br>'+
 						'Please choose a different song,'+
-						'<br>or you will get skipped.';
+						'<br>or you will get skipped.')
+						.replace('{reason}',_(r.r));
 				},
-				kouhai: function(r){ return 'This song has been banned for "'+r.r+'"!' },
+				kouhai: function(r){ return _('This song has been banned for "{reason}"!').replace('{reason}', _(r.r)); },
 				type: 'always',
 				popup: true,
 				category: 'error',
@@ -44,17 +51,18 @@
 				play: 'Ongaku asobi janai!'//Hidoi'
 			},
 			unavailable: {
-				brief: function(r){ return 'Unavailable: '+r.r; },
-				title: function(){ return 'Unavailable'; },
+				brief: function(r){ return _('Unavailable')+': '+_(r.r); },
+				title: function(){ return _('Unavailable'); },
 				full: function(r)
 				{
-					return 'Your next song is unavailable!<br>'+
+					return _('Your next song is unavailable!<br>'+
 						'The reason given was:<br><br>'+
-						'&nbsp;&nbsp;&nbsp;&nbsp;'+r.r+'<br><br>'+
+						'&nbsp;&nbsp;&nbsp;&nbsp;{reason}<br><br>'+
 						'Please choose a different song,'+
-						'<br>or you will get skipped.';
+						'<br>or you will get skipped.')
+						.replace('{reason}',_(r.r));
 				},
-				kouhai: function(r){ return 'This song is unavailable due to "'+r.r+'"!' },
+				kouhai: function(r){ return _('This song is unavailable due to "{reason}"!').replace('{reason}',_(r.r)); },
 				type: 'always',
 				popup: true,
 				category: 'error',
@@ -62,10 +70,16 @@
 				play: 'Ongaku asobi janai!'//Hidoi'
 			},
 			toosoon: {
-				brief: function(){ return 'Already played in your last 6 turns.'; },
-				title: function(){ return 'Replay'; },
-				full: function(){ return 'You have played that song within your past 6 dj turns, please choose a different song.'; },
-				kouhai: function(r){ return 'Out of the last 6 turns, ' + API.getDJ().username + ' played "' + API.getMedia().title + '" ' + r.rp + ' of them.'; },
+				brief: function(){ return _('Already played in your last 6 turns.'); },
+				title: function(){ return _('Replay'); },
+				full: function(){ return _('You have played that song within your past 6 dj turns, please choose a different song.'); },
+				kouhai: function(r)
+				{
+					return _('Out of the last 6 turns, {username} played "{title}" {number} of them.')
+						.replace('{username}',API.getDJ().username)
+						.replace('{title}',API.getMedia().title)
+						.replace('{number}',r.rp);
+				},
 				type: 'always',
 				popup: true,
 				category: 'error',
@@ -73,10 +87,10 @@
 				play: 'Ongaku asobi janai!'//Hidoi'
 			},
 			overplayed: {
-				brief: function(){ return 'Overplayed.'; },
-				title: function(){ return 'Overplayed'; },
-				full: function(){ return 'Your next song is overplayed, please choose a different song.'; },
-				kouhai: function(){ return 'This song is overplayed -_-;'; },
+				brief: function(){ return _('Overplayed')+'.'; },
+				title: function(){ return _('Overplayed'); },
+				full: function(){ return _('Your next song is overplayed, please choose a different song.'); },
+				kouhai: function(){ return _('This song is overplayed -_-;'); },
 				type: 'always',
 				popup: true,
 				category: 'error',
@@ -84,9 +98,9 @@
 				play: 'Ongaku asobi janai!'
 			},
 			today: {
-				brief: function(){ return 'Played today.'; },
-				title: function(){ return 'Replay'; },
-				full: function(){ return 'Your next song has already been played in the last 24 hours, please choose a different song.'; },
+				brief: function(){ return _('Played today.'); },
+				title: function(){ return _('Replay'); },
+				full: function(){ return _('Your next song has already been played in the last 24 hours, please choose a different song.'); },
 				kouhai: function(){ return false; },
 				type: 'always',
 				popup: true,
@@ -95,9 +109,9 @@
 				play: 'Ongaku asobi janai!'//Hidoi'
 			},
 			week: {
-				brief: function(){ return 'Played this week.'; },
-				title: function(){ return 'Replay'; },
-				full: function(){ return 'Your next song has already been played this week, please choose a different song.'; },
+				brief: function(){ return _('Played this week.'); },
+				title: function(){ return _('Replay'); },
+				full: function(){ return _('Your next song has already been played this week, please choose a different song.'); },
 				kouhai: function(){ return false; },
 				type: 'always',
 				popup: true,
@@ -106,14 +120,14 @@
 				play: 'Ongaku asobi janai!'
 			},
 			ok: {
-				brief: function(){ return 'Seems OK, but check rules.'; },
-				title: function(){ return 'Looks good'; },
+				brief: function(){ return _('Seems OK, but check rules.'); },
+				title: function(){ return _('Looks good'); },
 				full: function(r)
 				{
-					return 'This version of your song is not marked as banned or overplayed, but please double check it.<br>'+
+					return _('This version of your song is not marked as banned or overplayed, but please double check it.<br>'+
 						'Other videos of the same song might be banned.<br>'+
 						'<a target="_new" href="http://s.AnimeMusic.me/plug-guide">Please refer to our room guide.</a>'+
-						'<br>Last played: '+r.w;
+						'<br>Last played: {timestamp}').replace('timestamp',r.w);
 				},
 				kouhai: function(){ return false; },
 				type: 'manual-only',
@@ -122,10 +136,10 @@
 				skip: false
 			},
 			error: {
-				brief: function(){ return 'Error! Notify Uricorn.'; },
-				title: function(){ return 'Oops!'; },
-				full: function(r){ return 'Error: Please send this to Uricorn: '+r.id; },
-				kouhai: function(r){ return 'Error: Please send this to Uricorn: '+r.id; },
+				brief: function(){ return _('Error! Notify Uricorn.'); },
+				title: function(){ return _('Oops!'); },
+				full: function(r){ return _('Error: Please send this to Uricorn: {id}').replace('{id}',r.id); },
+				kouhai: function(r){ return _('Error: Please send this to Uricorn: {id}').replace('{id}',r.id); },
 				type: 'always',
 				popup: false,
 				category: 'error',
@@ -199,7 +213,7 @@
 
 			if(window.senpai.getActivePlaylist() == window.senpai.getCurrentPlaylist())
 			{
-				button = $('<div id="playlist-check-button" class="button" style="right:350px;"><span>Check</span></div>');
+				button = $('<div id="playlist-check-button" class="button" style="right:350px;"><span>'+_('Check')+'</span></div>');
 				$('#playlist-edit-button').before(button);
 				button.click(function() { window.senpai.manualCheck(); });
 				window.senpai.startTagPlaylist();
@@ -256,7 +270,7 @@
 							}
 							if(score > 16 || (blocked == 0 && allowed < 20))
 							{
-								window.senpai.checkResult({id:media.cid, b:0, u:1, r: 'Blocked in too many countries!', w: ''}, media);
+								window.senpai.checkResult({id:media.cid, b:0, u:1, r: _('Blocked in too many countries!'), w: ''}, media);
 								return;
 							}
 						}
@@ -402,7 +416,7 @@
 						console.log('Unable to locate data for soundcloud track ' + author + ' - ' + title);
 				}
 				if(!data)
-					data = { message: '<em style="padding-right:5px;color:orange">Unknown status</em>', result: { w: '' }, verdict: { skip: false } };
+					data = { message: '<em style="padding-right:5px;color:orange">'+_('Unknown status')+'</em>', result: { w: '' }, verdict: { skip: false } };
 
 				var message = data.message;
 				if(data.verdict.skip)
@@ -421,9 +435,9 @@
 			if (window.senpai.cache[nextMedia.cid] && window.senpai.cache[nextMedia.cid].message)
 			{
 				if(window.senpai.cache[nextMedia.cid].verdict.skip)
-					$('#your-next-media').prepend($('<span class="senpai" style="top:0px;font-size:0.6em;text-align:right;right:0px">Senpai says: <em style="color:red;">' + window.senpai.cache[nextMedia.cid].message + '</em></span>'));
+					$('#your-next-media').prepend($('<span class="senpai" style="top:0px;font-size:0.6em;text-align:right;right:0px">'+_('Senpai says')+': <em style="color:red;">' + window.senpai.cache[nextMedia.cid].message + '</em></span>'));
 				else
-					$('#your-next-media').prepend($('<span class="senpai" style="top:0px;font-size:0.6em;text-align:right;right:0px">Senpai says: ' + window.senpai.cache[nextMedia.cid].message + '</span>'));
+					$('#your-next-media').prepend($('<span class="senpai" style="top:0px;font-size:0.6em;text-align:right;right:0px">'+_('Senpai says')+': ' + window.senpai.cache[nextMedia.cid].message + '</span>'));
 			}
 		},
 		waitForPlaylistChange: function(callback) {
@@ -442,8 +456,8 @@
 			var currentdj = value.dj
 			if(currentdj.id == user.id)
 			{
-				window.senpai.showAlert("It's your turn!", 'Make us proud!');
-				window.notify.show("It's your turn.", 2);
+				window.senpai.showAlert(_("It's your turn!"), _('Make us proud!'));
+				window.notify.show(_("It's your turn!"), 2);
 				window.soundbank.play('にゃんぱすー');
 			}
 			if (window.senpai.pos < 1) return;
@@ -469,8 +483,10 @@
 	if(!("senpai" in window))
 	{
 		window.freshy.waitFor('chatalert', function(){
-			if(senpai.enabled())
-				senpai.showAlert('SenpaiScript loaded.', 'Type /check to check your song!');
+			window.freshy.waitFor('babelfish', function(){
+				if(senpai.enabled())
+					senpai.showAlert(_('SenpaiScript loaded.'), _('Type /check to check your song!'));
+			});
 		});
 		senpai.setup();
 	}

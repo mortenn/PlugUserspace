@@ -1,10 +1,11 @@
 (function(){
-	window.freshy.currentVersion('freshy', 43);
-	window.freshy.currentVersion('soundbank', 92);
-	window.freshy.currentVersion('chatalert', 23);
-	window.freshy.currentVersion('noisy', 66);
-	window.freshy.currentVersion('notify', 10);
-	window.freshy.currentVersion('settings', 66);
-	window.freshy.currentVersion('senpai', 108);
-	window.freshy.currentVersion('cubicle', 15);
+	window.freshy.currentVersion('freshy', 53);
+	window.freshy.currentVersion('soundbank', 95);
+	window.freshy.currentVersion('chatalert', 25);
+	window.freshy.currentVersion('noisy', 68);
+	window.freshy.currentVersion('notify', 12);
+	window.freshy.currentVersion('settings', 69);
+	window.freshy.currentVersion('senpai', 110);
+	window.freshy.currentVersion('cubicle', 17);
+	window.freshy.currentVersion('babelfish', 21);
 })();

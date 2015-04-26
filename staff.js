@@ -1,4 +1,4 @@
 (function(){
-	window.freshy.currentVersion('kouhai', 10);
-	window.freshy.currentVersion('multipass', 50);
+	window.freshy.currentVersion('kouhai', 13);
+	window.freshy.currentVersion('multipass', 51);
 })();

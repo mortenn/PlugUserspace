@@ -1,4 +1,10 @@
 (function (){
+	var _ = function(m)
+	{
+		if("babelfish" in window)
+			return window.babelfish.translate(m);
+		return m;
+	};
 	var noisy = {
 		configure: function(data)
 		{
@@ -91,18 +97,18 @@
 				}
 				return [
 					{
-						title: 'Chat mention desktop notifications',
+						title: _('Chat mention desktop notifications'),
 						type: 'right',
 						options: [
-							{ type: 'select', name: 'popup', value: window.noisy.config.values.popup ? '1' : '0', options: [{value:'0', label:'Off'},{value:'1', label:'On'}] },
-							{ type: 'numberbox', size: 4, name: 'delay', value: window.noisy.config.values.delay, legend: ' seconds (-1 = infinite)' }
+							{ type: 'select', name: 'popup', value: window.noisy.config.values.popup ? '1' : '0', options: [{value:'0', label:_('Off')},{value:'1', label:_('On')}] },
+							{ type: 'numberbox', size: 4, name: 'delay', value: window.noisy.config.values.delay, legend: ' '+_('seconds (-1 = infinite)') }
 						]
 					},
 					{
-						title: 'Chat mention sound notifications',
+						title: _('Chat mention sound notifications'),
 						type: 'right',
 						options: [
-							{ type: 'select', name: 'noise', value: window.noisy.config.values.noise ? '1' : '0', options: [{value:'0', label:'Off'},{value:'1', label:'On'}] },
+							{ type: 'select', name: 'noise', value: window.noisy.config.values.noise ? '1' : '0', options: [{value:'0', label:_('Off')},{value:'1', label:_('On')}] },
 							{ type: 'select', name: 'sound', value: window.noisy.config.values.sound, options: sounds }
 						]
 					}

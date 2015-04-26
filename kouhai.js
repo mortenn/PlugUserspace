@@ -1,4 +1,10 @@
 (function(){
+	var _ = function(m)
+	{
+		if("babelfish" in window)
+			return window.babelfish.translate(m);
+		return m;
+	};
 	var kouhai = {
 		enabled: function()
 		{
@@ -8,7 +14,7 @@
 		{
 			API.on(API.ADVANCE, function(value){ window.kouhai.advance(value); });
 			window.freshy.waitFor('chatalert', function(){
-				window.kouhai.showAlert('Kouhai on alert.', 'Keeping an eye out for you, senpai!');
+				window.kouhai.showAlert(_('Kouhai on alert.'), _('Keeping an eye out for you, senpai!'));
 			});
 		},
 		startup: function()
