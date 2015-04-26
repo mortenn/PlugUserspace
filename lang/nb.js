@@ -48,7 +48,7 @@
 	"The {library} library will be loaded each time you restart the page.":
 		"Biblioteket {library} vil bli lastet inn hver gang du starter siden.",
 	
-	"Make sure you are not running additional versions of SenpaiScript! This is the corrent version https://i.animemusic.me/PlugUserspace/freshy.js":
+	"Make sure you are not running additional versions of SenpaiScript! This is the correct version https://i.animemusic.me/PlugUserspace/freshy.js":
 		"Forsikre deg om at du ikke kjører flere versjoner av SenpaiScript! Dette er riktig versjon: https://i.animemusic.me/PlugUserspace/freshy.js",
 
 	"Unknown song or alternate version.": "Ukjent sang eller alternativ versjon.",
