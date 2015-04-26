@@ -115,5 +115,9 @@
 	"AMV": "",
 	"NSFW (Against Terms of Service": "",
 	"Not available": "",
-	"Extended/Looped": ""
+	"Extended/Looped": "",
+
+	"Loaded stable version": "",
+	"Userspace addons loaded": "",
+	"Type /conf to access user addon settings": ""
 }

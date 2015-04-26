@@ -115,5 +115,9 @@
 	"AMV": "AMV",
 	"NSFW (Against Terms of Service": "NSFW (Bryter plug.dj servicevilkår)",
 	"Not available": "Ikke tilgengelig",
-	"Extended/Looped": "Utvidet/spiller i løkke"
+	"Extended/Looped": "Utvidet/spiller i løkke",
+
+	"Loaded stable version": "Lastet stabil versjon",
+	"Userspace addons loaded": "Brukerutvidelser lastet",
+	"Type /conf to access user addon settings": "Skriv /conf for å endre innstillinger for brukerutvidelser."
 }
