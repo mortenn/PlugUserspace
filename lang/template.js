@@ -48,7 +48,7 @@
 	"The {library} library will be loaded each time you restart the page.":
 		"",
 	
-	"Make sure you are not running additional versions of SenpaiScript! This is the correct version https://i.animemusic.me/PlugUserspace/freshy.js":
+	"Make sure you are not running additional versions of SenpaiScript! The current version can be found here http://AnimeMusic.me/SenpaiScript":
 		"",
 
 	"Unknown song or alternate version.": "",

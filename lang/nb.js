@@ -48,8 +48,8 @@
 	"The {library} library will be loaded each time you restart the page.":
 		"Biblioteket {library} vil bli lastet inn hver gang du starter siden.",
 	
-	"Make sure you are not running additional versions of SenpaiScript! This is the correct version https://i.animemusic.me/PlugUserspace/freshy.js":
-		"Forsikre deg om at du ikke kjører flere versjoner av SenpaiScript! Dette er riktig versjon: https://i.animemusic.me/PlugUserspace/freshy.js",
+	"Make sure you are not running additional versions of SenpaiScript! The current version can be found here http://AnimeMusic.me/SenpaiScript":
+		"Forsikre deg om at du ikke kjører flere versjoner av SenpaiScript! Siste versjon finner du her: http://AnimeMusic.me/SenpaiScript",
 
 	"Unknown song or alternate version.": "Ukjent sang eller alternativ versjon.",
 	"Unknown Song/Alternate Version": "Ukjent sang/Alternativ Versjon",
