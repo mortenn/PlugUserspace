@@ -90,6 +90,18 @@
 				skip: true,
 				play: 'Ongaku asobi janai!'//Hidoi'
 			},
+			overplayedgrace: {
+				brief: function(){ return _('Overplayed')+'.'; },
+				title: function(){ return _('Overplayed'); },
+				full: function(){ return _('Your next song is overplayed, please choose a different song.'); },
+				kouhai: function(){ return false; },
+				kouhaiPlay: false,
+				type: 'always',
+				popup: true,
+				category: 'error',
+				skip: true,
+				play: 'Ongaku asobi janai!'
+			},
 			overplayed: {
 				brief: function(){ return _('Overplayed')+'.'; },
 				title: function(){ return _('Overplayed'); },
@@ -331,6 +343,7 @@
 			if(result.u == 1) return window.senpai.messages.unavailable;
 			if(result.b == 1) return window.senpai.messages.banned;
 			if(result.rp > 0) return window.senpai.messages.toosoon;
+			if(result.o == 1 && result.s == 0) return window.senpai.messages.overplayedgrace;
 			if(result.o == 1) return window.senpai.messages.overplayed;
 			if(result.t == 1) return window.senpai.messages.today;
 			if(result.w == 1) return window.senpai.messages.week;
