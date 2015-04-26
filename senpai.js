@@ -127,7 +127,7 @@
 					return _('This version of your song is not marked as banned or overplayed, but please double check it.<br>'+
 						'Other videos of the same song might be banned.<br>'+
 						'<a target="_new" href="http://s.AnimeMusic.me/plug-guide">Please refer to our room guide.</a>'+
-						'<br>Last played: {timestamp}').replace('timestamp',r.w);
+						'<br>Last played: {timestamp}').replace('{timestamp}',r.w);
 				},
 				kouhai: function(){ return false; },
 				type: 'manual-only',
