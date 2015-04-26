@@ -98,7 +98,7 @@
 				kouhaiPlay: false,
 				type: 'always',
 				popup: true,
-				category: 'error',
+				category: 'warning',
 				skip: true,
 				play: 'Ongaku asobi janai!'
 			},
@@ -370,7 +370,7 @@
 				window.chatalert.show('icon-volume-off', verdict.title(result), verdict.full(result), 'aa74ff', 'senpai');
 
 			else if(verdict.category == 'warning')
-				window.chatalert.show('icon-volume-half', verdict.title(result), verdict.full(result), 'aa74ff', 'senpai');
+				window.chatalert.show('icon-volume-half', verdict.title(result), verdict.full(result), 'ffdd6f', 'senpai');
 
 			else if(verdict.category == 'error')
 				window.chatalert.show('icon-volume-on', verdict.title(result), verdict.full(result), 'c42e3b', 'senpai');
