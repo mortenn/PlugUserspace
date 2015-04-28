@@ -442,7 +442,7 @@
 					if(!data)
 						console.log('Unable to locate data for soundcloud track ' + author + ' - ' + title);
 				}
-				if(!data)
+				if(!data && "multipass" in window)
 					data = { message: '<em style="padding-right:5px;color:orange">'+_('Unknown status')+'</em>', result: { w: '' }, verdict: { skip: false } };
 
 				var message = data.message;
