@@ -44,32 +44,11 @@
 					'https://gdata.youtube.com/feeds/api/videos/'+media.cid+'?v=2&alt=jsonc',
 					function(response)
 					{
-						if("restrictions" in response.data)
+						var score = window.senpai.parseRestrictions(response);
+						if(score > 16)
 						{
-							var score = 0;
-							var allowed = 0;
-							var blocked = 0;
-							for(var i = 0; i < response.data.restrictions.length; ++i)
-							{
-								if(response.data.restrictions[i].type == 'country')
-								{
-									var list = response.data.restrictions[i].countries.split(' ');
-									if(response.data.restrictions[i].relationship == 'allow')
-										allowed += list.length;
-									if(response.data.restrictions[i].relationship == 'deny')
-									{
-										blocked += list.length;
-										for(var c = 0; c < list.length; ++c)
-											if(list[c] in window.senpai.countryList)
-												score += window.senpai.countryList[list[c]];
-									}
-								}
-							}
-							if(score > 16 || (blocked == 0 && allowed < 20))
-							{
-								window.kouhai.checkResult({id:media.cid, b:0, u:1, r: _('Blocked in too many countries!'), w: ''}, media);
-								return;
-							}
+							window.kouhai.checkResult({id:media.cid, b:0, u:1, r: _('Blocked in too many countries!'), w: ''}, media);
+							return;
 						}
 						window.kouhai.continueCheck(media, dj);
 					}

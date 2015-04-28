@@ -251,6 +251,42 @@
 			window.senpai.pos = undefined;
 			window.senpai.startCheck(nextSong.media);
 		},
+		parseRestrictions: function(response)
+		{
+			if(!("restrictions" in response.data))
+				return 0;
+
+			var score = 0;
+			var result = {};
+			var allowlist = false;
+			for(var i = 0; i < response.data.restrictions.length; ++i)
+			{
+				var rule = response.data.restrictions[i];
+				var list = rule.countries.split(' ');
+				if(rule.relationship == 'allow')
+				{
+					allowlist = true;
+					for(var c = 0; c < list.length; ++c)
+						result[list[c]] = true;
+				}
+				if(rule.relationship == 'deny')
+				{
+					for(var c = 0; c < list.length; ++c)
+						result[list[c]] = false;
+				}
+			}
+			for(var country in window.senpai.countryList)
+			{
+				if(!(country in result))
+					result[country] = !allowlist;
+			}
+			for(var country in result)
+			{
+				if(!result[country] && country in window.senpai.countryList)
+					score += window.senpai.countryList[country];
+			}
+			return score;
+		},
 		startCheck: function(media) {
 			if(!window.senpai.enabled()) return;
 			if(media.format == 1)
@@ -258,42 +294,11 @@
 					'https://gdata.youtube.com/feeds/api/videos/'+media.cid+'?v=2&alt=jsonc',
 					function(response)
 					{
-						if("restrictions" in response.data)
+						var score = window.senpai.parseRestrictions(response);
+						if(score > 16)
 						{
-							var score = 0;
-							var allowed = 0;
-							var blocked = 0;
-							for(var i = 0; i < response.data.restrictions.length; ++i)
-							{
-								if(response.data.restrictions[i].type == 'country')
-								{
-									var list = response.data.restrictions[i].countries.split(' ');
-									if(response.data.restrictions[i].relationship == 'allow')
-									{
-										allowed += list.length;
-										/*if(list.length < 20)
-											window.chatalert.show('icon-volume-on', 'Country restrictions!', 'This video is only allowed in ' + list.length + ' countries!', 'c42e3b', 'senpai');
-										else
-											window.chatalert.show('icon-volume-on', 'Country restrictions!', 'This video is only allowed in these countries: ' + response.data.restrictions[i].countries, 'c42e3b', 'senpai');*/
-									}
-									if(response.data.restrictions[i].relationship == 'deny')
-									{
-										blocked += list.length;
-										for(var c = 0; c < list.length; ++c)
-											if(list[c] in window.senpai.countryList)
-												score += window.senpai.countryList[list[c]];
-										/*if(list.length > 5)
-											window.chatalert.show('icon-volume-on', 'Country restrictions!', 'This video is blocked in ' + list.length + ' countries!', 'c42e3b', 'senpai');
-										else
-											window.chatalert.show('icon-volume-on', 'Country restrictions!', 'This video is blocked in these countries: ' + response.data.restrictions[i].countries, 'c42e3b', 'senpai');*/
-									}
-								}
-							}
-							if(score > 16 || (blocked == 0 && allowed < 20))
-							{
-								window.senpai.checkResult({id:media.cid, b:0, u:1, r: _('Blocked in too many countries!'), w: ''}, media);
-								return;
-							}
+							window.senpai.checkResult({id:media.cid, b:0, u:1, r: _('Blocked in too many countries!'), w: ''}, media);
+							return;
 						}
 						window.senpai.continueCheck(media);
 					}
