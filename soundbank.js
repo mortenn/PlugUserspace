@@ -117,6 +117,22 @@
 					}
 				]; 
 			},
+			getSelector: function(showEmpty, showHidden, currentValue)
+			{
+				var sounds = showEmpty ? [{value: '', label: ''}] : [];
+				for(var i = 0; i < window.soundbank.config.values.sounds.length; ++i)
+				{
+					var sound = window.soundbank.config.values.sounds[i];
+					if(!sound.hidden || showHidden)
+						sounds.push({value: sound.name, label: sound.name});
+				}
+				return {
+					type: 'select',
+					name: 'sound',
+					value: currentValue,
+					options: sounds
+				};
+			},
 			set: function(config, value)
 			{
 				if(config.name == 'enabled')

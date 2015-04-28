@@ -88,13 +88,6 @@
 			values: { noise: true, popup: true, delay: 2, sound: undefined },
 			get: function()
 			{
-				var sounds = window.noisy.config.values.sound ? [] : [{value: '', label: ''}];
-				for(var i = 0; i < window.soundbank.config.values.sounds.length; ++i)
-				{
-					var sound = window.soundbank.config.values.sounds[i];
-					if(!sound.hidden)
-						sounds.push({value: sound.name, label: sound.name});
-				}
 				return [
 					{
 						title: _('Chat mention desktop notifications'),
@@ -109,7 +102,7 @@
 						type: 'right',
 						options: [
 							{ type: 'select', name: 'noise', value: window.noisy.config.values.noise ? '1' : '0', options: [{value:'0', label:_('Off')},{value:'1', label:_('On')}] },
-							{ type: 'select', name: 'sound', value: window.noisy.config.values.sound, options: sounds }
+							window.soundbank.config.getSelector(!window.noisy.config.values.sound, false, window.noisy.config.values.sound)
 						]
 					}
 				]; 
