@@ -136,7 +136,10 @@
 	if(!window.noisy)
 		API.on(API.CHAT, function(e){ window.noisy.analyseChat(e); });
 	else
+	{
+		noisy.config.values = window.noisy.config.values;
 		noisy.reloaded = true;
+	}
 	window.noisy = noisy;
 	window.noisy.load();
 })();
