@@ -52,10 +52,7 @@
 			{
 				media.push(medialist.data[i]);
 				mediamap[medialist.data[i].cid] = medialist.data[i];
-				if(medialist.data[i].format == 1)
-					window.multipass.youtubeCheck(medialist.data[i]);
-				if(medialist.data[i].format == 2)
-					window.multipass.soundcloudCheck(medialist.data[i]);
+				window.multipass.enqueue(medialist.data[i]);
 			}
 			$.post(
 				'https://i.animemusic.me/animemusic/check.php?dj=' + API.getUser().id,
@@ -63,6 +60,27 @@
 				function(e){ window.multipass.onMediaChecked(e, mediamap); },
 				'json'
 			);
+		},
+		queue: [],
+		worker: false,
+		enqueue: function(media)
+		{
+			window.multipass.queue.push(media);
+			if(!window.multipass.worker)
+				window.multipass.worker = setInterval(window.multipass.checkNext, 500);
+		},
+		checkNext: function()
+		{
+			if(window.multipass.queue.length == 0)
+			{
+				clearInterval(window.multipass.worker);
+				return;
+			}
+			var next = window.multipass.queue.pop();
+			if(next.format == 1)
+				window.multipass.youtubeCheck(next);
+			else if(next.format == 2)
+				window.multipass.soundcloudCheck(next);
 		},
 		youtubeCheck: function(media) {
 				$.getJSON(
@@ -144,7 +162,11 @@
 	if(!("multipass" in window) || !window.multipass.onChatCommand)
 		multipass.setup();
 	else if(window.multipass.playlists)
+	{
 		multipass.playlists = window.multipass.playlists;
+		if(window.multipass.worker)
+			clearInterval(window.multipass.worker);
+	}
 	window.multipass = multipass;
 	window.multipass.startup();
 })();
