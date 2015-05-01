@@ -67,7 +67,7 @@
 		{
 			window.multipass.queue.push(media);
 			if(!window.multipass.worker)
-				window.multipass.worker = setInterval(window.multipass.checkNext, 500);
+				window.multipass.worker = setInterval(window.multipass.checkNext, 100);
 		},
 		checkNext: function()
 		{
