@@ -74,6 +74,7 @@
 			if(window.multipass.queue.length == 0)
 			{
 				clearInterval(window.multipass.worker);
+				window.multipass.worker = false;
 				return;
 			}
 			var next = window.multipass.queue.pop();
