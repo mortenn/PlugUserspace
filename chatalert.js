@@ -28,8 +28,18 @@
 			var now = new Date();
 			var hour = now.getHours();
 			var minute = now.getMinutes();
+			var timestamp = JSON.parse(window.localStorage.s5).chatTimestamps;
 			if(minute < 10)
 				minute = '0' + minute;
+			if(timestamp==12)
+			{
+				if(hour > 12)
+					hour -= 12;
+				if(hour >= 12)
+					minute = minute+'PM';
+				else
+					minute = minute+'AM';
+			}
 			chatLog.append($(
 '<div class="cm userspace-chatalert'+(userClass ? ' '+userClass : '')+'" style="margin:4px;box-shadow: inset 0 0 0 1px #'+color+';background:#282c35;clear:both">'+
 	'<div class="badge-box"><i class="icon '+icon+'"></i></div>'+
