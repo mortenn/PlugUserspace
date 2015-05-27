@@ -28,7 +28,7 @@
 			var now = new Date();
 			var hour = now.getHours();
 			var minute = now.getMinutes();
-			var timestamp = JSON.parse(window.localStorage.s5).chatTimestamps;
+			var timestamp = JSON.parse(window.localStorage.settings).chatTimestamps;
 			if(minute < 10)
 				minute = '0' + minute;
 			if(timestamp==12)
