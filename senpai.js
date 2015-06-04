@@ -290,19 +290,7 @@
 		startCheck: function(media) {
 			if(!window.senpai.enabled()) return;
 			if(media.format == 1)
-				$.getJSON(
-					'https://gdata.youtube.com/feeds/api/videos/'+media.cid+'?v=2&alt=jsonc',
-					function(response)
-					{
-						var score = window.senpai.parseRestrictions(response);
-						if(score > 16)
-						{
-							window.senpai.checkResult({id:media.cid, b:0, u:1, r: _('Blocked in too many countries!'), w: ''}, media);
-							return;
-						}
-						window.senpai.continueCheck(media);
-					}
-				).fail(function(e){ window.senpai.checkResult({id:media.cid, b:0, u:1, r: e.responseJSON.error.message}); }, media);
+				window.senpai.continueCheck(media);
 			else if(media.format == 2)
 				SC.get('/tracks/'+media.cid+'.json', function(response)
 				{
