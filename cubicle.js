@@ -15,11 +15,13 @@
 		configure: function(config)
 		{
 			window.cubicle.config.values = config;
-			if("plugCubed" in window)
+			if("plugCubed" in window || !config.autoload)
 				return;
 
-			else if(config.autoload)
+			if(config.autoload == 'p3')
 				$.getScript('https://d1rfegul30378.cloudfront.net/files/plugCubed.js');
+			else if(config.autoload == 'rcs')
+				$.getScript('https://code.radiant.dj/rs.min.js');
 		},
 		save: function()
 		{
@@ -28,23 +30,35 @@
 		},
 		config:
 		{
-			values: { autoload: true },
+			values: { autoload: 'rcs' },
 			get: function()
 			{
 				return [
 					{
-						title: _('Run Plug³ on startup'),
+						title: _('Load extension'),
 						type: 'right',
 						options: [
-							{ type: 'select', name: 'autoload', value: window.cubicle.config.values.autoload ? '1' : '0', options: [{value:'0', label:_('No')},{value:'1', label:_('Yes')}] },
+							{ type: 'select', name: 'autoload', value: window.cubicle.config.values.autoload, options: [{value:'', label:_('No')},{value:'p3', label:_('Plug³')},{value:'rcs', label:_('rcs')}] },
 						]
 					}
 				]; 
 			},
 			set: function(config, value)
 			{
-				window.cubicle.config.values[config.name] = value == '1';
-				if(window.cubicle.config.values.autoload)
+				console.log(config, value);
+				window.cubicle.config.values[config.name] = value;
+				if(window.cubicle.config.values.autoload == 'rcs')
+				{
+					if(!("rs" in window))
+						$.getScript('https://code.radiant.dj/rs.min.js');
+				}
+				else if("rs" in window)
+				{
+					window.cubicle.save();
+					window.location = window.location.href;
+				}
+
+				if(window.cubicle.config.values.autoload == 'p3')
 				{
 					if(!("plugCubed" in window))
 						$.getScript('https://d1rfegul30378.cloudfront.net/files/plugCubed.js');
