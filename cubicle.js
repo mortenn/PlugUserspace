@@ -15,12 +15,12 @@
 		configure: function(config)
 		{
 			window.cubicle.config.values = config;
-			if("plugCubed" in window || !config.autoload)
+			if("plugCubed" in window || !config.extension)
 				return;
 
-			if(config.autoload == 'p3')
+			if(config.extension == 'p3')
 				$.getScript('https://d1rfegul30378.cloudfront.net/files/plugCubed.js');
-			else if(config.autoload == 'rcs')
+			else if(config.extension == 'rcs')
 				$.getScript('https://code.radiant.dj/rs.min.js');
 		},
 		save: function()
@@ -30,7 +30,7 @@
 		},
 		config:
 		{
-			values: { autoload: 'rcs' },
+			values: { extension: 'rcs' },
 			get: function()
 			{
 				return [
@@ -38,7 +38,7 @@
 						title: _('Load extension'),
 						type: 'right',
 						options: [
-							{ type: 'select', name: 'autoload', value: window.cubicle.config.values.autoload, options: [{value:'', label:_('No')},{value:'p3', label:_('Plug³')},{value:'rcs', label:_('rcs')}] },
+							{ type: 'select', name: 'extension', value: window.cubicle.config.values.extension, options: [{value:'', label:_('No')},{value:'p3', label:_('Plug³')},{value:'rcs', label:_('rcs')}] },
 						]
 					}
 				]; 
@@ -47,7 +47,7 @@
 			{
 				console.log(config, value);
 				window.cubicle.config.values[config.name] = value;
-				if(window.cubicle.config.values.autoload == 'rcs')
+				if(window.cubicle.config.values.extension == 'rcs')
 				{
 					if(!("rs" in window))
 						$.getScript('https://code.radiant.dj/rs.min.js');
@@ -58,7 +58,7 @@
 					window.location = window.location.href;
 				}
 
-				if(window.cubicle.config.values.autoload == 'p3')
+				if(window.cubicle.config.values.extension == 'p3')
 				{
 					if(!("plugCubed" in window))
 						$.getScript('https://d1rfegul30378.cloudfront.net/files/plugCubed.js');
