@@ -62,6 +62,9 @@
 			window.settings.defaults[system] = defaults;
 			if(!(system in window.settings.configuration))
 				window.settings.configuration[system] = JSON.parse(JSON.stringify(defaults));
+			for(setting in window.settings.defaults[system])
+				if(!(setting in window.settings.configuration[system]))
+					window.settings.configuration[system][setting] = defaults[setting];
 			window.settings.pushConfiguration(system);
 		},
 		open: function()
