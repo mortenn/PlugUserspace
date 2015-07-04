@@ -38,7 +38,7 @@
 						title: _('Load extension'),
 						type: 'right',
 						options: [
-							{ type: 'select', name: 'extension', value: window.cubicle.config.values.extension, options: [{value:'', label:_('No')},{value:'p3', label:_('Plug³')},{value:'rcs', label:_('rcs')}] },
+							{ type: 'select', name: 'extension', value: window.cubicle.config.values.extension, options: [{value:'', label:_('No')},{value:'p3', label:_('Plug³')},{value:'rcs', label:_('RCS')}] },
 						]
 					}
 				]; 

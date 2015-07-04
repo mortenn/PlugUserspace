@@ -6,6 +6,6 @@
 	window.freshy.currentVersion('notify', 12);
 	window.freshy.currentVersion('settings', 70);
 	window.freshy.currentVersion('senpai', 123);
-	window.freshy.currentVersion('cubicle', 22);
+	window.freshy.currentVersion('cubicle', 25);
 	window.freshy.currentVersion('babelfish', 22);
 })();
