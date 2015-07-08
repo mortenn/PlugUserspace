@@ -4,8 +4,8 @@
 	window.freshy.currentVersion('chatalert', 29);
 	window.freshy.currentVersion('noisy', 70);
 	window.freshy.currentVersion('notify', 12);
-	window.freshy.currentVersion('settings', 70);
-	window.freshy.currentVersion('senpai', 123);
+	window.freshy.currentVersion('settings', 71);
+	window.freshy.currentVersion('senpai', 129);
 	window.freshy.currentVersion('cubicle', 25);
 	window.freshy.currentVersion('babelfish', 22);
 })();
