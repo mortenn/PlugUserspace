@@ -113,41 +113,28 @@
 				window.multipass.soundcloudCheck(next);
 		},
 		youtubeCheck: function(media) {
-				$.getJSON(
-					'https://gdata.youtube.com/feeds/api/videos/'+media.cid+'?v=2&alt=jsonc',
-					function(response)
+			$.getJSON(
+				'https://www.googleapis.com/youtube/v3/videos?part=contentDetails&id='+media.cid+'&key=AIzaSyD67usK9zHkAgG33z0bdoauSGrdXX8ByL8',
+				function(response)
+				{
+					var score = window.senpai.parseRestrictions(response);
+					if(score > 16)
 					{
-						if("restrictions" in response.data)
-						{
-							for(var i = 0; i < response.data.restrictions.length; ++i)
-							{
-								if(response.data.restrictions[i].type == 'country')
-								{
-									var list = response.data.restrictions[i].countries.split(' ');
-									var reason = false;
-									if(response.data.restrictions[i].relationship == 'allow' && list.length < 20)
-										reason = 'Blocked in too many countries!';
-
-									if(response.data.restrictions[i].relationship == 'deny' && list.length > 5)
-										reason = 'Blocked in too many countries!';
-
-									if(reason)
-										window.multipass.pushCache(
-											media,
-											{id:media.cid, b:0, u:1, r:reason, w: '', override: true },
-											window.senpai.messages.unavailable
-										);
-								}
-							}
-						}
+						window.multipass.pushCache(
+							media,
+							{id:media.cid, b:0, u:1, r: _('Blocked in too many countries!'), w: '', override: true},
+							window.senpai.messages.unvailable
+						);
 					}
-				).fail(function(response){
-					window.multipass.pushCache(
-						media,
-						{id:media.cid, b:0, u: 1, r:response.responseJSON.error.message, override: true, w:''},
-						window.senpai.messages.unavailable
-					);
-				});
+				}
+			).fail(function(response)
+			{
+				window.multipass.pushCache(
+					media,
+					{id:media.cid, b:0, u: 1, r:response.responseJSON.error.message, override: true, w:''},
+					window.senpai.messages.unavailable
+				);
+			});
 		},
 		soundcloudCheck: function(media)
 		{
