@@ -253,44 +253,48 @@
 		},
 		parseRestrictions: function(response)
 		{
-			if(!("restrictions" in response.data))
+			if(!("items" in response) || response.items.length == 0 || !("regionRestriction" in response.items[0].contentDetails))
 				return 0;
 
+			var restrict = response.items[0].contentDetails.regionRestriction;
 			var score = 0;
 			var result = {};
-			var allowlist = false;
-			for(var i = 0; i < response.data.restrictions.length; ++i)
-			{
-				var rule = response.data.restrictions[i];
-				var list = rule.countries.split(' ');
-				if(rule.relationship == 'allow')
-				{
-					allowlist = true;
-					for(var c = 0; c < list.length; ++c)
-						result[list[c]] = true;
-				}
-				if(rule.relationship == 'deny')
-				{
-					for(var c = 0; c < list.length; ++c)
-						result[list[c]] = false;
-				}
-			}
+			var allowlist = "allowed" in restrict;
+
+			if(allowlist)
+				for(var c = 0; c < restrict.allowed.length; ++c)
+					result[restrict.allowed[c]] = true;
+
+			if("blocked" in restrict)
+				for(var c = 0; c < restrict.blocked.length; ++c)
+					result[restrict.blocked[c]] = false;
+
 			for(var country in window.senpai.countryList)
-			{
 				if(!(country in result))
 					result[country] = !allowlist;
-			}
+
 			for(var country in result)
-			{
 				if(!result[country] && country in window.senpai.countryList)
 					score += window.senpai.countryList[country];
-			}
+
 			return score;
 		},
 		startCheck: function(media) {
 			if(!window.senpai.enabled()) return;
 			if(media.format == 1)
-				window.senpai.continueCheck(media);
+				$.getJSON(
+					'https://www.googleapis.com/youtube/v3/videos?part=contentDetails&id='+media.cid+'&key=AIzaSyD67usK9zHkAgG33z0bdoauSGrdXX8ByL8',
+					function(response)
+					{
+						var score = window.senpai.parseRestrictions(response);
+						if(score > 16)
+						{
+							window.senpai.checkResult({id:media.cid, b:0, u:1, r: _('Blocked in too many countries!'), w: ''}, media);
+							return;
+						}
+						window.senpai.continueCheck(media);
+					}
+				).fail(function(e){ window.senpai.checkResult({id:media.cid, b:0, u:1, r: e.responseJSON.error.message}); }, media);
 			else if(media.format == 2)
 				SC.get('/tracks/'+media.cid+'.json', function(response)
 				{

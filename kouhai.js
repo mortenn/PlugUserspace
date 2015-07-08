@@ -40,7 +40,19 @@
 		{
 			if(media.format == 1)
 			{
-				window.kouhai.continueCheck(media, dj);
+				$.getJSON(
+					'https://www.googleapis.com/youtube/v3/videos?part=contentDetails&id='+media.cid+'&key=AIzaSyD67usK9zHkAgG33z0bdoauSGrdXX8ByL8',
+					function(response)
+					{
+						var score = window.senpai.parseRestrictions(response);
+						if(score > 16)
+						{
+							window.kouhai.checkResult({id:media.cid, b:0, u:1, r: _('Blocked in too many countries!'), w: ''}, media);
+							return;
+						}
+						window.kouhai.continueCheck(media, dj);
+					}
+				).fail(function(e){ window.kouhai.checkResult({id:media.cid, b:0, u:1, r: e.responseJSON.error.message}); }, media);
 			}
 			else if(media.format == 2)
 				SC.get('/tracks/'+media.cid+'.json', function(response)
