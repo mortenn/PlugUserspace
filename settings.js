@@ -179,6 +179,42 @@
 		{
 			if(command == '/conf')
 				window.settings.open();
+		},
+		config:
+		{
+			values: { },
+			get: function()
+			{
+				return [
+					{
+						title: _('Reset configuration'),
+						type: 'right',
+						options: [
+							{ type: 'select', name: 'reset', value: 0, options: [{value:'0', label:_('')},{value:'userspace', label:_('Userspace settings')},{value:'localstorage', label:_('All settings')}] },
+						]
+					}
+				];
+			},
+			set: function(config, value)
+			{
+				if(config.name == 'reset')
+				{
+					if(value == 'userspace')
+					{
+						window.settings.configuration = {};
+						for(system in window.settings.defaults)
+						{
+							window.settings.configuration[system] = JSON.parse(JSON.stringify(window.settings.defaults[system]));
+							window.settings.pushConfiguration(system);
+						}
+					}
+					if(value == 'localstorage')
+					{
+						localStorage.clear();
+						window.location = window.location.href;
+					}
+				}
+			}
 		}
 	};
 
