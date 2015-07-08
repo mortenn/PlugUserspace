@@ -29,7 +29,14 @@
 
 			for(var i = 0; i < window.multipass.playlists.data.length; ++i)
 				if(window.multipass.playlists.data[i].active)
-					return window.multipass.checkPlaylist(window.multipass.playlists.data[i]);
+				{
+					window.multipass.plEnqueue(window.multipass.playlists.data[i]);
+					break;
+				}
+
+			for(var i = 0; i < window.multipass.playlists.data.length; ++i)
+				if(!window.multipass.playlists.data[i].active)
+					window.multipass.plEnqueue(window.multipass.playlists.data[i]);
 		},
 		checkPlaylist: function(playlist)
 		{
@@ -60,6 +67,28 @@
 				function(e){ window.multipass.onMediaChecked(e, mediamap); },
 				'json'
 			);
+		},
+		plQueue: [],
+		plWorker: false,
+		plEnqueue: function(playlist)
+		{
+			window.multipass.plQueue.push(playlist);
+			if(!window.multipass.plWorker)
+			{
+				window.multipass.plWorker = setInterval(window.multipass.plCheckNext, 10000);
+				window.multipass.plCheckNext();
+			}
+		},
+		plCheckNext: function()
+		{
+			if(window.multipass.plQueue.length == 0)
+			{
+				clearInterval(window.multipass.plWorker);
+				window.multipass.plWorker = false;
+				return;
+			}
+			var next = window.multipass.plQueue.pop();
+			window.multipass.checkPlaylist(next);
 		},
 		queue: [],
 		worker: false,
@@ -167,6 +196,8 @@
 		multipass.playlists = window.multipass.playlists;
 		if(window.multipass.worker)
 			clearInterval(window.multipass.worker);
+		if(window.multipass.plWorker)
+			clearInterval(window.multipass.plWorker);
 	}
 	window.multipass = multipass;
 	window.multipass.startup();
