@@ -450,13 +450,16 @@
 		tagNextMedia: function()
 		{
 			$('#your-next-media .senpai').remove();
-			var nextMedia = API.getNextMedia().media;
-			if (window.senpai.cache[nextMedia.cid] && window.senpai.cache[nextMedia.cid].message)
+			var nextMedia = API.getNextMedia();
+			if(nextMedia && "media" in nextMedia)
 			{
-				if(window.senpai.cache[nextMedia.cid].verdict.skip)
-					$('#your-next-media').prepend($('<span class="senpai" style="top:0px;font-size:0.6em;text-align:right;right:0px">'+_('Senpai says')+': <em style="color:red;">' + window.senpai.cache[nextMedia.cid].message + '</em></span>'));
-				else
-					$('#your-next-media').prepend($('<span class="senpai" style="top:0px;font-size:0.6em;text-align:right;right:0px">'+_('Senpai says')+': ' + window.senpai.cache[nextMedia.cid].message + '</span>'));
+				if (window.senpai.cache[nextMedia.media.cid] && window.senpai.cache[nextMedia.media.cid].message)
+				{
+					if(window.senpai.cache[nextMedia.media.cid].verdict.skip)
+						$('#your-next-media').prepend($('<span class="senpai" style="top:0px;font-size:0.6em;text-align:right;right:0px">'+_('Senpai says')+': <em style="color:red;">' + window.senpai.cache[nextMedia.media.cid].message + '</em></span>'));
+					else
+						$('#your-next-media').prepend($('<span class="senpai" style="top:0px;font-size:0.6em;text-align:right;right:0px">'+_('Senpai says')+': ' + window.senpai.cache[nextMedia.media.cid].message + '</span>'));
+				}
 			}
 		},
 		waitForPlaylistChange: function(callback) {

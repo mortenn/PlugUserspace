@@ -190,7 +190,7 @@
 						title: _('Reset configuration'),
 						type: 'right',
 						options: [
-							{ type: 'select', name: 'reset', value: 0, options: [{value:'0', label:_('')},{value:'userspace', label:_('Userspace settings')},{value:'localstorage', label:_('All settings')}] },
+							{ type: 'select', name: 'reset', value: 0, options: [{value:'0', label:''},{value:'userspace', label:_('Userspace settings')},{value:'localstorage', label:_('All settings')}] },
 						]
 					}
 				];
