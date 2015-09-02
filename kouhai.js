@@ -66,27 +66,42 @@
 		},
 		continueCheck: function(media, dj)
 		{
-			$.getJSON('https://i.animemusic.me/animemusic/check.php?dj=' + dj.id + '&id=' + media.cid + '&source=kouhai', window.kouhai.checkResult);
+			$.getJSON('https://i.animemusic.me/animemusic/check.php?dj=' + dj.id + '&id=' + media.cid + '&source=kouhai', function(r){ window.kouhai.checkResult(r, media, dj); });
 		},
-		checkResult: function(result)
+		checkResult: function(result, media, dj)
 		{
 			if(!window.kouhai.enabled())
 				return;
 			if (result == false || result.id != API.getMedia().cid)
 				return;
-			verdict = window.senpai.getVerdict(result);
-			var message = verdict.kouhai(result);
-			if(!message)
-				return;
+			var report = result.title ? result.title : media.title;
+			report += '<br>' + (result.ln == 0 ? 'This is the first time!' : 'Played '+result.ln+' times.');
+			report += '<br>DJ: '+dj.username;
+			report += (result.n == 0 ? ' is playing for the first time!' : (result.s == 0 ? ' did not play the last month.' : ' has played ' + result.n + ' songs.'));
+			if(result.alt)
+				report += '<br><a href="http://i.animemusic.me/animemusic/alts.php?id=' + result.a + '" target="_new">' + result.alt + ' known versions</a>';
+			if(result.o2 > -1)
+				report += '<br>Overplayed2 score: ' + result.o2;
+			if(result.oa1 > 0)
+				report += '<br>' + result.oa1 + ' known versions on op list!';
+			if(result.ls)
+			{
+				report += '<br>' + (result.oa1 > 1 ? 'Known version last played' : 'Last played') + ' ';
+				report += result.lr ? '<span style="color:red">'+result.ls+'</span>' : result.ls;
+			}
 
-			window.kouhai.showAlert(verdict.title(result), message);
+			var verdict = window.senpai.getVerdict(result);
+			var message = verdict.kouhai(result);
+			if(message)
+				report += '<br><br><span style="color:red">'+message+'</span>';
+
+			window.chatalert.show('icon-volume-off', 'Kouhai DJ report', report, '00d2ff', 'kouhai');
+
+			if((verdict.popup && verdict.kouhaiPlay) || (result.oa1 > 0 && result.n > 0 && result.s > 0))
+				window.soundbank.play('Master');
 
 			if(verdict.popup)
-			{
 				window.notify.show(message, 10);
-				if(verdict.kouhaiPlay)
-					window.soundbank.play(verdict.kouhaiPlay);
-			}
 		},
 		showAlert: function(title, message)
 		{
