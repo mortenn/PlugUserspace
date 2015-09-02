@@ -173,7 +173,7 @@
 					window.freshy.waitFor('chatalert', function(){
 						window.chatalert.showInformation(
 							_('Userspace script ' + (window.freshy.loaded[system] ? 'updated' : 'loaded')),
-							_('Loaded ' + window.freshy.channel + ' version')+' '+ window.freshy.systems[system] + ' '+_('of')+' ' + system + '.js'
+							_('Loaded ' + window.freshy.channel + ' version')+' '+ window.freshy.systems[system] + ' '+_('of')+' <span style="color:#00d2ff">' + system + '.js</span>'
 						);
 					});
 				});
