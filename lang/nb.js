@@ -120,4 +120,11 @@
 	"Loaded stable version": "Lastet stabil versjon",
 	"Userspace addons loaded": "Brukerutvidelser lastet",
 	"Type /conf to access user addon settings": "Skriv /conf for å endre innstillinger for brukerutvidelser."
+
+	"Reset configuration": "Tilbakestill konfigurasjon",
+	"Userspace settings": "Innstillinger for brukerutvidelser",
+	"All settings": "Alle innstillinger",
+	"Load extension": "Last utvidelse",
+	"Plug³": "Plug³",
+	"RCS": "RCS"
 }

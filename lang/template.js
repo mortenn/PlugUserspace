@@ -119,5 +119,12 @@
 
 	"Loaded stable version": "",
 	"Userspace addons loaded": "",
-	"Type /conf to access user addon settings": ""
+	"Type /conf to access user addon settings": "",
+
+	"Reset configuration": "",
+	"Userspace settings": "",
+	"All settings": "",
+	"Load extension": "",
+	"Plug³": "Plug³",
+	"RCS": "RCS"
 }
