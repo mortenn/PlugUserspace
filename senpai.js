@@ -341,7 +341,7 @@
 			if(result.b == 1) return window.senpai.messages.banned;
 			if(result.rp > 0) return window.senpai.messages.toosoon;
 			if(result.o == 1 && result.s == 0) return window.senpai.messages.overplayedgrace;
-			if(result.o == 1) return window.senpai.messages.overplayed;
+			if(result.o == 1 || result.oa1 > 0) return window.senpai.messages.overplayed;
 			if(result.t == 1) return window.senpai.messages.today;
 			if(result.w == 1) return window.senpai.messages.week;
 
