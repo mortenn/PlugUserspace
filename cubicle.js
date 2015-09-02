@@ -8,20 +8,17 @@
 	var cubicle = {
 		load: function()
 		{
-			var defaults = window.cubicle.config.values;
+			var defaults = { extension: 'rcs' };
 			window.freshy.waitFor('settings', function() { window.settings.setDefaults('cubicle', defaults); });
 			window.freshy.systemLoaded('cubicle');
 		},
 		configure: function(config)
 		{
-			window.cubicle.config.values = config;
-			if("plugCubed" in window || !config.extension)
-				return;
-
-			if(config.extension == 'p3')
-				$.getScript('https://d1rfegul30378.cloudfront.net/files/plugCubed.js');
-			else if(config.extension == 'rcs')
-				$.getScript('https://code.radiant.dj/rs.min.js');
+			if(window.cubicle.config.values.extension != config.extension)
+			{
+				window.cubicle.config.values = config;
+				window.cubicle.activate();
+			}
 		},
 		save: function()
 		{
@@ -30,7 +27,7 @@
 		},
 		config:
 		{
-			values: { extension: 'rcs' },
+			values: { extension: '' },
 			get: function()
 			{
 				return [
@@ -45,33 +42,48 @@
 			},
 			set: function(config, value)
 			{
-				console.log(config, value);
-				window.cubicle.config.values[config.name] = value;
-				if(window.cubicle.config.values.extension == 'rcs')
+				console.log(config.name, value);
+				if(window.cubicle.config.values[config.name] != value)
 				{
-					if(!("rs" in window))
-						$.getScript('https://code.radiant.dj/rs.min.js');
-				}
-				else if("rs" in window)
-				{
+					window.cubicle.config.values[config.name] = value;
+					window.cubicle.activate();
 					window.cubicle.save();
-					window.location = window.location.href;
 				}
-
-				if(window.cubicle.config.values.extension == 'p3')
-				{
-					if(!("plugCubed" in window))
-						$.getScript('https://d1rfegul30378.cloudfront.net/files/plugCubed.js');
-				}
-				else if("plugCubed" in window)
-					plugCubed.close();
-
-				window.cubicle.save();
 				return value;
+			}
+		},
+		activate: function()
+		{
+			if(window.cubicle.config.values.extension != 'rcs' && ("rs" in window))
+			{
+				console.log('Deactive RCS');
+				setTimeout(function(){ window.rs.__close(); window.rs = { __close: function(){} }; }, 1);
+			}
+
+			if(window.cubicle.config.values.extension != 'p3' && ("plugCubed" in window))
+			{
+				console.log('Deactive P3');
+				setTimeout(function(){ window.plugCubed.close(); window.plugCubed = { close: function(){} }; }, 1);
+			}
+
+			if(window.cubicle.config.values.extension == 'rcs')
+			{
+				console.log('Activate RCS');
+				$.getScript('https://code.radiant.dj/rs.min.js');
+			}
+
+			if(window.cubicle.config.values.extension == 'p3')
+			{
+				console.log('Activate p3');
+				$.getScript('https://d1rfegul30378.cloudfront.net/files/plugCubed.js');
 			}
 		}
 	};
 
+	if("cubicle" in window)
+	{
+		cubicle.config.values.extension = window.cubicle.config.values.extension;
+	}
 	window.cubicle = cubicle;
 	window.cubicle.load();
 })();
