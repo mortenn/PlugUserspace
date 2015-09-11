@@ -47,19 +47,19 @@
 						var score = window.senpai.parseRestrictions(response);
 						if(score > 16)
 						{
-							window.kouhai.checkResult({id:media.cid, b:0, u:1, r: _('Blocked in too many countries!'), w: ''}, media);
+							window.kouhai.checkResult({id:media.cid, b:0, u:1, r: _('Blocked in too many countries!'), w: ''}, media, dj);
 							return;
 						}
 						window.kouhai.continueCheck(media, dj);
 					}
-				).fail(function(e){ window.kouhai.checkResult({id:media.cid, b:0, u:1, r: e.responseJSON.error.message}); }, media);
+				).fail(function(e){ window.kouhai.checkResult({id:media.cid, b:0, u:1, r: e.responseJSON.error.message}); }, media, dj);
 			}
 			else if(media.format == 2)
 				SC.get('/tracks/'+media.cid+'.json', function(response)
 				{
 					if("errors" in response)
 					{
-						window.kouhai.checkResult({id:media.cid, b:0, u:1, r:_(response.errors[0].error_message), override: true, w:''});
+						window.kouhai.checkResult({id:media.cid, b:0, u:1, r:_(response.errors[0].error_message), override: true, w:''}, media, dj);
 					}
 					window.kouhai.continueCheck(media, dj);
 				});
