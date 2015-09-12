@@ -102,7 +102,7 @@
 			if((verdict.popup && verdict.kouhaiPlay) || (result.oa1 > 0 && result.n > 0 && result.s > 0))
 				window.soundbank.play('Master');
 
-			if(verdict.popup)
+			if(verdict.popup && message)
 				window.notify.show(message, 10);
 		},
 		showAlert: function(title, message)
