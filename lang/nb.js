@@ -126,5 +126,8 @@
 	"All settings": "Alle innstillinger",
 	"Load extension": "Last utvidelse",
 	"Plug³": "Plug³",
-	"RCS": "RCS"
+	"RCS": "RCS",
+
+	"Playlist checked": "Spilleliste sjekket",
+	"{playlist} has been checked.": "{playlist} har blitt sjekket."
 }

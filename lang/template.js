@@ -126,5 +126,8 @@
 	"All settings": "",
 	"Load extension": "",
 	"Plug³": "Plug³",
-	"RCS": "RCS"
+	"RCS": "RCS",
+
+	"Playlist checked": "",
+	"{playlist} has been checked.": ""
 }
