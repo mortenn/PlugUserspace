@@ -64,7 +64,7 @@
 			$.post(
 				'https://i.animemusic.me/animemusic/check.php?dj=' + API.getUser().id,
 				JSON.stringify(media),
-				function(e){ window.multipass.onMediaChecked(e, mediamap); },
+				function(e){ window.multipass.onMediaChecked(e, mediamap, playlist); },
 				'json'
 			);
 		},
@@ -148,7 +148,7 @@
 					);
 			});
 		},
-		onMediaChecked: function(playlist, mediamap)
+		onMediaChecked: function(playlist, mediamap, pl)
 		{
 			for(var i = 0; i <= playlist.length; ++i)
 			{
@@ -157,6 +157,7 @@
 					window.multipass.pushCache(mediamap[playlist[i].id], playlist[i], verdict, mediamap[playlist[i].id]);
 				$('#media-panel .row .senpai').remove();
 			}
+			window.chatalert.show('icon-volume-off', _('Playlist checked'), _('{playlist} has been checked.').replace('{playlist}', pl.name), 'aa74ff', 'senpai');
 		},
 		pushCache: function(media, result, verdict)
 		{
