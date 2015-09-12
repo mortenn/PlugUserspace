@@ -31,12 +31,8 @@
 				if(window.multipass.playlists.data[i].active)
 				{
 					window.multipass.plEnqueue(window.multipass.playlists.data[i]);
-					break;
+					return;
 				}
-
-			for(var i = 0; i < window.multipass.playlists.data.length; ++i)
-				if(!window.multipass.playlists.data[i].active)
-					window.multipass.plEnqueue(window.multipass.playlists.data[i]);
 		},
 		checkPlaylist: function(playlist)
 		{
