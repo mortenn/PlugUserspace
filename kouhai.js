@@ -6,6 +6,7 @@
 		return m;
 	};
 	var kouhai = {
+		badWords: /ful+i/,
 		enabled: function()
 		{
 			return "senpai" in window && window.senpai.enabled() && API.getUser().role >= 2;
@@ -34,7 +35,10 @@
 			if(!window.kouhai.enabled())
 				return;
 			window.kouhai.timeout = false;
-			window.kouhai.youtubeCheck(API.getMedia(), API.getDJ());
+			var media = API.getMedia();
+			if(window.kouhai.badWords.test(media.author) || window.kouhai.badWords.test(media.title))
+				window.chatalert.show('icon-volume-half', 'Possible bad song', 'This title has a banned word in it.', 'ffd200', 'kouhai');
+			window.kouhai.youtubeCheck(media, API.getDJ());
 		},
 		youtubeCheck: function(media, dj)
 		{
