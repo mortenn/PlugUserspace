@@ -26,6 +26,11 @@
 			window.freshy.waitFor('settings', function() { window.settings.setDefaults('kouhai', defaults); });
 			window.freshy.systemLoaded('kouhai');
 		},
+		save: function()
+		{
+			window.settings.configuration.kouhai = window.kouhai.config.values;
+			window.settings.saveConfiguration();
+		},
 		advance: function(value)
 		{
 			if(!window.kouhai.enabled())
@@ -168,6 +173,7 @@
 			set: function(config, value)
 			{
 				window.kouhai.config.values[config.name] = value;
+				window.kouhai.save();
 			}
 		},
 		onChatCommand: function(value) {
