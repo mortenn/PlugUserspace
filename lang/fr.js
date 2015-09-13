@@ -129,5 +129,7 @@
 	"RCS": "RCS",
 
 	"Playlist checked": "Liste de lecture vérifiée",
-	"{playlist} has been checked.": "{playlist} a été vérifiée"
+	"{playlist} has been checked.": "{playlist} a été vérifiée",
+
+	"Played within 30 days.": "Entendu durant les 30 derniers jours."
 }

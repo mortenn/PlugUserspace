@@ -7,5 +7,5 @@
 	window.freshy.currentVersion('settings', 72);
 	window.freshy.currentVersion('senpai', 135);
 	window.freshy.currentVersion('cubicle', 45);
-	window.freshy.currentVersion('babelfish', 26);
+	window.freshy.currentVersion('babelfish', 27);
 })();
