@@ -7,6 +7,7 @@
 	};
 	var kouhai = {
 		badWords: /ful+i/,
+		forceShow: false,
 		enabled: function()
 		{
 			return "senpai" in window && window.senpai.enabled() && API.getUser().role >= 2;
@@ -116,6 +117,11 @@
 				showReport = true;
 				icon = 'icon-volume-on';
 			}
+			if(window.kouhai.forceShow)
+			{
+				window.kouhai.forceShow = false;
+				showReport = true;
+			}
 
 			if(showReport)
 				window.chatalert.show(icon, 'Kouhai DJ report', report, '00d2ff', 'kouhai');
@@ -168,6 +174,7 @@
 			if(!window.kouhai.enabled()) return;
 			if(value == "/report")
 			{
+				window.kouhai.forceShow = true;
 				if(window.kouhai.timeout)
 					clearTimeout(window.kouhai.timeout);
 				window.kouhai.startCheck();
