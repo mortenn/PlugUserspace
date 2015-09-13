@@ -138,6 +138,17 @@
 				skip: false,
 				play: 'Ongaku asobi janai!'
 			},
+			month: {
+				brief: function(){ return window.senpai.messages.ok.brief(); },
+				title: function(){ return _('Played within 30 days.'); },
+				full: function(r){ return window.senpai.messages.ok.full(r); },
+				kouhai: function(){ return false; },
+				kouhaiPlay: false,
+				type: 'manual-only',
+				popup: false,
+				category: 'softwarning',
+				skip: false,
+			},
 			ok: {
 				brief: function(){ return _('Seems OK, but check rules.'); },
 				title: function(){ return _('Looks good'); },
@@ -344,6 +355,7 @@
 			if(result.o == 1 || result.oa1 > 0) return window.senpai.messages.overplayed;
 			if(result.t == 1) return window.senpai.messages.today;
 			if(result.w == 1) return window.senpai.messages.week;
+			if(result.m == 1) return window.senpai.messages.month;
 
 			if(result.b !== 1 && result.o == 0 && result.t == 0 && result.w != 1)
 				return window.senpai.messages.ok;
@@ -365,6 +377,9 @@
 
 			if(verdict.category == 'information')
 				window.chatalert.show('icon-volume-off', verdict.title(result), verdict.full(result), 'aa74ff', 'senpai');
+
+			if(verdict.category == 'softwarning')
+				window.chatalert.show('icon-volume-off', verdict.title(result), verdict.full(result), 'f3e115', 'senpai');
 
 			else if(verdict.category == 'warning')
 				window.chatalert.show('icon-volume-half', verdict.title(result), verdict.full(result), 'ffdd6f', 'senpai');

@@ -129,5 +129,7 @@
 	"RCS": "RCS",
 
 	"Playlist checked": "Spilleliste sjekket",
-	"{playlist} has been checked.": "{playlist} har blitt sjekket."
+	"{playlist} has been checked.": "{playlist} har blitt sjekket.",
+
+	"Played within 30 days.": "Spilt for mindre enn 30 dager siden."
 }

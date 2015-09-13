@@ -129,5 +129,7 @@
 	"RCS": "RCS",
 
 	"Playlist checked": "",
-	"{playlist} has been checked.": ""
+	"{playlist} has been checked.": "",
+
+	"Played within 30 days.": ""
 }
