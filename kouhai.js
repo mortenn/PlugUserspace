@@ -20,6 +20,8 @@
 		},
 		startup: function()
 		{
+			var defaults = window.kouhai.config.values;
+			window.freshy.waitFor('settings', function() { window.settings.setDefaults('kouhai', defaults); });
 			window.freshy.systemLoaded('kouhai');
 		},
 		advance: function(value)
@@ -78,6 +80,14 @@
 				return;
 			if (result == false || result.id != API.getMedia().cid)
 				return;
+			var showReport = true;
+			if(window.kouhai.config.values.mode == 'off')
+				showReport = false;
+			if(window.kouhai.config.values.mode == 'link' && result.alt < 1)
+				showReport = false;
+			if(window.kouhai.config.values.mode == 'new' && result.alt >= 1)
+				showReport = false;
+
 			var report = result.title ? result.title : media.title;
 			report += '<br>' + (result.ln == 0 ? 'This is the first time!' : 'Played '+result.ln+' times.');
 			report += '<br>DJ: '+dj.username;
@@ -99,9 +109,13 @@
 			var verdict = window.senpai.getVerdict(result);
 			var message = verdict.kouhai(result);
 			if(message)
+			{
 				report += '<br><br><span style="color:red">'+message+'</span>';
+				showReport = true;
+			}
 
-			window.chatalert.show('icon-volume-off', 'Kouhai DJ report', report, '00d2ff', 'kouhai');
+			if(showReport)
+				window.chatalert.show('icon-volume-off', 'Kouhai DJ report', report, '00d2ff', 'kouhai');
 
 			if((verdict.popup && verdict.kouhaiPlay) || (result.oa1 > 0 && result.n > 0 && result.s > 0))
 				window.soundbank.play('Master');
@@ -115,7 +129,38 @@
 				return;
 			window.chatalert.show('icon-volume-off', title, message, '00d2ff', 'kouhai');
 		},
-		timeout: false
+		timeout: false,
+		configure: function(data)
+		{
+			window.kouhai.config.values = data;
+		},
+		config: 
+		{
+			values: { mode: 'on' },
+			get: function()
+			{
+				return [
+					{
+						title: 'Kouhai DJ Reports',
+						type: 'right',
+						options: [
+							{ type: 'select', name: 'mode', value: window.kouhai.config.values.mode,
+								options: [
+									{value:'on', label:'Show always'},
+									{value:'off', label:'Show never'},
+									{value:'link', label:'Show for known only'},
+									{value:'new', label:'Show for unknown only'}
+								]
+							}
+						]
+					}
+				]; 
+			},
+			set: function(config, value)
+			{
+				window.kouhai.config.values[config.name] = value;
+			}
+		}
 	};
 
 	if(!("kouhai" in window))
