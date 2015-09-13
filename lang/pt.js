@@ -73,7 +73,7 @@
 	"Out of the last 6 turns, {username} played \"{title}\" {number} of them.":
 	"Dos seus últimos 6 turnos, {username} tocou \"{title}\" {number} destes",
 
-	"Overplayed": "Tocada demais",
+	"Overplayed": "Excessivamente tocada",
 	"Your next song is overplayed, please choose a different song.": "Sua próxima música é tocada demais, por favor escolha uma música diferente",
 	"This song is overplayed -_-;": "Sua música é tocada demais -_-;",
 
@@ -104,17 +104,17 @@
 	"It's your turn!": "É o seu turno",
 	"Make us proud!": "Deixe nos orgulhoso!",
 	"SenpaiScript loaded.": "SenpaiScript carregado",
-	"Type /check to check your song!": "Escreva /verificar para verificar sua música",
+	"Type /check to check your song!": "Escreva /check para verificar sua música",
 
 	"Not Enjoyable": "Não agradável",
 	"No Japanese Lyrics and not from Japanese Anime": "Sem letra Japonesa ou não é de um anime Japonês",
 	"Only play one song per turn": "Toque apenas uma música por turno",
 	"Private video": "Vídeo privado",
-	"Low Quality": "Baixa qualidade",
+	"Low Quality": "Qualidade Baixa",
 	"Video not found": "Vídeo não achado",
 	"AMV": "AMV",
 	"NSFW (Against Terms of Service": "Material pejorativo (Contra os termos de Serviço)",
-	"Not available": "Não disponível",
+	"Not available": "Indisponível",
 	"Extended/Looped": "Extendida/Em loop",
 
 	"Loaded stable version": "Versão estável carregada",
