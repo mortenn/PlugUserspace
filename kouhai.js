@@ -150,8 +150,8 @@
 								options: [
 									{value:'on', label:'Show always'},
 									{value:'off', label:'Show never'},
-									{value:'link', label:'Show for known only'},
-									{value:'new', label:'Show for unknown only'}
+									{value:'link', label:'Show for linked only'},
+									{value:'new', label:'Show for unlinked only'}
 								]
 							}
 						]
