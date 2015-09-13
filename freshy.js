@@ -10,7 +10,7 @@
 			stable: 'i.animemusic.me/PlugUserspace',
 			beta: 'plug.runsafe.no/beta'
 		},
-		channel: 'beta',
+		channel: 'stable',
 		systems: { freshy: 54 },
 		failure: {},
 		loaded: {},
