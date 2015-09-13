@@ -150,7 +150,9 @@
 			{
 				var verdict = window.senpai.getVerdict(playlist[i]);
 				if(playlist[i] && "id" in playlist[i])
+				{
 					window.multipass.pushCache(mediamap[playlist[i].id], playlist[i], verdict, mediamap[playlist[i].id]);
+				}
 				$('#media-panel .row .senpai').remove();
 			}
 			window.chatalert.show('icon-volume-off', _('Playlist checked'), _('{playlist} has been checked.').replace('{playlist}', pl.name), 'aa74ff', 'senpai');
@@ -159,12 +161,19 @@
 		{
 			if(result.id in window.senpai.cache && window.senpai.cache[result.id].result.override && !result.override)
 				return;
+			var message = '';
+			if(verdict)
+				message = verdict.brief(result);
+			if(result.o2 > -1)
+				message += '(o2: '+result.o2+')';
+			if(result.alt)
+				message += '(v: '+result.alt+')';
 			window.senpai.cache[result.id] =
 			{
 				checked: Date.now(),
 				verdict: verdict,
 				result: result,
-				message: verdict.brief(result),
+				message: message,
 				media: media
 			};
 			$('span[senpai-media-id="'+result.id+'"]').remove();

@@ -370,6 +370,7 @@
 			window.senpai.cache[media.id].result = result;
 			window.senpai.cache[media.id].verdict = verdict;
 			window.senpai.cache[media.id].message = verdict.brief(result);
+
 			$('span[senpai-media-id="'+media.id+'"]').remove();
 
 			if(verdict.type == 'manual-only' && window.senpai.pos !== undefined)

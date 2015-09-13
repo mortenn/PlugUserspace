@@ -126,5 +126,10 @@
 	"All settings": "Todas as configurações",
 	"Load extension": "Carregar extensões",
 	"Plug³": "Plug³",
-	"RCS": "RCS"
+	"RCS": "RCS",
+
+	"Playlist checked": "Playlist verificada",
+	"{playlist} has been checked.": "{playlist} foi verificada",
+
+	"Played within 30 days.": "Tocada nos últimos 30 dias"
 }

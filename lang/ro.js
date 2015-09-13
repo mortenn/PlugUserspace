@@ -120,4 +120,12 @@
 	"Loaded stable version": "Versiune stabilă încărcată",
 	"Userspace addons loaded": "Plugin-urile userspace încărcate",
 	"Type /conf to access user addon settings": "Tastează /conf pentru a accesa setările de plugin"
+/*
+	"Reset configuration": "Tilbakestill konfigurasjon",
+	"Userspace settings": "Innstillinger for brukerutvidelser",
+	"All settings": "Alle innstillinger",
+	"Load extension": "Last utvidelse",
+	"Plug³": "Plug³",
+	"RCS": "RCS"
+*/
 }
