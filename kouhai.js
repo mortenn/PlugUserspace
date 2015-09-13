@@ -14,6 +14,7 @@
 		setup: function()
 		{
 			API.on(API.ADVANCE, function(value){ window.kouhai.advance(value); });
+			API.on(API.CHAT_COMMAND, function(e){ window.kouhai.onChatCommand(e); });
 			window.freshy.waitFor('chatalert', function(){
 				window.kouhai.showAlert(_('Kouhai on alert.'), _('Keeping an eye out for you, senpai!'));
 			});
@@ -162,7 +163,16 @@
 			{
 				window.kouhai.config.values[config.name] = value;
 			}
-		}
+		},
+		onChatCommand: function(value) {
+			if(!window.kouhai.enabled()) return;
+			if(value == "/report")
+			{
+				if(window.kouhai.timeout)
+					clearTimeout(window.kouhai.timeout);
+				window.kouhai.startCheck();
+			}
+		},
 	};
 
 	if(!("kouhai" in window))
