@@ -108,14 +108,16 @@
 
 			var verdict = window.senpai.getVerdict(result);
 			var message = verdict.kouhai(result);
+			var icon = 'icon-volume-off';
 			if(message)
 			{
 				report += '<br><br><span style="color:red">'+message+'</span>';
 				showReport = true;
+				icon = 'icon-volume-on';
 			}
 
 			if(showReport)
-				window.chatalert.show('icon-volume-off', 'Kouhai DJ report', report, '00d2ff', 'kouhai');
+				window.chatalert.show(icon, 'Kouhai DJ report', report, '00d2ff', 'kouhai');
 
 			if((verdict.popup && verdict.kouhaiPlay) || (result.oa1 > 0 && result.n > 0 && result.s > 0))
 				window.soundbank.play('Master');
