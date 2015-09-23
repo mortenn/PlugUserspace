@@ -8,4 +8,5 @@
 	window.freshy.currentVersion('senpai', 135);
 	window.freshy.currentVersion('cubicle', 45);
 	window.freshy.currentVersion('babelfish', 29);
+	window.freshy.currentVersion('socialite', 12);
 })();
