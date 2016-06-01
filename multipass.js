@@ -164,8 +164,6 @@
 			var message = '';
 			if(verdict)
 				message = verdict.brief(result);
-			if(result.o2 > -1)
-				message += '(o2: '+result.o2+')';
 			if(result.alt)
 				message += '(v: '+result.alt+')';
 			window.senpai.cache[result.id] =
