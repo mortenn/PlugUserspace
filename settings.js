@@ -27,6 +27,7 @@
 			if("localStorage" in window && window.localStorage != null)
 			{
 				if('Userspace-Config' in window.localStorage && window.localStorage['Userspace-Config'])
+				{
 					try
 					{
 						window.settings.configuration = JSON.parse(window.localStorage['Userspace-Config']);
@@ -36,6 +37,11 @@
 						console.log(e);
 						window.settings.configuration = {};
 					}
+				}
+				else
+				{
+					setTimeout(function(){ window.settings.open(); }, 5000); // Open settings on first time load
+				}
 				for(system in window.settings.defaults)
 					if(!(system in window.settings.configuration))
 						window.settings.configuration = JSON.parse(JSON.stringify(window.settings.defaults[system]));
