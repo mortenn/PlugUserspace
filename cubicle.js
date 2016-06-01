@@ -8,7 +8,7 @@
 	var cubicle = {
 		load: function()
 		{
-			var defaults = { extension: '' };
+			var defaults = { extension: 'p3' };
 			window.freshy.waitFor('settings', function() { window.settings.setDefaults('cubicle', defaults); });
 			window.freshy.systemLoaded('cubicle');
 		},
@@ -67,7 +67,7 @@
 			if(window.cubicle.config.values.extension == 'p3')
 			{
 				console.log('Activate p3');
-				$.getScript('https://d1rfegul30378.cloudfront.net/files/plugCubed.js');
+				$.getScript('https://plugcubed.net/scripts/release/plugCubed.js');
 			}
 		}
 	};
