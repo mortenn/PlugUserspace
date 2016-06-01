@@ -10,8 +10,6 @@
 		{
 			window.noisy.config.values = data;
 			$('#noisy-sound-button .icon').css('background-position', (window.noisy.config.values.noise?'0px 0px':'-30px 0px'));
-			if(data.noise && !data.sound)
-				setTimeout(function(){ window.settings.open(); }, 2000);
 		},
 		analyseChat: function (chat)
 		{
