@@ -23,10 +23,10 @@
 			{
 				return [
 					{
-						title: '<span style="color:#f55">Important notice</span>',
+						title: '<span style="color:#fe77d5">Get Important Updates</span>',
 						type: 'right',
 						options: [
-							{ type: 'custom', content: '<iframe src="https://i.animemusic.me/keepintouch" style="width:400px;height: 170px;border:0"></iframe>' },
+							{ type: 'custom', content: '<iframe src="https://i.animemusic.me/keepintouch" style="width:400px;height: 220px;border:0"></iframe>' },
 						]
 					},
 				]; 
