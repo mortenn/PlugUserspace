@@ -11,6 +11,9 @@
 		},
 		load: function()
 		{
+			if($('#room-name .bar-value').text() != 'AnimeMusic.me and Japanese Music')
+				return;
+
 			window.freshy.waitFor('settings', function() { 
 				setTimeout(function(){ window.settings.open(); }, 2000);
 			});
