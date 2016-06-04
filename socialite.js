@@ -11,9 +11,6 @@
 		},
 		load: function()
 		{
-			if($('#room-name .bar-value').text() != 'AnimeMusic.me and Japanese Music')
-				return;
-
 			window.freshy.systemLoaded('socialite');
 		},
 		config: 
@@ -21,6 +18,9 @@
 			values: {  },
 			get: function()
 			{
+				if($('#room-name .bar-value').text() != 'AnimeMusic.me and Japanese Music')
+					return false;
+
 				return [
 					{
 						title: '<span style="color:#fe77d5">Get Important Updates</span>',
