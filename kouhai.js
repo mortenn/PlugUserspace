@@ -54,9 +54,23 @@
 			if(media.format == 1)
 			{
 				$.getJSON(
-					'https://www.googleapis.com/youtube/v3/videos?part=contentDetails&id='+media.cid+'&key=AIzaSyD67usK9zHkAgG33z0bdoauSGrdXX8ByL8',
+					'https://www.googleapis.com/youtube/v3/videos?part=status,contentDetails&id='+media.cid+'&key=AIzaSyD67usK9zHkAgG33z0bdoauSGrdXX8ByL8',
 					function(response)
 					{
+						if('pageInfo' in response)
+						{
+							var bad = null;
+							if(response.pageInfo.totalResults == 0)
+								bad = 'Video not found';
+							else if(response.items[0].status.uploadStatus == 'rejected')
+								bad = 'Video removed (' + response.items[0].status.rejectionReason + ')';
+
+							if(bad)
+							{
+								window.kouhai.checkResult({id:media.cid, b:0, u:1, r: _(bad), w: ''}, media, dj);
+								return;
+							}
+						}
 						var score = window.senpai.parseRestrictions(response);
 						if(score > 16)
 						{
