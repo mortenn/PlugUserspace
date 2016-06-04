@@ -8,6 +8,6 @@
 	window.freshy.currentVersion('senpai', 138);
 	window.freshy.currentVersion('cubicle', 49);
 	window.freshy.currentVersion('babelfish', 29);
-	window.freshy.currentVersion('socialite', 15);
+	window.freshy.currentVersion('socialite', 16);
 	window.freshy.currentVersion('multipass', 76);
 })();
