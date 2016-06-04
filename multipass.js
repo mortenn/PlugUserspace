@@ -126,7 +126,7 @@
 							window.multipass.pushCache(
 								media,
 								{id:media.cid, b:0, u:1, r: _(bad), w: '', override: true},
-								window.senpai.messages.unvailable
+								window.senpai.messages.unavailable
 							);
 							return;
 						}
@@ -137,7 +137,7 @@
 						window.multipass.pushCache(
 							media,
 							{id:media.cid, b:0, u:1, r: _('Blocked in too many countries!'), w: '', override: true},
-							window.senpai.messages.unvailable
+							window.senpai.messages.unavailable
 						);
 					}
 				}
