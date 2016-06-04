@@ -321,13 +321,14 @@
 					}
 				).fail(function(e){ window.senpai.checkResult({id:media.cid, b:0, u:1, r: e.responseJSON.error.message}); }, media);
 			else if(media.format == 2)
-				SC.get('/tracks/'+media.cid+'.json', function(response)
-				{
-					if("errors" in response)
-						window.senpai.checkResult({id:media.cid, b:0, u:1, r:response.errors[0].error_message, w:''}, media);
-					else
-						window.senpai.continueCheck(media);
-				});
+				SC.get('/tracks/'+media.cid).then(
+					function(response) { window.senpai.continueCheck(media); }
+				).catch(
+					function(error)
+					{
+						window.senpai.checkResult({id:media.cid, b:0, u:1, r:error.message, w:''}, media);
+					}
+				);
 			else
 				console.log(media);
 		},
@@ -365,13 +366,13 @@
 			if(result.u == 1) return window.senpai.messages.unavailable;
 			if(result.b == 1) return window.senpai.messages.banned;
 			if(result.rp > 0) return window.senpai.messages.toosoon;
-			if(result.o == 1 && result.s == 0) return window.senpai.messages.overplayedgrace;
-			if(result.o == 1 || result.oa1 > 0) return window.senpai.messages.overplayed;
+			if(result.o2 > 5 && result.s == 0) return window.senpai.messages.overplayedgrace;
+			if(result.o2 > 5) return window.senpai.messages.overplayed;
 			if(result.t == 1) return window.senpai.messages.today;
 			if(result.w == 1) return window.senpai.messages.week;
 			if(result.m == 1) return window.senpai.messages.month;
 
-			if(result.b !== 1 && result.o == 0 && result.t == 0 && result.w != 1)
+			if(result.b !== 1 && result.o2 <= 5 && result.t == 0 && result.w != 1)
 				return window.senpai.messages.ok;
 
 			return window.senpai.messages.error;

@@ -152,15 +152,16 @@
 		},
 		soundcloudCheck: function(media)
 		{
-			SC.get('/tracks/'+media.cid+'.json', function(response)
-			{
-				if("errors" in response)
+			SC.get('/tracks/'+media.cid).catch(
+				function(error)
+				{
 					window.multipass.pushCache(
 						media,
-						{id:media.cid, b:0, u:1, r:_(response.errors[0].error_message), override: true, w:''},
+						{id:media.cid, b:0, u:1, r:_(error.message), override: true, w:''},
 						window.senpai.messages.unavailable
 					);
-			});
+				}
+			);
 		},
 		onMediaChecked: function(playlist, mediamap, pl)
 		{

@@ -82,14 +82,15 @@
 				).fail(function(e){ window.kouhai.checkResult({id:media.cid, b:0, u:1, r: e.responseJSON.error.message}); }, media, dj);
 			}
 			else if(media.format == 2)
-				SC.get('/tracks/'+media.cid+'.json', function(response)
-				{
-					if("errors" in response)
+				SC.get('/tracks/'+media.cid+'.json')
+				.then(
+					function(response) { window.kouhai.continueCheck(media, dj); }
+				).catch(
+					function(error)
 					{
-						window.kouhai.checkResult({id:media.cid, b:0, u:1, r:_(response.errors[0].error_message), override: true, w:''}, media, dj);
+						window.kouhai.checkResult({id:media.cid, b:0, u:1, r:_(error.message), override: true, w:''}, media, dj);
 					}
-					window.kouhai.continueCheck(media, dj);
-				});
+				);
 		},
 		continueCheck: function(media, dj)
 		{
