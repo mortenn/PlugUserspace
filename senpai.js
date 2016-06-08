@@ -304,6 +304,8 @@
 								bad = 'Video not found';
 							else if(response.items[0].status.uploadStatus == 'rejected')
 								bad = 'Video removed (' + response.items[0].status.rejectionReason + ')';
+							else if(!response.items[0].status.embeddable)
+								bad = 'Video not embeddable';
 
 							if(bad)
 							{
