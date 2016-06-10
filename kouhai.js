@@ -130,7 +130,7 @@
 				report += result.lr ? '<span style="color:red">'+result.ls+'</span>' : result.ls;
 			}
 
-			var verdict = window.senpai.getVerdict(result);
+			var verdict = window.senpai.getVerdict(result, media);
 			var message = verdict.kouhai(result);
 			var icon = 'icon-volume-off';
 			if(message)

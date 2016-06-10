@@ -149,6 +149,22 @@
 				category: 'softwarning',
 				skip: false,
 			},
+			nightcore: {
+				brief: function(){ return _('Likely nightcore, which is against rules!'); },
+				title: function(){ return _('Nightcore'); },
+				full: function(r)
+				{
+					return _('This version of your song has "nightcore" in the author/title.<br>'+
+						'Nightcore is banned in this room.<br>'+
+						'<a target="_new" href="http://s.AnimeMusic.me/plug-guide">Please refer to our room guide.</a>');
+				},
+				kouhai: function() { return _('Nightcore in track name!'); },
+				kouhaiPlay: true,
+				type: 'always',
+				popup: true,
+				category: 'error',
+				skip: true
+			},
 			ok: {
 				brief: function(){ return _('Seems OK, but check rules.'); },
 				title: function(){ return _('Looks good'); },
@@ -359,7 +375,7 @@
 			window.senpai.parseResult(result, media);
 			window.senpai.tagNextMedia();
 		},
-		getVerdict: function(result)
+		getVerdict: function(result, media)
 		{
 			if(!window.senpai.enabled()) return;
 
@@ -374,6 +390,13 @@
 			if(result.w == 1) return window.senpai.messages.week;
 			if(result.m == 1) return window.senpai.messages.month;
 
+			if(media)
+			{
+				var nc = /nightcore/i;
+				if(nc.test(media.author) || nc.test(media.title))
+					return window.senpai.messages.nightcore;
+			}
+
 			if(result.b !== 1 && result.o2 <= 5 && result.t == 0 && result.w != 1)
 				return window.senpai.messages.ok;
 
@@ -383,7 +406,7 @@
 		{
 			if(!window.senpai.enabled()) return;
 			window.senpai.cache[media.id] = { checked: Date.now(), result: result, message: '', media: media };
-			var verdict = window.senpai.getVerdict(result);
+			var verdict = window.senpai.getVerdict(result, media);
 			window.senpai.cache[media.id].result = result;
 			window.senpai.cache[media.id].verdict = verdict;
 			window.senpai.cache[media.id].message = verdict.brief(result);
