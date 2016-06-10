@@ -119,7 +119,7 @@
 			if(result.alt)
 				report += '<br><a href="http://i.animemusic.me/animemusic/alts.php?id=' + result.a + '" target="_new">' + result.alt + ' known versions</a>';
 			else
-				report += '<br><a href="http://i.animemusic.me/animemusic/link.php?f[]=' + encodeURIComponent(media.author) + '&f[]='+encodeURIComponent(media.title) + '" target="_new">Link this song now</a>';
+				report += '<br><a href="http://i.animemusic.me/animemusic/link.php?f=' + encodeURIComponent(media.title) + '" target="_new">Link this song now</a>';
 			if(result.o2 > -1)
 				report += '<br>Overplayed2 score: ' + result.o2;
 			if(result.oa1 > 0)
