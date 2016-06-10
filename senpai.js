@@ -274,6 +274,11 @@
 		manualCheck: function() {
 			if(!window.senpai.enabled()) return;
 			var nextSong = API.getNextMedia();
+			if(!nextSong)
+			{
+				window.chatalert.show('icon-volume-off', _('Make a playlist first'), _('You do not have a song lined up, so nothing to check!'), 'aa74ff', 'senpai');
+				return;
+			}
 			songID = nextSong.media.cid;
 			window.senpai.pos = undefined;
 			window.senpai.startCheck(nextSong.media);
