@@ -495,17 +495,18 @@
 					if(!data)
 						console.log('Unable to locate data for soundcloud track ' + author + ' - ' + title);
 				}
-				if(!data && "multipass" in window)
+				if(!data && "multipass" in window && window.senpai.getCurrentPlaylist() in window.multipass.checked)
 					data = { message: '<em style="padding-right:5px;color:orange">'+_('Unknown status')+'</em>', result: { w: '' }, verdict: { skip: false } };
 
 				var message = data.message;
-				if(data.verdict.skip)
+				if(data && data.verdict.skip)
 					message = '<em style="padding-right:5px;color:red">'+message+'</em>';
 
-				if(data.result.w.length > 8)
+				if(data && data.result.w.length > 8)
 					message += ' <span style="display:inline;position:static;font-size:8px;color:#aaa !important">('+data.result.w+')</span>';
 				
-				row.prepend($('<span class="senpai" senpai-media-id="'+id+'" style="top:0px">Senpai says: ' + message + '</span>'));
+				if(message)
+					row.prepend($('<span class="senpai" senpai-media-id="'+id+'" style="top:0px">Senpai says: ' + message + '</span>'));
 			}
 		},
 		tagNextMedia: function()

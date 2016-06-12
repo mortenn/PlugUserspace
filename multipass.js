@@ -31,6 +31,7 @@
 				if(window.multipass.playlists.data[i].active)
 				{
 					window.multipass.plEnqueue(window.multipass.playlists.data[i]);
+					window.multipass.checked[window.multipass.playlists.data[i].name] = true;
 					return;
 				}
 		},
@@ -87,6 +88,7 @@
 			window.multipass.checkPlaylist(next);
 		},
 		queue: [],
+		checked: {},
 		worker: false,
 		enqueue: function(media)
 		{
