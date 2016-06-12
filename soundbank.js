@@ -179,7 +179,7 @@
 				{
 					var name = window.soundbank.config.values.sounds[i].name;
 					if(name in window.soundbank.loadedSounds)
-						window.soundbank.loadedSounds[name].volume = (window.soundbank.values.sounds[i].volume / 100.0) * (window.soundbank.config.values.volume / 100.0);
+						window.soundbank.loadedSounds[name].volume = (window.soundbank.config.values.sounds[i].volume / 100.0) * (window.soundbank.config.values.volume / 100.0);
 				}
 			},
 			getCustomForm: function()
