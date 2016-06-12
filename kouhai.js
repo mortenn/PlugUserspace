@@ -16,6 +16,7 @@
 		{
 			API.on(API.ADVANCE, function(value){ window.kouhai.advance(value); });
 			API.on(API.CHAT_COMMAND, function(e){ window.kouhai.onChatCommand(e); });
+			$('#waitlist-button').on('click', window.kouhai.onWaitlist);
 			window.freshy.waitFor('chatalert', function(){
 				window.kouhai.showAlert(_('Kouhai on alert.'), _('Keeping an eye out for you, senpai!'));
 			});
@@ -242,6 +243,32 @@
 				window.kouhai.senpaiReport(user);
 			}
 		},
+		onWaitlist: function() {
+			setTimeout(window.kouhai.pollWaitlist, 1000);
+		},
+		pollWaitlist: function() {
+			var users = $('#waitlist div.user');
+			if(users.length == 0)
+				return;
+			if(users.find('.kouhai').length < users.length)
+				for(var i = 0; i < users.length; ++i)
+					window.kouhai.checkWaitlistUser($(users[i]));
+			setTimeout(window.kouhai.pollWaitlist, 1000);
+		},
+		checkWaitlistUser: function(user)
+		{
+			$.getJSON(
+				'https://i.animemusic.me/animemusic/check.php?dj=' + user.attr('data-uid') + '&source=kouhai&report=senpai',
+				function(r)
+				{
+					var position = user.find('.position');
+					position.addClass('kouhai');
+					var ok = r && r.lastCheck;
+					position.css('color', r.ok?'green' : (ok?'yellow':'red'));
+					position.attr('title', ok ? r.lastCheck : 'n/a');
+				}
+			);
+		}
 	};
 
 	if(!("kouhai" in window))
