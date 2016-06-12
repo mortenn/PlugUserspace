@@ -129,6 +129,10 @@
 				report += '<br>' + (result.oa1 > 1 ? 'Known version last played' : 'Last played') + ' ';
 				report += result.lr ? '<span style="color:red">'+result.ls+'</span>' : result.ls;
 			}
+			if(result.lc)
+				report += '<br>Used senpai ' + result.lc;
+			else
+				report += '<br>Not used senpai';
 
 			var verdict = window.senpai.getVerdict(result, media);
 			var message = verdict.kouhai(result);
@@ -193,6 +197,36 @@
 				window.kouhai.save();
 			}
 		},
+		senpaiReport: function(user) {
+			var users = API.getUsers();
+			var userid = false;
+			for(var i = 0; i < users.length; ++i)
+			{
+				if(users[i].username == user)
+				{
+					userid = users[i].id;
+					break;
+				}
+			}
+			if(!userid)
+			{
+				window.chatalert.show('', 'Unknown user', 'I was not able to find a user named "'+user+'"', '00d2ff', 'kouhai');
+				return;
+			}
+			$.getJSON(
+				'https://i.animemusic.me/animemusic/check.php?dj=' + userid + '&source=kouhai&report=senpai',
+				function(r)
+				{
+					if(!r || !r.firstCheck)
+						report = user + ' has never used senpaiscript.';
+					else
+					{
+						report = user + ' has used senpaiscript!<br>First: ' + r.firstCheck + '<br>Last: ' + r.lastCheck;
+					}
+					window.chatalert.show('', 'Senpai usage report', report, '00d2ff', 'kouhai');
+				}
+			);
+		},
 		onChatCommand: function(value) {
 			if(!window.kouhai.enabled()) return;
 			if(value == "/report")
@@ -201,6 +235,11 @@
 				if(window.kouhai.timeout)
 					clearTimeout(window.kouhai.timeout);
 				window.kouhai.startCheck();
+			}
+			if(value.startsWith('/ssc ') || value.startsWith('/sscheck '))
+			{
+				var user = /ssc(heck|) @?(.*)/.exec(value)[2].trim();
+				window.kouhai.senpaiReport(user);
 			}
 		},
 	};
