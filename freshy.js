@@ -11,7 +11,7 @@
 			beta: 'plug.runsafe.no/beta'
 		},
 		channel: 'stable',
-		systems: { freshy: 54 },
+		systems: { freshy: 55 },
 		failure: {},
 		loaded: {},
 		waits: {},
@@ -20,10 +20,24 @@
 
 		host: function() { return window.freshy.channels[window.freshy.channel]; },
 
+		loadScript: function(script)
+		{
+			$.ajax(
+				{ url: 'https://'+window.freshy.host()+'/'+script+'.js', dataType: 'script', timeout: 2000 }
+			).fail(
+				function()
+				{
+					console.log('Channel '+window.freshy.channel+' has failed us, trying other.');
+					window.freshy.channel = window.freshy.channel == 'beta' ? 'stable' : 'beta';
+					window.freshy.loadScript(script);
+				}
+			);
+		},
+
 		versionCheck: function()
 		{
 			for(var i = 0; i < window.freshy.libraries.length; ++i)
-				$.getScript('https://'+window.freshy.host()+'/'+window.freshy.libraries[i]+'.js');
+				window.freshy.loadScript(window.freshy.libraries[i]);
 		},
 
 		reload: function()
@@ -53,7 +67,7 @@
 				};
 				var timer = setTimeout(fail, 10000);
 				window.freshy.waitFor(name, function(){ clearTimeout(timer); });
-				$.getScript('https://'+window.freshy.host()+'/' + name + '.js')
+				window.freshy.loadScript(name);
 			}
 		},
 		loadSettings: function()
