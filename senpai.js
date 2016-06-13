@@ -165,6 +165,22 @@
 				category: 'error',
 				skip: true
 			},
+			fuli: {
+				brief: function(){ return _('Likely looped, which is against rules!'); },
+				title: function(){ return _('Fuli'); },
+				full: function(r)
+				{
+					return _('This version of your song has "fuli" in the author/title.<br>'+
+						'Looped songs are not allowed in this room.<br>'+
+						'<a target="_new" href="http://s.AnimeMusic.me/plug-guide">Please refer to our room guide.</a>');
+				},
+				kouhai: function() { return _('Fuli/Fulli in track name!'); },
+				kouhaiPlay: true,
+				type: 'always',
+				popup: true,
+				category: 'error',
+				skip: true
+			},
 			ok: {
 				brief: function(){ return _('Seems OK, but check rules.'); },
 				title: function(){ return _('Looks good'); },
@@ -400,6 +416,9 @@
 				var nc = /nightcore/i;
 				if(nc.test(media.author) || nc.test(media.title))
 					return window.senpai.messages.nightcore;
+				var fi = /full?i/i;
+				if(fi.test(media.author) || fi.test(media.title))
+					return window.senpai.messages.fuli;
 			}
 
 			if(result.b !== 1 && result.o2 <= 5 && result.t == 0 && result.w != 1)

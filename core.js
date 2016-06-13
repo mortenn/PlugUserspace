@@ -5,7 +5,7 @@
 	window.freshy.currentVersion('noisy', 70);
 	window.freshy.currentVersion('notify', 12);
 	window.freshy.currentVersion('settings', 72);
-	window.freshy.currentVersion('senpai', 151);
+	window.freshy.currentVersion('senpai', 152);
 	window.freshy.currentVersion('cubicle', 49);
 	window.freshy.currentVersion('babelfish', 29);
 	window.freshy.currentVersion('socialite', 16);
