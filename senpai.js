@@ -228,7 +228,6 @@
 		},
 		setup: function()
 		{
-			if(!senpai.enabled()) return;
 			API.on(API.CHAT_COMMAND, function(e){ window.senpai.onChatCommand(e); });
 			API.on(API.ADVANCE, function(e){ window.senpai.advance(e); });
 			$('#room').delegate('#dj-button.is-wait', 'click', function() { window.senpai.onJoinWaitlist(); });
@@ -554,6 +553,7 @@
 			setTimeout(spinFunction, 500);
 		},
 		advance: function(value) {
+			if(!senpai.enabled()) return;
 			window.senpai.pos = API.getWaitListPosition() + 1;
 			var user = API.getUser();
 			var currentdj = value.dj
