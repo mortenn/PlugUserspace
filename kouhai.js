@@ -244,6 +244,7 @@
 			}
 		},
 		onWaitlist: function() {
+			if(!window.kouhai.enabled()) return;
 			setTimeout(window.kouhai.pollWaitlist, 1000);
 		},
 		pollWaitlist: function() {
