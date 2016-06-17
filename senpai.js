@@ -22,7 +22,7 @@
 				{
 					return _('Your next song is not in our systems, please ensure it follows all rules and is not overplayed.<br>'+
 						'Other videos of the same song might be banned.<br>'+
-						'<a target="_new" href="http://s.AnimeMusic.me/plug-guide">Please refer to our room guide.</a>');
+						'<a target="_new" href="http://AnimeMusic.me/guide">Please refer to our room guide.</a>');
 				},
 				kouhai: function(){ return false },
 				kouhaiPlay: false,
@@ -156,7 +156,7 @@
 				{
 					return _('This version of your song has "nightcore" in the author/title.<br>'+
 						'Nightcore is banned in this room.<br>'+
-						'<a target="_new" href="http://s.AnimeMusic.me/plug-guide">Please refer to our room guide.</a>');
+						'<a target="_new" href="http://AnimeMusic.me/guide">Please refer to our room guide.</a>');
 				},
 				kouhai: function() { return _('Nightcore in track name!'); },
 				kouhaiPlay: true,
@@ -172,7 +172,7 @@
 				{
 					return _('This version of your song has "fuli" in the author/title.<br>'+
 						'Looped songs are not allowed in this room.<br>'+
-						'<a target="_new" href="http://s.AnimeMusic.me/plug-guide">Please refer to our room guide.</a>');
+						'<a target="_new" href="http://AnimeMusic.me/guide">Please refer to our room guide.</a>');
 				},
 				kouhai: function() { return _('Fuli/Fulli in track name!'); },
 				kouhaiPlay: true,
@@ -188,7 +188,7 @@
 				{
 					return _('This version of your song is not marked as banned or overplayed, but please double check it.<br>'+
 						'Other videos of the same song might be banned.<br>'+
-						'<a target="_new" href="http://s.AnimeMusic.me/plug-guide">Please refer to our room guide.</a>'+
+						'<a target="_new" href="http://AnimeMusic.me/guide">Please refer to our room guide.</a>'+
 						'<br>Last played: {timestamp}').replace('{timestamp}',r.w);
 				},
 				kouhai: function(){ return false; },
