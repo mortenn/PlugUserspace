@@ -53,7 +53,7 @@
 
 	"Unknown song or alternate version.": "",
 	"Unknown Song/Alternate Version": "",
-	"Your next song is not in our systems, please ensure it follows all rules and is not overplayed.<br>Other videos of the same song might be banned.<br><a target=\"_new\" href=\"http://s.AnimeMusic.me/plug-guide\">Please refer to our room guide.</a>":
+	"Your next song is not in our systems, please ensure it follows all rules and is not overplayed.<br>Other videos of the same song might be banned.<br><a target=\"_new\" href=\"http://AnimeMusic.me/guide\">Please refer to our room guide.</a>":
 		"",
 
 	"Banned": "",
