@@ -28,7 +28,7 @@
 				kouhaiPlay: false,
 				type: 'manual-only',
 				popup: false,
-				category: 'information',
+				category: 'softwarning',
 				skip: false,
 				play: false
 			},
