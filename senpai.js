@@ -404,8 +404,8 @@
 			if(result.u == 1) return window.senpai.messages.unavailable;
 			if(result.b == 1) return window.senpai.messages.banned;
 			if(result.rp > 0) return window.senpai.messages.toosoon;
-			if(result.o2 > 5 && result.s == 0) return window.senpai.messages.overplayedgrace;
-			if(result.o2 > 5) return window.senpai.messages.overplayed;
+			if(result.o > 0 && result.s == 0) return window.senpai.messages.overplayedgrace;
+			if(result.o > 0) return window.senpai.messages.overplayed;
 			if(result.t == 1) return window.senpai.messages.today;
 			if(result.w == 1) return window.senpai.messages.week;
 			if(result.m == 1) return window.senpai.messages.month;
@@ -420,7 +420,7 @@
 					return window.senpai.messages.fuli;
 			}
 
-			if(result.b !== 1 && result.o2 <= 5 && result.t == 0 && result.w != 1)
+			if(result.b !== 1 && result.o < 1 && result.t == 0 && result.w != 1)
 				return window.senpai.messages.ok;
 
 			return window.senpai.messages.error;
