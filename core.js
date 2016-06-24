@@ -10,6 +10,6 @@
 	window.freshy.currentVersion('babelfish', 30);
 	window.freshy.currentVersion('socialite', 16);
 	window.freshy.currentVersion('multipass', 79);
-	//window.freshy.currentVersion('fastmode', 3);
-	//window.freshy.currentVersion('linkify', 4);
+	window.freshy.currentVersion('fastmode', 3);
+	window.freshy.currentVersion('linkify', 4);
 })();

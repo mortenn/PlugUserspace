@@ -15,6 +15,8 @@
 				if(d[i]&&d[i].imgRegex)
 					return s=d[i].sendChat,d[i].sendChat=function(l)
 					{
+						if(l[0] == '/')
+							return s.call(d[i],l);
 						if(/plug.dj\/hummingbird-me$/.test(document.location))
 							Math.max=function(){return 0};
 						try
