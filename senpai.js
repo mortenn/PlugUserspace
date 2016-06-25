@@ -596,6 +596,6 @@
 	}
 	else
 		senpai.cache = window.senpai.cache;
-	senpai.startup();
 	window.senpai = senpai;
+	senpai.startup();
 })();
