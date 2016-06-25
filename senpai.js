@@ -14,6 +14,7 @@
 	}
 
 	var senpai = {
+		colours: { information: 'aa74ff', softwarning: 'f3e115', warning: 'ffdd6f', error: 'c42e3b' },
 		messages: {
 			unknown: {
 				brief: function(){ return _('Unknown song or alternate version.'); },
@@ -291,7 +292,7 @@
 			var nextSong = API.getNextMedia();
 			if(!nextSong)
 			{
-				window.chatalert.show('icon-volume-off', _('Make a playlist first'), _('You do not have a song lined up, so nothing to check!'), 'aa74ff', 'senpai');
+				window.chatalert.show('icon-volume-off', _('Make a playlist first'), _('You do not have a song lined up, so nothing to check!'), window.senpai.colours.information, 'senpai');
 				return;
 			}
 			songID = nextSong.media.cid;
@@ -439,17 +440,13 @@
 			if(verdict.type == 'manual-only' && window.senpai.pos !== undefined)
 				return;
 
-			if(verdict.category == 'information')
-				window.chatalert.show('icon-volume-off', verdict.title(result), verdict.full(result), 'aa74ff', 'senpai');
-
-			if(verdict.category == 'softwarning')
-				window.chatalert.show('icon-volume-off', verdict.title(result), verdict.full(result), 'f3e115', 'senpai');
-
-			else if(verdict.category == 'warning')
-				window.chatalert.show('icon-volume-half', verdict.title(result), verdict.full(result), 'ffdd6f', 'senpai');
-
+			var icon = 'off';
+			if(verdict.category == 'warning')
+				icon = 'half';
 			else if(verdict.category == 'error')
-				window.chatalert.show('icon-volume-on', verdict.title(result), verdict.full(result), 'c42e3b', 'senpai');
+				icon = 'on';
+
+			window.chatalert.show('icon-volume-'+icon, verdict.title(result), verdict.full(result), window.senpai.colours[verdict.category], 'senpai');
 
 			if(verdict.play && window.senpai.pos < 5)
 				window.soundbank.play(verdict.play);
@@ -514,9 +511,11 @@
 						console.log('Unable to locate data for soundcloud track ' + author + ' - ' + title);
 				}
 				if(!data && "multipass" in window && window.senpai.getCurrentPlaylist() in window.multipass.checked)
-					data = { message: '<em style="padding-right:5px;color:orange">'+_('Unknown status')+'</em>', result: { w: '' }, verdict: { skip: false } };
+					data = { message: '<em style="padding-right:5px;">'+_('Unknown status')+'</em>', result: { w: '' }, verdict: { skip: false, category: 'softwarning' } };
 
-				var message = data.message;
+				var message = '';
+				if(data)
+					message = '<span style="display:inline;position:static;color:#'+window.senpai.colours[data.verdict.category]+'">'+data.message+'</span>';
 				if(data && data.verdict.skip)
 					message = '<em style="padding-right:5px;color:red">'+message+'</em>';
 
@@ -572,7 +571,7 @@
 		},
 		showAlert: function(title, message)
 		{
-			window.chatalert.show('icon-volume-off', title, message, 'aa74ff', 'senpai');
+			window.chatalert.show('icon-volume-off', title, message, window.senpai.colours.information, 'senpai');
 		},
 		getCurrentPlaylist: function() { return $('#media-panel .header .title span').text(); },
 		getSelectedPlaylist: function() { return $('#playlist-menu .selected .name').text(); },
