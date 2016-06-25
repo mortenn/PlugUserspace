@@ -486,11 +486,17 @@
 				var icon = row.parent().children('img[src*="i.ytimg.com/vi/"]');
 				if(icon.length == 1)
 				{
-					var id = /i.ytimg.com\/vi\/([^\/]+)\/default.jpg/.exec(icon.attr('src'))[1];
-					if(id in window.senpai.cache && window.senpai.cache[id].message)
-						data = window.senpai.cache[id];
+					var match = /i.ytimg.com\/vi\/([^\/]+)\/h?q?default.jpg/.exec(icon.attr('src'));
+					if(match)
+					{
+						var id = match[1];
+						if(id in window.senpai.cache && window.senpai.cache[id].message)
+							data = window.senpai.cache[id];
+						else
+							console.log('Data not loaded for youtube id ' + id);
+					}
 					else
-						console.log('Data not loaded for youtube id ' + id);
+						console.log('Unable to locate ID from '+icon.attr('src'));
 				}
 				else
 				{
