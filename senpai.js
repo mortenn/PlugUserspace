@@ -521,18 +521,23 @@
 
 				var message = '';
 				if(data)
+				{
 					message = '<span style="display:inline;position:static;color:#'+window.senpai.colours[data.verdict.category]+'">'+data.message+'</span>';
-				if(data && data.verdict.skip)
-					message = '<em style="padding-right:5px;color:red">'+message+'</em>';
+					if(data && data.verdict.skip)
+						message = '<em style="padding-right:5px;color:red">'+message+'</em>';
 
-				if('kouhai' in window && 'o2' in data.result && data.result.o2 > 0)
-					message += ' (OP2='+data.result.o2+')';
+					if('dup' in data.result)
+						message += '<em style="padding-right:5px;color:'+window.senpai.colours.warning+'" title="'+data.result.dup.title+'">Duplicate!</em>';
 
-				if('alt' in data.result && data.result.alt)
-					message += ' <span style="display:inline;position:static;font-size:8px;color:#aaa !important">('+data.result.alt+' versions)</span>';
+					if('kouhai' in window && 'o2' in data.result && data.result.o2 > 0)
+						message += ' (OP2='+data.result.o2+')';
 
-				if(data && data.result.w.length > 8)
-					message += ' <span style="display:inline;position:static;font-size:8px;color:#aaa !important">('+data.result.w+')</span>';
+					if('alt' in data.result && data.result.alt)
+						message += ' <span style="display:inline;position:static;font-size:8px;color:#aaa !important">('+data.result.alt+' versions)</span>';
+
+					if(data && data.result.w.length > 8)
+						message += ' <span style="display:inline;position:static;font-size:8px;color:#aaa !important">('+data.result.w+')</span>';
+				}
 				
 				if(message)
 					row.prepend($('<span class="senpai" senpai-media-id="'+id+'" style="top:0px">Senpai says: ' + message + '</span>'));
