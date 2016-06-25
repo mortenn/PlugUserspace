@@ -185,8 +185,6 @@
 			var message = '';
 			if(verdict)
 				message = verdict.brief(result);
-			if(result.alt)
-				message += '('+result.alt+' alternates)';
 			window.senpai.cache[result.id] =
 			{
 				checked: Date.now(),

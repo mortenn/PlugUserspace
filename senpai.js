@@ -519,6 +519,12 @@
 				if(data && data.verdict.skip)
 					message = '<em style="padding-right:5px;color:red">'+message+'</em>';
 
+				if('kouhai' in window && 'o2' in data.result && data.result.o2 > 0)
+					message += ' (OP2='+data.result.o2+')';
+
+				if('alt' in data.result && data.result.alt)
+					message += ' <span style="display:inline;position:static;font-size:8px;color:#aaa !important">('+data.result.alt+' versions)</span>';
+
 				if(data && data.result.w.length > 8)
 					message += ' <span style="display:inline;position:static;font-size:8px;color:#aaa !important">('+data.result.w+')</span>';
 				
