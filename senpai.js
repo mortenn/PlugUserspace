@@ -586,8 +586,10 @@
 	{
 		window.freshy.waitFor('chatalert', function(){
 			window.freshy.waitFor('babelfish', function(){
-				if(senpai.enabled())
-					senpai.showAlert(_('SenpaiScript loaded.'), _('Type /check to check your song!'));
+				window.freshy.waitFor('senpai', function(){
+					if(window.senpai.enabled())
+						window.senpai.showAlert(_('SenpaiScript loaded.'), _('Type /check to check your song!'));
+				});
 			});
 		});
 		senpai.setup();
