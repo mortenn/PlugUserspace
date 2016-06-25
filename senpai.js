@@ -492,7 +492,7 @@
 						var id = match[1];
 						if(id in window.senpai.cache && window.senpai.cache[id].message)
 							data = window.senpai.cache[id];
-						else
+						else if("multipass" in window && window.senpai.getCurrentPlaylist() in window.multipass.checked)
 							console.log('Data not loaded for youtube id ' + id);
 					}
 					else
@@ -513,7 +513,7 @@
 							data = window.senpai.cache[id];
 							break;
 						}
-					if(!data)
+					if(!data && "multipass" in window && window.senpai.getCurrentPlaylist() in window.multipass.checked)
 						console.log('Unable to locate data for soundcloud track ' + author + ' - ' + title);
 				}
 				if(!data && "multipass" in window && window.senpai.getCurrentPlaylist() in window.multipass.checked)
