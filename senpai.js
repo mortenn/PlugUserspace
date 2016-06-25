@@ -140,7 +140,7 @@
 				play: 'Ongaku asobi janai!'
 			},
 			month: {
-				brief: function(){ return window.senpai.messages.ok.brief(); },
+				brief: function(){ return _('Played within 30 days.'); },
 				title: function(){ return _('Played within 30 days.'); },
 				full: function(r){ return window.senpai.messages.ok.full(r); },
 				kouhai: function(){ return false; },
