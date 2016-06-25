@@ -5,11 +5,11 @@
 	window.freshy.currentVersion('noisy', 70);
 	window.freshy.currentVersion('notify', 12);
 	window.freshy.currentVersion('settings', 72);
-	window.freshy.currentVersion('senpai', 165);
+	window.freshy.currentVersion('senpai', 174);
 	window.freshy.currentVersion('cubicle', 49);
 	window.freshy.currentVersion('babelfish', 30);
 	window.freshy.currentVersion('socialite', 16);
-	window.freshy.currentVersion('multipass', 79);
+	window.freshy.currentVersion('multipass', 81);
 	window.freshy.currentVersion('fastmode', 3);
 	window.freshy.currentVersion('linkify', 4);
 })();
