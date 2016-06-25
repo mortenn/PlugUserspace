@@ -167,8 +167,16 @@
 		},
 		onMediaChecked: function(playlist, mediamap, pl)
 		{
-			for(var i = 0; i <= playlist.length; ++i)
+			var duped = {};
+			for(var i = 0; i < playlist.length; ++i)
 			{
+				if('title' in playlist[i] && playlist[i].title)
+				{
+					if(!(playlist[i].title in duped))
+						duped[playlist[i].title] = playlist[i];
+					else
+						duped[playlist[i].title].dup = playlist[i].dup = duped[playlist[i].title];
+				}
 				var verdict = window.senpai.getVerdict(playlist[i]);
 				if(playlist[i] && "id" in playlist[i])
 				{
