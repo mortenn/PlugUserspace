@@ -8,6 +8,7 @@
 	var kouhai = {
 		badWords: /ful+i/,
 		forceShow: false,
+		media: null,
 		enabled: function()
 		{
 			return "senpai" in window && window.senpai.enabled() && API.getUser().role >= 2;
@@ -46,6 +47,9 @@
 				return;
 			window.kouhai.timeout = false;
 			var media = API.getMedia();
+			if(media.cid == window.kouhai.media)
+				return;
+			window.kouhai.media = media.cid;
 			if(window.kouhai.badWords.test(media.author) || window.kouhai.badWords.test(media.title))
 				window.chatalert.show('icon-volume-half', 'Possible bad song', 'This title has a banned word in it.', 'ffd200', 'kouhai');
 			window.kouhai.youtubeCheck(media, API.getDJ());
