@@ -126,7 +126,7 @@
 			else
 				report += '<br><a href="http://i.animemusic.me/animemusic/suggest.php?f=' + encodeURIComponent(media.title) + '" target="_new">Link this song now</a>';
 			if(result.o2 > -1)
-				report += '<br>Overplayed2 score: ' + result.o2;
+				report += '<br><a href="http://i.animemusic.me/animemusic/opcheck.php?media='+result.id+'" target="_blank">Overplayed2 score: ' + result.o2 + '</a>'; 
 			if(result.oa1 > 0)
 				report += '<br>' + result.oa1 + ' known versions on op list!';
 			if(result.ls)
