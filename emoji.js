@@ -36,11 +36,13 @@
 			var input = target.val();
 			var output = input
 				.replace('/w ','＾ω＾')
-				.replace('/tableflip ','(╯°□°）╯︵ ┻━┻')
-				.replace('/unflip ','┬─┬﻿ ノ( ゜-゜ノ)')
-				.replace('/shrug ','¯\\_(ツ)_/¯')
-				.replace('/lenny ','( ͡° ͜ʖ ͡°)')
-				.replace('/disapproval ','ಠ_ಠ');
+				.replace('/tableflip','(╯°□°）╯︵ ┻━┻')
+				.replace('/unflip','┬─┬﻿ ノ( ゜-゜ノ)')
+				.replace('/shrug','¯\\_(ツ)_/¯')
+				.replace('/lenny','( ͡° ͜ʖ ͡°)')
+				.replace('/disapproval','ಠ_ಠ')
+				.replace('/soon','soon™')
+			;
 			if(output != input)
 				target.val(output);
 		},
