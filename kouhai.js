@@ -50,6 +50,7 @@
 			if(media.cid == window.kouhai.media)
 				return;
 			window.kouhai.media = media.cid;
+			setTimeout(function(){ if(window.kouhai.media == media.cid) window.kouhai.media = null; }, 20000);
 			if(window.kouhai.badWords.test(media.author) || window.kouhai.badWords.test(media.title))
 				window.chatalert.show('icon-volume-half', 'Possible bad song', 'This title has a banned word in it.', 'ffd200', 'kouhai');
 			window.kouhai.youtubeCheck(media, API.getDJ());
