@@ -187,8 +187,8 @@
 				title: function(){ return _('Looks good'); },
 				full: function(r)
 				{
-					return _('This version of your song is not marked as banned or overplayed, but please double check it.<br>'+
-						'Other videos of the same song might be banned.<br>'+
+					return _('This version of your song is not marked as banned or <a href="http://www.animemusic.me/overplayed" target="_blank">overplayed</a>, but please double check it.<br>'+
+						'Other videos of the same song might be banned, or we might have missed linking it.<br>'+
 						'<a target="_new" href="http://AnimeMusic.me/guide">Please refer to our room guide.</a>'+
 						'<br>Last played: {timestamp}').replace('{timestamp}',r.w);
 				},
