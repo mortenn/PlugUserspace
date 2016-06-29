@@ -14,8 +14,17 @@
 				window.freshy.systemLoaded('babelfish');
 		},
 		messages: {},
+		strings: {},
 		translate: function(message)
 		{
+			if(window.babelfish.reportTimeout)
+				clearTimeout(window.babelfish.reportTimeout);
+			window.babelfish.reportTimeout = setTimeout(window.babelfish.report, 10000);
+			if(!(message in window.babelfish.strings))
+				window.babelfish.strings[message] = 1;
+			else
+				window.babelfish.strings[message]++;
+
 			if(window.babelfish.config.values.language == 'en')
 				return message;
 
@@ -32,7 +41,33 @@
 		{
 			var defaults = { language: window.babelfish.validateLanguage(API.getUser().language) };
 			window.freshy.waitFor('settings', function() { window.settings.setDefaults('babelfish', defaults); });
+			$.getJSON(
+				'https://i.animemusic.me/animemusic/tr.php?load=strings',
+				function(strings)
+				{
+					for(var i in strings)
+						window.babelfish.strings[strings[i]] = 0;
+				}
+			);
 		},
+		report: function()
+		{
+			window.babelfish.reportTimeout = false;
+			var report = [];
+			for(var string in window.babelfish.strings)
+				if(window.babelfish.strings[string] > 0)
+				{
+					window.babelfish.strings[string] -= 100;
+					report.push(string);
+				}
+			$.post(
+				'https://i.animemusic.me/animemusic/tr.php',
+				JSON.stringify(report),
+				function(){},
+				'json'
+			);
+		},
+		reportTimeout: false,
 		validateLanguage: function(language)
 		{
 			for(var i=0; i < window.babelfish.config.translations.length; ++i)
