@@ -1,5 +1,5 @@
 (function(){
-	window.freshy.currentVersion('freshy', 55);
+	window.freshy.currentVersion('freshy', 56);
 	window.freshy.currentVersion('soundbank', 97);
 	window.freshy.currentVersion('chatalert', 33);
 	window.freshy.currentVersion('noisy', 70);

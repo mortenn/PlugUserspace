@@ -11,7 +11,7 @@
 			beta: 'plug.runsafe.no/beta'
 		},
 		channel: 'stable',
-		systems: { freshy: 55 },
+		systems: { freshy: 56 },
 		failure: {},
 		loaded: {},
 		waits: {},
@@ -187,7 +187,10 @@
 					window.freshy.waitFor('chatalert', function(){
 						window.chatalert.showInformation(
 							_('Userspace script ' + (window.freshy.loaded[system] ? 'updated' : 'loaded')),
-							_('Loaded ' + window.freshy.channel + ' version')+' '+ window.freshy.systems[system] + ' '+_('of')+' <span style="color:#00d2ff">' + system + '.js</span>'
+							_('Loaded {channel} version {version} of <span style="color:#00d2ff">{system}.js</span>')
+								.replace('{channel}', window.freshy.channel)
+								.replace('{version}', window.freshy.systems[system])
+								.replace('{system}', system)
 						);
 					});
 				});
