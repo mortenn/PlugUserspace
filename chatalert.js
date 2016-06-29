@@ -28,15 +28,23 @@
 			var now = new Date();
 			var hour = now.getHours();
 			var minute = now.getMinutes();
-			var timestamp = JSON.parse(window.localStorage.settings).chatTimestamps;
+			var timestamp = null;
+			var settings = JSON.parse(window.localStorage.settings);
+			var user = API.getUser().id;
+			for(var i in settings)
+				if(user in settings[i])
+				{
+					timestamp = settings[i][user].chatTimestamps * 1;
+					break;
+				}
 			if(minute < 10)
 				minute = '0' + minute;
 			if(timestamp==12)
 			{
 				if(hour >= 12)
-					minute = minute+' PM';
+					minute = minute+' pm';
 				else
-					minute = minute+' AM';
+					minute = minute+' am';
 				if(hour > 12)
 					hour -= 12;
 			}
