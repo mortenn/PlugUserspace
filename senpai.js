@@ -21,7 +21,7 @@
 				title: function(){ return _('Unknown Song/Alternate Version'); },
 				full: function()
 				{
-					return _('Your next song is not in our systems, please ensure it follows all the <a href="http://www.animemusic.me/rules" target="_blank">rules</a> and is not <a href="http://www.animemusic.me/guide" target="_blank">overplayed</a>.<br>'+
+					return _('Your next song is not in our systems, please ensure it follows all the <a href="http://www.animemusic.me/rules" target="_blank">rules</a> and is not <a href="http://www.animemusic.me/overplayed" target="_blank">overplayed</a>.<br>'+
 						'Other versions of the same song might be banned or have been <a href="http://www.animemusic.me/todays-songs" target="_blank">played today</a>.'
 					);
 				},
