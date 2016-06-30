@@ -30,7 +30,11 @@
 
 			if(message in window.babelfish.messages)
 				return window.babelfish.messages[message];
-			console.log(_('Missing translation:') + ' "' + message + '" '+_('in language')+' '+window.babelfish.config.values.language);
+			console.log(
+				_('Missing translation: "{message}" in language {lang}')
+					.replace('{message}', + message)
+					.replace('{lang}', window.babelfish.config.values.language)
+			);
 			return message;
 		},
 		setup: function()
