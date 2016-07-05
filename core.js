@@ -1,13 +1,13 @@
 (function(){
 	window.freshy.currentVersion('freshy', 56);
 	window.freshy.currentVersion('soundbank', 97);
-	window.freshy.currentVersion('chatalert', 33);
+	window.freshy.currentVersion('chatalert', 34);
 	window.freshy.currentVersion('noisy', 70);
 	window.freshy.currentVersion('notify', 12);
 	window.freshy.currentVersion('settings', 72);
 	window.freshy.currentVersion('senpai', 183);
 	window.freshy.currentVersion('cubicle', 49);
-	window.freshy.currentVersion('babelfish', 34);
+	window.freshy.currentVersion('babelfish', 39);
 	window.freshy.currentVersion('socialite', 16);
 	window.freshy.currentVersion('multipass', 85);
 	window.freshy.currentVersion('fastmode', 3);

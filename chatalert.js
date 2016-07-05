@@ -65,5 +65,5 @@
 	};
 
 	window.chatalert = chatalert;
-	window.freshy.systemLoaded('chatalert');
+	window.freshy.waitFor('babelfish', function(){ window.freshy.systemLoaded('chatalert'); });
 })();

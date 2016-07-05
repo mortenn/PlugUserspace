@@ -8,6 +8,7 @@
 	var babelfish = {
 		configure: function(configuration)
 		{
+			configuration.language = API.getUser().language;
 			if(configuration.language != window.babelfish.config.values.language)
 				window.babelfish.loadLanguageFile(configuration.language);
 			else
@@ -30,11 +31,6 @@
 
 			if(message in window.babelfish.messages)
 				return window.babelfish.messages[message];
-			console.log(
-				_('Missing translation: "{message}" in language {lang}')
-					.replace('{message}', + message)
-					.replace('{lang}', window.babelfish.config.values.language)
-			);
 			return message;
 		},
 		setup: function()
@@ -43,8 +39,15 @@
 		},
 		load: function()
 		{
-			var defaults = { language: window.babelfish.validateLanguage(API.getUser().language) };
+			var defaults = { language: null };
 			window.freshy.waitFor('settings', function() { window.settings.setDefaults('babelfish', defaults); });
+			$.getJSON(
+				'https://i.animemusic.me/animemusic/tr.php?load=languages',
+				function(languages)
+				{
+					window.babelfish.config.translations = languages;
+				}
+			);
 			$.getJSON(
 				'https://i.animemusic.me/animemusic/tr.php?load=strings',
 				function(strings)
@@ -86,15 +89,9 @@
 		},
 		loadLanguageFile: function(language)
 		{
-			if(language == 'en')
-			{
-				window.babelfish.messages = {};
-				window.babelfish.config.values.language = language;
-				window.babelfish.save();
-				return;
-			}
+			console.log('Got request to load language file '+language);
 			$.getJSON(
-				'https://'+window.freshy.host()+'/lang/'+language+'.js?_='+(new Date().getTime()),
+				'https://i.animemusic.me/animemusic/tr.php?load=lang&lang='+language+'&_='+(new Date().getTime()),
 				function(messages)
 				{
 					window.babelfish.messages = messages;
@@ -111,14 +108,8 @@
 		},
 		config:
 		{
-			translations: [
-				{ value: 'en', label: 'English' },
-				{ value: 'fr', label: 'Français' },
-				{ value: 'nb', label: 'Norsk (bokmål)' },
-				{ value: 'ro', label: 'Română' },
-				{ value: 'pt', label: 'Português' },
-			],
-			values: { language: 'en' },
+			translations: [],
+			values: { language: null },
 			get: function()
 			{
 				return [{
