@@ -9,7 +9,7 @@
 	window.freshy.currentVersion('cubicle', 49);
 	window.freshy.currentVersion('babelfish', 39);
 	window.freshy.currentVersion('socialite', 16);
-	window.freshy.currentVersion('multipass', 85);
+	window.freshy.currentVersion('multipass', 86);
 	window.freshy.currentVersion('fastmode', 3);
 	window.freshy.currentVersion('linkify', 4);
 	window.freshy.currentVersion('emoji', 9);

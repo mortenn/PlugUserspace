@@ -129,7 +129,7 @@
 						{
 							window.multipass.pushCache(
 								media,
-								{id:media.cid, b:0, u:1, r: _(bad), w: '', override: true},
+								{id:media.cid, b:0, u:1, r: bad, w: '', override: true},
 								window.senpai.messages.unavailable
 							);
 							return;
@@ -140,7 +140,7 @@
 					{
 						window.multipass.pushCache(
 							media,
-							{id:media.cid, b:0, u:1, r: _('Blocked in too many countries!'), w: '', override: true},
+							{id:media.cid, b:0, u:1, r: 'Blocked in too many countries!', w: '', override: true},
 							window.senpai.messages.unavailable
 						);
 					}
@@ -161,7 +161,7 @@
 				{
 					window.multipass.pushCache(
 						media,
-						{id:media.cid, b:0, u:1, r:_(error.message), override: true, w:''},
+						{id:media.cid, b:0, u:1, r:error.message, override: true, w:''},
 						window.senpai.messages.unavailable
 					);
 				}
