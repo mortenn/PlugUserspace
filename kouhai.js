@@ -75,14 +75,14 @@
 
 							if(bad)
 							{
-								window.kouhai.checkResult({id:media.cid, b:0, u:1, r: _(bad), w: ''}, media, dj);
+								window.kouhai.checkResult({id:media.cid, b:0, u:1, r: bad, w: ''}, media, dj);
 								return;
 							}
 						}
 						var score = window.senpai.parseRestrictions(response);
 						if(score > 16)
 						{
-							window.kouhai.checkResult({id:media.cid, b:0, u:1, r: _('Blocked in too many countries!'), w: ''}, media, dj);
+							window.kouhai.checkResult({id:media.cid, b:0, u:1, r: 'Blocked in too many countries!', w: ''}, media, dj);
 							return;
 						}
 						window.kouhai.continueCheck(media, dj);
@@ -96,7 +96,7 @@
 				).catch(
 					function(error)
 					{
-						window.kouhai.checkResult({id:media.cid, b:0, u:1, r:_(error.message), override: true, w:''}, media, dj);
+						window.kouhai.checkResult({id:media.cid, b:0, u:1, r:error.message, override: true, w:''}, media, dj);
 					}
 				);
 		},
