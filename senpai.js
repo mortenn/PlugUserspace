@@ -346,14 +346,14 @@
 
 							if(bad)
 							{
-								window.senpai.checkResult({id:media.cid, b:0, u:1, r: _(bad), w: ''}, media);
+								window.senpai.checkResult({id:media.cid, b:0, u:1, r: bad, w: ''}, media);
 								return;
 							}
 						}
 						var score = window.senpai.parseRestrictions(response);
 						if(score > 16)
 						{
-							window.senpai.checkResult({id:media.cid, b:0, u:1, r: _('Blocked in too many countries!'), w: ''}, media);
+							window.senpai.checkResult({id:media.cid, b:0, u:1, r: 'Blocked in too many countries!', w: ''}, media);
 							return;
 						}
 						window.senpai.continueCheck(media);
