@@ -9,6 +9,8 @@
 		configure: function(configuration)
 		{
 			configuration.language = API.getUser().language;
+			if(configuration.language == null)
+				confinguration.language = 'en';
 			if(configuration.language != window.babelfish.config.values.language)
 				window.babelfish.loadLanguageFile(configuration.language);
 			else
@@ -25,9 +27,6 @@
 				window.babelfish.strings[message] = 1;
 			else
 				window.babelfish.strings[message]++;
-
-			if(window.babelfish.config.values.language == 'en')
-				return message;
 
 			if(message in window.babelfish.messages)
 				return window.babelfish.messages[message];
