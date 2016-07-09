@@ -6,13 +6,6 @@
 		return m;
 	};
 
-	// Client running old senpai, abort.
-	if("senpai" in window && "initialized" in window.senpai)
-	{
-		API.chatLog(_('Make sure you are not running additional versions of SenpaiScript! The current version can be found here http://AnimeMusic.me/SenpaiScript'));
-		return;
-	}
-
 	var senpai = {
 		colours: { information: 'aa74ff', softwarning: 'f3e115', warning: 'ffdd6f', error: 'c42e3b' },
 		messages: {
