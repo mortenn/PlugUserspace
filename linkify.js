@@ -13,7 +13,7 @@
 		{
 			var modules, moduleIDs, m, roomInternal, _$context;
 			function bypass(){
-				if(/plug.dj\/hummingbird-me$/.test(document.location))
+				if(/plug.dj\/hummingbird-me(|#.*)$/.test(document.location))
 				{
 					var now_;
 					now_ = Date.now;

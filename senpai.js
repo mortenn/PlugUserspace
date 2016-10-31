@@ -586,7 +586,7 @@
 		getCurrentPlaylist: function() { return $('#media-panel .header .title span').text(); },
 		getSelectedPlaylist: function() { return $('#playlist-menu .selected .name').text(); },
 		getActivePlaylist: function() { return $('#playlist-menu .icon-check-purple').parent().parent().children('.name').text(); },
-		enabled: function() { return /plug.dj\/hummingbird-me$/.test(document.location); },
+		enabled: function() { if(/plug.dj\/hummingbird-me(|#.*)$/.test(document.location)) return true; else { console.log('Senpai disabled in '+document.location); return false; } },
 		cache: {},
 		cooldown: false,
 		pos: undefined,
