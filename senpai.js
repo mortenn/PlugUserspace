@@ -393,7 +393,7 @@
 		{
 			if(!window.senpai.enabled()) return;
 
-			if(!result) return window.senpai.messages.unknown;
+			if(!result || ('unknown' in result && result.unknown)) return window.senpai.messages.unknown;
 
 			if(result.u == 1) return window.senpai.messages.unavailable;
 			if(result.b == 1) return window.senpai.messages.banned;
@@ -414,7 +414,7 @@
 					return window.senpai.messages.fuli;
 			}
 
-			if(result.b !== 1 && result.o < 1 && result.t == 0 && result.w != 1)
+			if(result.b != 1 && result.o < 1 && result.t == 0 && result.w != 1)
 				return window.senpai.messages.ok;
 
 			return window.senpai.messages.error;
