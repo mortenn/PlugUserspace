@@ -571,6 +571,7 @@
 				window.senpai.showAlert(_("It's your turn!"), _('Make us proud!'));
 				window.notify.show(_("It's your turn!"), 2);
 				window.soundbank.play('にゃんぱすー');
+				return;
 			}
 			if (window.senpai.pos < 1) return;
 
