@@ -38,6 +38,7 @@
 				return;
 			window.linkage.media = media.cid;
 			setTimeout(function(){ if(window.linkage.media == media.cid) window.linkage.media = null; }, 20000);
+			var dj = API.getDJ();
 			$.getJSON(
 				'https://i.animemusic.me/animemusic/check.php?dj=' + dj.id + '&id=' + media.cid + '&source=linkage',
 				function(r){ window.linkage.checkResult(r, media, dj); }
