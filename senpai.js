@@ -143,6 +143,17 @@
 				category: 'softwarning',
 				skip: false,
 			},
+			quarter: {
+				brief: function(){ return _('Played within 90 days.'); },
+				title: function(){ return _('Played within 90 days.'); },
+				full: function(r){ return window.senpai.messages.ok.full(r); },
+				kouhai: function(){ return false; },
+				kouhaiPlay: false,
+				type: 'manual-only',
+				popup: false,
+				category: 'softwarning',
+				skip: false,
+			},
 			nightcore: {
 				brief: function(){ return _('Likely nightcore, which is against rules!'); },
 				title: function(){ return _('Nightcore'); },
@@ -233,7 +244,38 @@
 		},
 		startup: function()
 		{
+			var defaults = window.senpai.config.values;
+			window.freshy.waitFor('settings', function() { window.settings.setDefaults('senpai', defaults); });
 			window.freshy.systemLoaded('senpai');
+		},
+		save: function()
+		{
+			window.settings.configuration.senpai = window.senpai.config.values;
+			window.settings.saveConfiguration();
+		},
+		configure: function(data)
+		{
+			window.senpai.config.values = data;
+		},
+		config:
+		{
+			values: { strict: 'off' },
+			get: function()
+			{
+				return [{
+					title:'Senpaiscript',
+					type:'right',
+					options:[{
+						type:'select', name:'strict', value: window.senpai.config.values.strict,
+						options: [{value:'off', label:'Warn for < 1 month'}, {value:'on', label:'Warn for < 3 months'}]
+					}]
+				}];
+			},
+			set: function(config, value)
+			{
+				window.senpai.config.values[config.name] = value;
+				window.senpai.save();
+			}
 		},
 		onChatCommand: function(value) {
 			if(!window.senpai.enabled()) return;
@@ -403,6 +445,7 @@
 			if(result.t == 1) return window.senpai.messages.today;
 			if(result.w == 1) return window.senpai.messages.week;
 			if(result.m == 1) return window.senpai.messages.month;
+			if(result.q == 1 && window.senpai.config.values.strict == 'on') return window.senpai.messages.quarter;
 
 			if(media)
 			{
