@@ -12,5 +12,5 @@
 	window.freshy.currentVersion('multipass', 86);
 	window.freshy.currentVersion('fastmode', 4);
 	window.freshy.currentVersion('linkify', 5);
-	window.freshy.currentVersion('emoji', 9);
+	window.freshy.currentVersion('emoji', 10);
 })();
