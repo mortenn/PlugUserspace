@@ -52,8 +52,8 @@
 				return;
 			if(!result.alt)
 				window.chatalert.show(
-					icon, 'Unlinked song', 
-					'<a href="http://i.animemusic.me/animemusic/suggest.php?cid='+result.id+'" target="_new">Link this song now</a>',
+					icon, _('Unlinked song'),
+					'<a href="http://i.animemusic.me/animemusic/suggest.php?cid='+result.id+'" target="_new">'+_('Link this song now')+'</a>',
 					'00d2ff', 'linkage'
 				);
 		},
