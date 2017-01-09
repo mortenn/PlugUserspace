@@ -18,7 +18,7 @@
 		},
 		messages: {},
 		strings: {},
-		translate: function(message)
+		translate: function(message, inject)
 		{
 			if(window.babelfish.reportTimeout)
 				clearTimeout(window.babelfish.reportTimeout);
@@ -28,9 +28,11 @@
 			else
 				window.babelfish.strings[message]++;
 
-			if(message in window.babelfish.messages)
-				return window.babelfish.messages[message];
-			return message;
+			var translated = ((message in window.babelfish.messages) ? window.babelfish.messages[message] : message);
+			if(typeof(inject) == 'object')
+				for(var k in inject)
+					translated = translated.replace(k,inject[k]);
+			return translated;
 		},
 		setup: function()
 		{

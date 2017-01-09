@@ -5,9 +5,9 @@
 	window.freshy.currentVersion('noisy', 70);
 	window.freshy.currentVersion('notify', 12);
 	window.freshy.currentVersion('settings', 72);
-	window.freshy.currentVersion('senpai', 194);
+	window.freshy.currentVersion('senpai', 195);
 	window.freshy.currentVersion('cubicle', 49);
-	window.freshy.currentVersion('babelfish', 40);
+	window.freshy.currentVersion('babelfish', 42);
 	window.freshy.currentVersion('socialite', 16);
 	window.freshy.currentVersion('multipass', 86);
 	window.freshy.currentVersion('fastmode', 4);

@@ -1,8 +1,8 @@
 (function(){
-	var _ = function(m)
+	var _ = function(m,r)
 	{
 		if("babelfish" in window)
-			return window.babelfish.translate(m);
+			return window.babelfish.translate(m,r);
 		return m;
 	};
 	var linkage = {
@@ -53,7 +53,7 @@
 			if(!result.alt)
 				window.chatalert.show(
 					'icon-volume-off', _('Unlinked song'),
-					media.author+' - '+media.title+' is not linked!<br>'+
+					_('{author} - {title} is not linked!', {'{author}':media.author,'{title}':media.title})+'<br>'+
 					'<a href="http://i.animemusic.me/animemusic/suggest.php?cid='+result.id+'" target="_new">'+_('Link this song now')+'</a>',
 					'00d2ff', 'linkage'
 				);

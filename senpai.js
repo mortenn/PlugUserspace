@@ -267,7 +267,7 @@
 					type:'right',
 					options:[{
 						type:'select', name:'strict', value: window.senpai.config.values.strict,
-						options: [{value:'off', label:'Warn for < 1 month'}, {value:'on', label:'Warn for < 3 months'}]
+						options: [{value:'off', label:_('Warn for < 1 month')}, {value:'on', label:_('Warn for < 3 months')}]
 					}]
 				}];
 			},
