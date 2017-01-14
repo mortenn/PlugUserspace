@@ -21,7 +21,10 @@
 			point_down: '👇',
 			point_up: '☝️',
 			point_up_2: '👆',
-			open_mouth: ':O'
+			open_mouth: ':O',
+			crying_cat_face: '=T_T=',
+			smile_cat: '=^_^=',
+			smiley_cat: '=^_^='
 		},
 		setup: function()
 		{
