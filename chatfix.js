@@ -24,7 +24,8 @@
 			open_mouth: ':O',
 			crying_cat_face: '=T_T=',
 			smile_cat: '=^_^=',
-			smiley_cat: '=^_^='
+			smiley_cat: '=^_^=',
+			cat2: '🐈'
 		},
 		setup: function()
 		{
