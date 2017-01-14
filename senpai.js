@@ -465,6 +465,11 @@
 		parseResult: function(result, media)
 		{
 			if(!window.senpai.enabled()) return;
+
+			var dj = API.getDJ();
+			if(dj && dj.id == API.getUser().id && API.getMedia().cid == media.id)
+				return;
+
 			window.senpai.cache[media.id] = { checked: Date.now(), result: result, message: '', media: media };
 			var verdict = window.senpai.getVerdict(result, media);
 			window.senpai.cache[media.id].result = result;
