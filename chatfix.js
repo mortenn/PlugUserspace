@@ -26,7 +26,8 @@
 			smile_cat: '=^_^=',
 			smiley_cat: '=^_^=',
 			cat2: '🐈',
-			sob: 'T_T'
+			sob: 'T_T',
+			scream: '😱'
 		},
 		setup: function()
 		{
