@@ -40,7 +40,7 @@
 			setTimeout(function(){ if(window.linkage.media == media.cid) window.linkage.media = null; }, 20000);
 			var dj = API.getDJ();
 			$.getJSON(
-				'https://i.animemusic.me/animemusic/check.php?dj=' + dj.id + '&id=' + media.cid + '&source=linkage',
+				'https://j.animemusic.me/animemusic/check.php?dj=' + dj.id + '&id=' + media.cid + '&source=linkage',
 				function(r){ window.linkage.checkResult(r, media, dj); }
 			);
 		},
@@ -54,7 +54,7 @@
 				window.chatalert.show(
 					'icon-volume-off', _('Unlinked song'),
 					_('{author} - {title} is not linked!', {'{author}':media.author,'{title}':media.title})+'<br>'+
-					'<a href="http://i.animemusic.me/animemusic/suggest.php?cid='+result.id+'" target="_new">'+_('Link this song now')+'</a>',
+					'<a href="http://j.animemusic.me/animemusic/suggest.php?cid='+result.id+'" target="_new">'+_('Link this song now')+'</a>',
 					'00d2ff', 'linkage'
 				);
 		},

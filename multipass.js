@@ -59,7 +59,7 @@
 				window.multipass.enqueue(medialist.data[i]);
 			}
 			$.post(
-				'https://i.animemusic.me/animemusic/check.php?dj=' + API.getUser().id,
+				'https://j.animemusic.me/animemusic/check.php?dj=' + API.getUser().id,
 				JSON.stringify(media),
 				function(e){ window.multipass.onMediaChecked(e, mediamap, playlist); },
 				'json'

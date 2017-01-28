@@ -1,3 +1,3 @@
 (function(){
-	window.freshy.currentVersion('linkage', 7);
+	window.freshy.currentVersion('linkage', 8);
 })();

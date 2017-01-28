@@ -72,6 +72,8 @@
 								bad = 'Video removed (' + response.items[0].status.rejectionReason + ')';
 							else if(!response.items[0].status.embeddable)
 								bad = 'Video not embeddable';
+							else if('contentRating' in response.items[0].contentDetails && 'ytRating' in response.items[0].contentDetails.contentRating)
+								bad = response.items[0].contentDatils.contentRating.ytRating;
 
 							if(bad)
 							{
@@ -102,7 +104,7 @@
 		},
 		continueCheck: function(media, dj)
 		{
-			$.getJSON('https://i.animemusic.me/animemusic/check.php?dj=' + dj.id + '&id=' + media.cid + '&source=kouhai', function(r){ window.kouhai.checkResult(r, media, dj); });
+			$.getJSON('https://j.animemusic.me/animemusic/check.php?dj=' + dj.id + '&id=' + media.cid + '&source=kouhai', function(r){ window.kouhai.checkResult(r, media, dj); });
 		},
 		checkResult: function(result, media, dj)
 		{
@@ -123,11 +125,11 @@
 			report += '<br>DJ: '+dj.username;
 			report += (result.n == 0 ? ' is playing for the first time!' : (result.s == 0 ? ' did not play the last month.' : ' has played ' + result.n + ' songs.'));
 			if(result.alt)
-				report += '<br><a href="http://i.animemusic.me/animemusic/alts.php?id=' + result.a + '" target="_new">' + result.alt + ' known versions</a>';
+				report += '<br><a href="http://j.animemusic.me/animemusic/alts.php?id=' + result.a + '" target="_new">' + result.alt + ' known versions</a>';
 			else
-				report += '<br><a href="http://i.animemusic.me/animemusic/suggest.php?cid='+result.id+'" target="_new">Link this song now</a>';
+				report += '<br><a href="http://j.animemusic.me/animemusic/suggest.php?cid='+result.id+'" target="_new">Link this song now</a>';
 			if(result.o2 > -1)
-				report += '<br><a href="http://i.animemusic.me/animemusic/opcheck.php?media='+result.id+'" target="_blank">Overplayed2 score: ' + result.o2 + '</a>'; 
+				report += '<br><a href="http://j.animemusic.me/animemusic/opcheck.php?media='+result.id+'" target="_blank">Overplayed2 score: ' + result.o2 + '</a>'; 
 			if(result.oa1 > 0)
 				report += '<br>' + result.oa1 + ' known versions on op list!';
 			if(result.ls)
@@ -220,7 +222,7 @@
 				return;
 			}
 			$.getJSON(
-				'https://i.animemusic.me/animemusic/check.php?dj=' + userid + '&source=kouhai&report=senpai',
+				'https://j.animemusic.me/animemusic/check.php?dj=' + userid + '&source=kouhai&report=senpai',
 				function(r)
 				{
 					if(!r || !r.firstCheck)
@@ -264,7 +266,7 @@
 		checkWaitlistUser: function(user)
 		{
 			$.getJSON(
-				'https://i.animemusic.me/animemusic/check.php?dj=' + user.attr('data-uid') + '&source=kouhai&report=senpai',
+				'https://j.animemusic.me/animemusic/check.php?dj=' + user.attr('data-uid') + '&source=kouhai&report=senpai',
 				function(r)
 				{
 					var position = user.find('.position');
