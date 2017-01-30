@@ -1,3 +1,3 @@
 (function(){
-	window.freshy.currentVersion('kouhai', 104);
+	window.freshy.currentVersion('kouhai', 105);
 })();
