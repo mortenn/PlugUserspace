@@ -372,7 +372,7 @@
 						if('pageInfo' in response)
 						{
 							var bad = null;
-							if(response.pageInfo.totalResults == 0)
+							if(response.pageInfo.totalResults == 0 || response.items.length == 0)
 								bad = 'Video not found';
 							else if(response.items[0].status.uploadStatus == 'rejected')
 								bad = 'Video removed (' + response.items[0].status.rejectionReason + ')';
