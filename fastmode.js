@@ -17,7 +17,7 @@
 					{
 						if(l[0] == '/')
 							return s.call(d[i],l);
-						if(/plug.dj\/hummingbird-me(|#.*)$/.test(document.location))
+						if(/plug.dj\/(hummingbird-me|anime)(|#.*)$/.test(document.location))
 							Math.max=function(){return 0};
 						try
 						{
