@@ -49,7 +49,6 @@
 			var out = message;
 			while(match)
 			{
-				console.log(match[0], match.index);
 				var fixed = (match[1] in window.chatfix.emojis) ?  window.chatfix.emojis[match[1]] : '<span style="color:red">:'+match[1]+':</span>';
 				out = out.replace(':'+match[1]+':', fixed);
 				var match = pattern.exec(message, match.index);
