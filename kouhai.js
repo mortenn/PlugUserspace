@@ -136,6 +136,8 @@
 
 			var report = result.title ? result.title : media.title;
 			report += '<br>' + (result.ln == 0 ? 'This is the first time!' : 'Played '+result.ln+' times.');
+			if(counter > 0)
+				report += '<br>Global plays: '+counter;
 			report += '<br>DJ: '+dj.username;
 			report += (result.n == 0 ? ' is playing for the first time!' : (result.s == 0 ? ' did not play the last month.' : ' has played ' + result.n + ' songs.'));
 			if(result.alt)
@@ -174,7 +176,7 @@
 			var softwarn = false;
 			if(!result.alt && counter >= 1000000)
 			{
-				report += '<br>'+counter+' playbacks!';
+				report += '<br>Popular song, check rules!';
 				softwarn = true;
 				showReport = true;
 			}
