@@ -137,7 +137,24 @@
 			var report = result.title ? result.title : media.title;
 			report += '<br>' + (result.ln == 0 ? 'This is the first time!' : 'Played '+result.ln+' times.');
 			if(counter > 0)
-				report += '<br>Global plays: '+counter;
+			{
+				var counter_formatted;
+
+				if(counter < 1000)
+					counter_formatted = counter;
+				else if(counter < 1000000)
+					counter_formatted = Math.floor(counter / 1000) + 'k';
+				else if(counter < 1000000000)
+					counter_formatted = Math.floor(counter / 1000000) + 'M';
+				else
+					counter_formatted = Math.floor(counter / 1000000000) + 'B';
+
+				if(media.format == 1)
+					report += '<br>Views on YouTube: ' + counter_formatted;
+
+				else if(media.format == 2)
+					report += '<br>Plays on SoundCloud: ' + counter_formatted;
+			}
 			report += '<br>DJ: '+dj.username;
 			report += (result.n == 0 ? ' is playing for the first time!' : (result.s == 0 ? ' did not play the last month.' : ' has played ' + result.n + ' songs.'));
 			if(result.alt)
