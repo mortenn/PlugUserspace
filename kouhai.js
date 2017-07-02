@@ -60,9 +60,10 @@
 			if(media.format == 1)
 			{
 				$.getJSON(
-					'https://www.googleapis.com/youtube/v3/videos?part=status,contentDetails&id='+media.cid+'&key=AIzaSyD67usK9zHkAgG33z0bdoauSGrdXX8ByL8',
+					'https://www.googleapis.com/youtube/v3/videos?part=status,contentDetails,statistics&id='+media.cid+'&key=AIzaSyD67usK9zHkAgG33z0bdoauSGrdXX8ByL8',
 					function(response)
 					{
+						var counter = -1;
 						if('pageInfo' in response)
 						{
 							var bad = null;
@@ -80,6 +81,9 @@
 								window.kouhai.checkResult({id:media.cid, b:0, u:1, r: bad, w: ''}, media, dj);
 								return;
 							}
+
+							if('statistics' in response.items[0])
+								counter = response.items[0].statistics.viewCount;
 						}
 						var score = window.senpai.parseRestrictions(response);
 						if(score > 16)
@@ -87,14 +91,18 @@
 							window.kouhai.checkResult({id:media.cid, b:0, u:1, r: 'Blocked in too many countries!', w: ''}, media, dj);
 							return;
 						}
-						window.kouhai.continueCheck(media, dj);
+						window.kouhai.continueCheck(media, dj, counter);
 					}
 				).fail(function(e){ window.kouhai.checkResult({id:media.cid, b:0, u:1, r: e.responseJSON.error.message}); }, media, dj);
 			}
 			else if(media.format == 2)
 				SC.get('/tracks/'+media.cid+'.json')
 				.then(
-					function(response) { window.kouhai.continueCheck(media, dj); }
+					function(response)
+					{
+						var counter = (response && 'playback_count' in response) ? response.playback_count : -1;
+						window.kouhai.continueCheck(media, dj, counter);
+					}
 				).catch(
 					function(error)
 					{
@@ -102,11 +110,17 @@
 					}
 				);
 		},
-		continueCheck: function(media, dj)
+		continueCheck: function(media, dj, counter)
 		{
-			$.getJSON('https://j.animemusic.me/animemusic/check.php?dj=' + dj.id + '&id=' + media.cid + '&source=kouhai', function(r){ window.kouhai.checkResult(r, media, dj); });
+			$.getJSON(
+				'https://j.animemusic.me/animemusic/check.php?dj=' + dj.id + '&id=' + media.cid + '&source=kouhai',
+				function(r)
+				{
+					window.kouhai.checkResult(r, media, dj, counter);
+				}
+			);
 		},
-		checkResult: function(result, media, dj)
+		checkResult: function(result, media, dj, counter)
 		{
 			if(!window.kouhai.enabled())
 				return;
@@ -157,10 +171,18 @@
 				showReport = true;
 			}
 
+			var softwarn = false;
+			if(!result.alt && counter >= 1000000)
+			{
+				report += '<br>'+counter+' playbacks!';
+				softwarn = true;
+				showReport = true;
+			}
+
 			if(showReport)
 				window.chatalert.show(icon, 'Kouhai DJ report', report, '00d2ff', 'kouhai');
 
-			if((verdict.popup && verdict.kouhaiPlay) || (result.oa1 > 0 && result.n > 0 && result.s > 0))
+			if(softwarn || (verdict.popup && verdict.kouhaiPlay) || (result.oa1 > 0 && result.n > 0 && result.s > 0))
 				window.soundbank.play('Master');
 
 			if(verdict.popup && message)
