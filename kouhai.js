@@ -191,7 +191,7 @@
 			}
 
 			var softwarn = false;
-			if(!result.alt && counter >= 1000000 && result.ln > 1)
+			if(!result.alt && counter >= 1000000 && result.ln <= 1)
 			{
 				report += '<br>Popular song, check rules!';
 				softwarn = true;
