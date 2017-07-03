@@ -11,7 +11,7 @@
 			beta: 'plug.runsafe.no/beta'
 		},
 		channel: 'stable',
-		systems: { freshy: 56 },
+		systems: { freshy: 57 },
 		failure: {},
 		loaded: {},
 		waits: {},
@@ -105,7 +105,7 @@
 		{
 			if(cmd == '/update')
 				window.freshy.versionCheck();
-			if(cmd == '/status')
+			if(cmd == '/status' || cmd == '/status ')
 				window.freshy.statusMessage();
 			if(cmd == '/reload')
 			{
