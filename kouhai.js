@@ -317,10 +317,10 @@
 						color = '#c42e3b';
 					else if(!r.ok)
 					{
-						if (r.plays > 10)
-							color = '#00d2ff';
-						else if(r.lastChecked)
+						if(r.lastChecked)
 							color = '#ffdd6f';
+						else if (r.plays > 10)
+							color = '#00d2ff';
 						else
 							color = '#c42e3b';
 					}
