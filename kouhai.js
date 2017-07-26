@@ -312,9 +312,20 @@
 				{
 					var position = user.find('.position');
 					position.addClass('kouhai');
-					var ok = r && r.lastCheck;
-					position.css('color', r.ok?'green' : (ok?'yellow':'red'));
-					position.attr('title', ok ? r.lastCheck : 'n/a');
+					var color = '#a5dc42';
+					if(!r)
+						color = '#c42e3b';
+					else
+					{
+						if(r.lastCheck)
+							color = '#ffdd6f';
+						else if (r.plays > 10)
+							color = '#00d2ff';
+						else
+							color = '#c42e3b';
+					}
+					position.css('color', color);
+					position.attr('title', r && r.lastCheck ? r.lastCheck : 'n/a');
 				}
 			);
 		}
