@@ -315,12 +315,12 @@
 					var color = '#a5dc42';
 					if(!r)
 						color = '#c42e3b';
-					else
+					else if(!r.ok)
 					{
-						if(r.lastCheck)
-							color = '#ffdd6f';
-						else if (r.plays > 10)
+						if (r.plays > 10)
 							color = '#00d2ff';
+						else if(r.lastChecked)
+							color = '#ffdd6f';
 						else
 							color = '#c42e3b';
 					}
