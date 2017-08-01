@@ -27,7 +27,8 @@
 			smiley_cat: '=^_^=',
 			cat2: '🐈',
 			sob: 'T_T',
-			scream: '😱'
+			scream: '😱',
+			sparkles: '✨'
 		},
 		setup: function()
 		{

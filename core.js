@@ -13,5 +13,5 @@
 	window.freshy.currentVersion('fastmode', 5);
 	window.freshy.currentVersion('linkify', 6);
 	window.freshy.currentVersion('emoji', 10);
-	window.freshy.currentVersion('chatfix', 22);
+	window.freshy.currentVersion('chatfix', 23);
 })();
