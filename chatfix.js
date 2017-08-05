@@ -28,7 +28,8 @@
 			cat2: '🐈',
 			sob: 'T_T',
 			scream: '😱',
-			sparkles: '✨'
+			sparkles: '✨',
+			'+1': '👍'
 		},
 		setup: function()
 		{
