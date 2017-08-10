@@ -136,7 +136,7 @@
 
 			var report = result.title ? result.title : media.title;
 			report += '<br>' + (result.ln == 0 ? 'This is the first time!' : 'Played '+result.ln+' times.');
-			if(window.kouhai.config.values.hipster && result.ln > window.kouhai.config.values.hipster_limit)
+			if(window.kouhai.config.values.hipster == 1 && (result.ln > window.kouhai.config.values.hipster_limit))
 			{
 				var vol_button = $('#volume .button');
 				var vol_icon = vol_button.find('i.icon');
@@ -254,8 +254,8 @@
 						options: [
 							{ type: 'select', name: 'hipster', value: window.kouhai.config.values.hipster,
 								options: [
-									{value:false, label:'Off'},
-									{value:true, label:'On'}
+									{value:0, label:'Off'},
+									{value:1, label:'On'}
 								]
 							},
 							{ type: 'textbox', name: 'hipster_limit', value: window.kouhai.config.values.hipster_limit }
