@@ -26,7 +26,7 @@
 						title: '<span style="color:#fe77d5">Get Important Updates</span>',
 						type: 'right',
 						options: [
-							{ type: 'custom', content: '<iframe src="https://i.animemusic.me/keepintouch" style="width:400px;height: 221px;border:0"></iframe>' },
+							{ type: 'custom', content: '<iframe src="https://i.animemusic.me/keepintouch" style="width:270px;height: 59px;border:0"></iframe>' },
 						]
 					},
 				]; 
