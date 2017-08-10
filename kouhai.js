@@ -136,6 +136,16 @@
 
 			var report = result.title ? result.title : media.title;
 			report += '<br>' + (result.ln == 0 ? 'This is the first time!' : 'Played '+result.ln+' times.');
+			if(window.kouhai.config.values.hipster && result.ln > window.kouhai.config.values.hipster_limit)
+			{
+				var vol_button = $('#volume .button');
+				var vol_icon = vol_button.find('i.icon');
+				if(vol_icon.hasClass('icon-volume-half') || vol_icon.hasClass('icon-volume-on'))
+				{
+					vol_button.click();
+					vol_button.click();
+				}
+			}
 			if(counter > 0)
 			{
 				var counter_formatted;
@@ -220,7 +230,7 @@
 		},
 		config: 
 		{
-			values: { mode: 'on' },
+			values: { mode: 'on', hipster: false, hipster_limit: 15 },
 			get: function()
 			{
 				return [
@@ -237,13 +247,29 @@
 								]
 							}
 						]
+					},
+					{
+						title: 'Hipster mode',
+						type: 'right',
+						options: [
+							{ type: 'select', name: 'hipster', value: window.kouhai.config.values.hipster,
+								options: [
+									{value:false, label:'Off'},
+									{value:true, label:'On'}
+								]
+							},
+							{ type: 'textbox', name: 'hipster_limit', value: window.kouhai.config.values.hipster_limit }
+						]
 					}
 				]; 
 			},
 			set: function(config, value)
 			{
+				if(config.name == 'hipster_limit')
+					value = value * 1;
 				window.kouhai.config.values[config.name] = value;
 				window.kouhai.save();
+				return value;
 			}
 		},
 		senpaiReport: function(user) {
