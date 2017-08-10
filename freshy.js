@@ -11,12 +11,13 @@
 			beta: 'plug.runsafe.no/beta'
 		},
 		channel: 'stable',
-		systems: { freshy: 57 },
+		systems: { freshy: 59 },
 		failure: {},
 		loaded: {},
 		waits: {},
 		notify: 1,
 		libraries: ['core'],
+		errors: {},
 
 		host: function() { return window.freshy.channels[window.freshy.channel]; },
 
@@ -28,8 +29,19 @@
 				function()
 				{
 					console.log('Channel '+window.freshy.channel+' has failed us, trying other.');
+					if(!(script in window.freshy.errors))
+						window.freshy.errors[script] = 0;
+					window.freshy.errors[script]++;
+					if(window.freshy.errors[script] > 4)
+					{
+						window.chatalert.showError(
+							_('Userspace script not loaded'),
+							script + ' '+ _('did not finish loading within reasonable time.')+'<br/>'+_('Please check the console for errors.')
+						);
+						return;
+					}
 					window.freshy.channel = window.freshy.channel == 'beta' ? 'stable' : 'beta';
-					window.freshy.loadScript(script);
+					setTimeout(function(){ window.freshy.loadScript(script); }, 500);
 				}
 			);
 		},
