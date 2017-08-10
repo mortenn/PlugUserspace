@@ -8,7 +8,7 @@
 	window.freshy.currentVersion('senpai', 200);
 	window.freshy.currentVersion('cubicle', 49);
 	window.freshy.currentVersion('babelfish', 43);
-	window.freshy.currentVersion('socialite', 19);
+	window.freshy.currentVersion('socialite', 20);
 	window.freshy.currentVersion('multipass', 88);
 	window.freshy.currentVersion('fastmode', 5);
 	window.freshy.currentVersion('linkify', 6);
