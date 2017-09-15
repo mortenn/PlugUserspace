@@ -2,7 +2,7 @@
 	window.freshy.currentVersion('freshy', 59);
 	window.freshy.currentVersion('soundbank', 97);
 	window.freshy.currentVersion('chatalert', 34);
-	window.freshy.currentVersion('noisy', 71);
+	window.freshy.currentVersion('noisy', 72);
 	window.freshy.currentVersion('notify', 12);
 	window.freshy.currentVersion('settings', 72);
 	window.freshy.currentVersion('senpai', 200);

@@ -11,7 +11,7 @@
 		media: null,
 		enabled: function()
 		{
-			return "senpai" in window && window.senpai.enabled() && API.getUser().role >= API.BOUNCER;
+			return "senpai" in window && window.senpai.enabled() && API.getUser().role >= API.ROLE.BOUNCER;
 		},
 		setup: function()
 		{

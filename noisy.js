@@ -28,19 +28,19 @@
 				return window.noisy.trigger(username + ': ' + message);
 			}
 
-			if(message.match("@bouncers") && rank >= API.BOUNCER)
+			if(message.match("@bouncers") && rank >= API.ROLE.BOUNCER)
 			{
 				//$('#chat .msg.cid-'+cid).css('background','rgba(32,32,0,0.8)');
 				return window.noisy.trigger(username + ': ' + message);
 			}
 
-			if(message.match("@managers") && rank >= API.MANAGER)
+			if(message.match("@managers") && rank >= API.ROLE.MANAGER)
 			{
 				//$('#chat .msg.cid-'+cid).css('background','rgba(32,32,0,0.8)');
 				return window.noisy.trigger(username + ': ' + message);
 			}
 
-			if(message.match("@hosts") && rank >= API.CO_HOST)
+			if(message.match("@hosts") && rank >= API.ROLE.CO_HOST)
 			{
 				//$('#chat .msg.cid-'+cid).css('background','rgba(32,32,0,0.8)');
 				return window.noisy.trigger(username + ': ' + message);
