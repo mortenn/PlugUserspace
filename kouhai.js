@@ -73,7 +73,7 @@
 								bad = 'Video removed (' + response.items[0].status.rejectionReason + ')';
 							else if(!response.items[0].status.embeddable)
 								bad = 'Video not embeddable';
-							else if('contentRating' in response.items[0].contentDetails && 'ytRating' in response.items[0].contentDetails.contentRating)
+							else if('contentDetails' in response.items[0] && 'contentRating' in response.items[0].contentDetails && 'ytRating' in response.items[0].contentDetails.contentRating)
 								bad = response.items[0].contentDatils.contentRating.ytRating;
 
 							if(bad)
