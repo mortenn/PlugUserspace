@@ -564,7 +564,7 @@
 				if(data)
 				{
 					message = '<span style="display:inline;position:static;color:#'+window.senpai.colours[data.verdict.category]+'">'+data.message+'</span>';
-					if(data && data.verdict.skip)
+					if(data.verdict.skip)
 						message = '<em style="padding-right:5px;color:red">'+message+'</em>';
 
 					if('dup' in data.result)
@@ -576,7 +576,7 @@
 					if('alt' in data.result && data.result.alt)
 						message += ' <span style="display:inline;position:static;font-size:8px;color:#aaa !important">('+data.result.alt+' versions)</span>';
 
-					if(data && data.result.w.length > 8)
+					if('w' in data.result && data.result.w.length > 8)
 						message += ' <span style="display:inline;position:static;font-size:8px;color:#aaa !important">('+data.result.w+')</span>';
 				}
 				
