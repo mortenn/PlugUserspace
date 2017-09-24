@@ -614,7 +614,7 @@
 			window.senpai.pos = API.getWaitListPosition() + 1;
 			var user = API.getUser();
 			var currentdj = value.dj
-			if(currentdj.id == user.id)
+			if(currentdj && currentdj.id == user.id)
 			{
 				window.senpai.showAlert(_("It's your turn!"), _('Make us proud!'));
 				window.notify.show(_("It's your turn!"), 2);

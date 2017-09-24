@@ -47,7 +47,7 @@
 				return;
 			window.kouhai.timeout = false;
 			var media = API.getMedia();
-			if(media.cid == window.kouhai.media)
+			if(!media || media.cid == window.kouhai.media)
 				return;
 			window.kouhai.media = media.cid;
 			setTimeout(function(){ if(window.kouhai.media == media.cid) window.kouhai.media = null; }, 20000);
