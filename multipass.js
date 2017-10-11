@@ -116,6 +116,7 @@
 				function(response)
 				{
 					var warning = null;
+					window.multipass.mediaStatus[media.cid] = {};
 					if('pageInfo' in response)
 					{
 						var bad = null;
@@ -131,53 +132,59 @@
 
 						if(bad)
 						{
-							window.multipass.pushCache(
-								media,
-								{id:media.cid, b:0, u:1, r: bad, w: '', override: true},
-								window.senpai.messages.unavailable
-							);
+							window.multipass.mediaStatus[media.cid] = {
+								media: media,
+								result: {id:media.cid, b:0, u:1, r: bad, w: '', override: true},
+								verdict: window.senpai.messages.unavailable
+							};
+							window.multipass.statusLoaded(media.cid);
 							return;
 						}
 					}
 					var score = window.senpai.parseRestrictions(response);
 					if(score > 16)
 					{
-						window.multipass.pushCache(
-							media,
-							{id:media.cid, b:0, u:1, r: 'Blocked in too many countries!', w: '', override: true},
-							window.senpai.messages.unavailable
-						);
+						window.multipass.mediaStatus[media.cid] = {
+							media: media,
+							result: {id:media.cid, b:0, u:1, r: 'Blocked in too many countries!', w: '', override: true},
+							verdict: window.senpai.messages.unavailable
+						};
 					}
 					if(warning)
 					{
-						window.multipass.pushCache(
-							media,
-							{id:media.cid, b:0, u:0, r: '', w: '', override: true, warning:warning},
-							window.senpai.messages.warning
-						);
+						window.multipass.mediaStatus[media.cid] = {
+							media: media,
+							result: {id:media.cid, b:0, u:0, r: '', w: '', override: true, warning:warning},
+							verdict: window.senpai.messages.warning
+						};
 					}
+					window.multipass.statusLoaded(media.cid);
 				}
 			).fail(function(response)
 			{
-				window.multipass.pushCache(
-					media,
-					{id:media.cid, b:0, u: 1, r:response.responseJSON.error.message, override: true, w:''},
-					window.senpai.messages.unavailable
-				);
+				window.multipass.mediaStatus[media.cid] = {
+					media: media,
+					result: {id:media.cid, b:0, u: 1, r:response.responseJSON.error.message, override: true, w:''},
+					verdict: window.senpai.messages.unavailable
+				};
+				window.multipass.statusLoaded(media.cid);
 			});
 		},
 		soundcloudCheck: function(media)
 		{
-			SC.get('/tracks/'+media.cid).catch(
-				function(error)
-				{
-					window.multipass.pushCache(
-						media,
-						{id:media.cid, b:0, u:1, r:error.message, override: true, w:''},
-						window.senpai.messages.unavailable
-					);
-				}
-			);
+			SC.get('/tracks/'+media.cid)
+				.then(function(){
+					window.multipass.mediaStatus[media.cid] = {};
+					window.multipass.statusLoaded(media.cid);
+				})
+				.catch(function(error){
+					window.multipass.mediaStatus[media.cid] = {
+						media: media,
+						result: {id:media.cid, b:0, u:1, r:error.message, override: true, w:''},
+						verdict: window.senpai.messages.unavailable
+					};
+					window.multipass.statusLoaded(media.cid);
+				});
 		},
 		onMediaChecked: function(playlist, mediamap, pl)
 		{
@@ -191,20 +198,35 @@
 					else
 						duped[playlist[i].title].dup = playlist[i].dup = duped[playlist[i].title];
 				}
-				var verdict = window.senpai.getVerdict(playlist[i]);
 				if(playlist[i] && "id" in playlist[i])
 				{
-					window.multipass.pushCache(mediamap[playlist[i].id], playlist[i], verdict, mediamap[playlist[i].id]);
+					window.multipass.knownMedia[playlist[i].id] = {
+						media: mediamap[playlist[i].id],
+						result: playlist[i]
+					};
+					window.multipass.statusLoaded(playlist[i].id);
 				}
-				$('#media-panel .row .senpai').remove();
 			}
 			window.chatalert.show('icon-volume-off', _('Playlist checked'), _('{playlist} has been checked.').replace('{playlist}', pl.name), 'aa74ff', 'senpai');
 		},
+		statusLoaded: function(id)
+		{
+			var state = window.multipass.mediaStatus[id];
+			var known = window.multipass.knownMedia[id];
+			if(state && known)
+			{
+				if(state.result && state.result.override)
+					window.multipass.pushCache(state.media, state.result, state.verdict);
+				else
+				{
+					var verdict = window.senpai.getVerdict(known.result);
+					window.multipass.pushCache(known.media, known.result, verdict);
+				}
+				window.senpai.startTagPlaylist();
+			}
+		},
 		pushCache: function(media, result, verdict)
 		{
-			var cached = result.id in window.senpai.cache ? window.senpai.cache[result.id] : null;
-			if(cached && cached.result.override && (!result.override || cached.verdict.skip))
-				return;
 			var message = '';
 			if(verdict)
 				message = verdict.brief(result);
@@ -219,7 +241,9 @@
 			$('span[senpai-media-id="'+result.id+'"]').remove();
 		},
 		playlists: false,
-		idmap: {}
+		idmap: {},
+		mediaStatus: {},
+		knownMedia: {}
 	};
 
 	if(!("multipass" in window) || !window.multipass.onChatCommand)
