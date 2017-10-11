@@ -67,14 +67,16 @@
 						if('pageInfo' in response)
 						{
 							var bad = null;
+							var item = response.items ? response.items[0] || {} : {};
+
 							if(response.pageInfo.totalResults == 0)
 								bad = 'Video not found';
-							else if(response.items[0].status.uploadStatus == 'rejected')
-								bad = 'Video removed (' + response.items[0].status.rejectionReason + ')';
-							else if(!response.items[0].status.embeddable)
+							else if(item.status.uploadStatus == 'rejected')
+								bad = 'Video removed (' + item.status.rejectionReason + ')';
+							else if(!item.status.embeddable)
 								bad = 'Video not embeddable';
-							else if('contentDetails' in response.items[0] && 'contentRating' in response.items[0].contentDetails && 'ytRating' in response.items[0].contentDetails.contentRating)
-								bad = response.items[0].contentDatils.contentRating.ytRating;
+							else if(item.contentDetails && item.contentDetails.contentRating && item.contentDetails.contentRating.ytRating)
+								bad = item.contentDetails.contentRating.ytRating;
 
 							if(bad)
 							{
@@ -82,8 +84,8 @@
 								return;
 							}
 
-							if('statistics' in response.items[0])
-								counter = response.items[0].statistics.viewCount;
+							if('statistics' in item)
+								counter = item.statistics.viewCount;
 						}
 						var score = window.senpai.parseRestrictions(response);
 						if(score > 16)
