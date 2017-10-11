@@ -132,6 +132,22 @@
 				skip: false,
 				play: 'Ongaku asobi janai!'
 			},
+			warning: {
+				brief: function(r){ return _('Warning: {reason}').replace('{reason}',_(r.warning)); },
+				title: function(){ return _('Warning'); },
+				full: function(r)
+				{
+					return _('Your next song is potentiall against the rules ({reason}), please check.')
+						.replace('{reason}',_(r.warning));
+				},
+				kouhai: function(){ return true; },
+				kouhaiPlay: true,
+				type: 'always',
+				popup: true,
+				category: 'warning',
+				skip: false,
+				play: 'Ongaku asobi janai!'
+			},
 			month: {
 				brief: function(){ return _('Played within 30 days.'); },
 				title: function(){ return _('Played within 30 days.'); },
@@ -381,7 +397,7 @@
 							else if(!item.status.embeddable)
 								bad = 'Video not embeddable';
 							else if(item.contentDetails && item.contentDetails.contentRating && item.contentDetails.contentRating.ytRating)
-								bad = item.contentDetails.contentRating.ytRating;
+								warning = item.contentDetails.contentRating.ytRating;
 
 							if(bad)
 							{
@@ -395,7 +411,7 @@
 							window.senpai.checkResult({id:media.cid, b:0, u:1, r: 'Blocked in too many countries!', w: ''}, media);
 							return;
 						}
-						window.senpai.continueCheck(media);
+						window.senpai.continueCheck(media, warning);
 					}
 				).fail(function(e){ window.senpai.checkResult({id:media.cid, b:0, u:1, r: e.responseJSON.error.message}); }, media);
 			else if(media.format == 2)
@@ -410,13 +426,15 @@
 			else
 				console.log(media);
 		},
-		continueCheck: function(media)
+		continueCheck: function(media, warning)
 		{
 			if(window.senpai.triggerCooldown())
 				$.getJSON(
 					'https://j.animemusic.me/animemusic/check.php?dj=' + API.getUser().id + '&id=' + media.cid + '&pos=' + API.getWaitListPosition() + '&source=senpai',
 					function(result){
-						window.senpai.checkResult(result, media);
+						if(warning)
+							result.warning = warning;
+						window.senpai.checkResult(result, media, warning);
 					}
 				);
 		},
@@ -439,8 +457,11 @@
 		{
 			if(!window.senpai.enabled()) return;
 
-			if(!result || ('unknown' in result && result.unknown)) return window.senpai.messages.unknown;
-
+			if(!result || ('unknown' in result && result.unknown))
+			{
+				if(result.warning) return window.senpai.messages.warning;
+				return window.senpai.messages.unknown;
+			}
 			if(result.u == 1) return window.senpai.messages.unavailable;
 			if(result.b == 1) return window.senpai.messages.banned;
 			if(result.rp > 0) return window.senpai.messages.toosoon;
@@ -450,6 +471,7 @@
 			if(result.w == 1) return window.senpai.messages.week;
 			if(result.m == 1) return window.senpai.messages.month;
 			if(result.q == 1 && window.senpai.config.values.strict == 'on') return window.senpai.messages.quarter;
+			if(result.warning) return window.senpai.messages.warning;
 
 			if(media)
 			{
@@ -459,6 +481,9 @@
 				var fi = /full?i/i;
 				if(fi.test(media.author) || fi.test(media.title))
 					return window.senpai.messages.fuli;
+				var rape = /rapei/i;
+				if(rape.test(media.author) || rape.test(media.title))
+					return window.senpai.messages.rape;
 			}
 
 			if(result.b != 1 && result.o < 1 && result.t == 0 && result.w != 1)

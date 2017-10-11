@@ -63,6 +63,7 @@
 					'https://www.googleapis.com/youtube/v3/videos?part=status,contentDetails,statistics&id='+media.cid+'&key=AIzaSyD67usK9zHkAgG33z0bdoauSGrdXX8ByL8',
 					function(response)
 					{
+						var warning = null;
 						var counter = -1;
 						if('pageInfo' in response)
 						{
@@ -76,7 +77,7 @@
 							else if(!item.status.embeddable)
 								bad = 'Video not embeddable';
 							else if(item.contentDetails && item.contentDetails.contentRating && item.contentDetails.contentRating.ytRating)
-								bad = item.contentDetails.contentRating.ytRating;
+								warning = item.contentDetails.contentRating.ytRating;
 
 							if(bad)
 							{
@@ -93,7 +94,7 @@
 							window.kouhai.checkResult({id:media.cid, b:0, u:1, r: 'Blocked in too many countries!', w: ''}, media, dj);
 							return;
 						}
-						window.kouhai.continueCheck(media, dj, counter);
+						window.kouhai.continueCheck(media, dj, counter, warning);
 					}
 				).fail(function(e){ window.kouhai.checkResult({id:media.cid, b:0, u:1, r: e.responseJSON.error.message}); }, media, dj);
 			}
@@ -103,7 +104,7 @@
 					function(response)
 					{
 						var counter = (response && 'playback_count' in response) ? response.playback_count : -1;
-						window.kouhai.continueCheck(media, dj, counter);
+						window.kouhai.continueCheck(media, dj, counter, null);
 					}
 				).catch(
 					function(error)
@@ -112,12 +113,14 @@
 					}
 				);
 		},
-		continueCheck: function(media, dj, counter)
+		continueCheck: function(media, dj, counter, warning)
 		{
 			$.getJSON(
 				'https://j.animemusic.me/animemusic/check.php?dj=' + dj.id + '&id=' + media.cid + '&source=kouhai',
 				function(r)
 				{
+					if(warning)
+						r.warning = warning;
 					window.kouhai.checkResult(r, media, dj, counter);
 				}
 			);
