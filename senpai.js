@@ -385,6 +385,7 @@
 					'https://www.googleapis.com/youtube/v3/videos?part=status,contentDetails&id='+media.cid+'&key=AIzaSyD67usK9zHkAgG33z0bdoauSGrdXX8ByL8',
 					function(response)
 					{
+						var warning = null;
 						if('pageInfo' in response)
 						{
 							var bad = null;
