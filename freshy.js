@@ -11,7 +11,7 @@
 			beta: 'plug.runsafe.no/beta'
 		},
 		channel: 'stable',
-		systems: { freshy: 59 },
+		systems: { freshy: 60 },
 		failure: {},
 		loaded: {},
 		waits: {},
@@ -28,7 +28,7 @@
 			).fail(
 				function()
 				{
-					console.log('Channel '+window.freshy.channel+' has failed us, trying other.');
+					console.log(arguments);
 					if(!(script in window.freshy.errors))
 						window.freshy.errors[script] = 0;
 					window.freshy.errors[script]++;
@@ -40,7 +40,6 @@
 						);
 						return;
 					}
-					window.freshy.channel = window.freshy.channel == 'beta' ? 'stable' : 'beta';
 					setTimeout(function(){ window.freshy.loadScript(script); }, 500);
 				}
 			);
