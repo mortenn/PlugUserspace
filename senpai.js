@@ -144,9 +144,8 @@
 				kouhaiPlay: true,
 				type: 'always',
 				popup: true,
-				category: 'warning',
+				category: 'softwarning',
 				skip: false,
-				play: 'Ongaku asobi janai!'
 			},
 			month: {
 				brief: function(){ return _('Played within 30 days.'); },
@@ -460,7 +459,7 @@
 
 			if(!result || ('unknown' in result && result.unknown))
 			{
-				if(result.warning) return window.senpai.messages.warning;
+				if(result && result.warning) return window.senpai.messages.warning;
 				return window.senpai.messages.unknown;
 			}
 			if(result.u == 1) return window.senpai.messages.unavailable;
@@ -609,7 +608,7 @@
 					if('w' in data.result && data.result.w.length > 8)
 						message += ' <span style="display:inline;position:static;font-size:8px;color:#aaa !important">('+data.result.w+')</span>';
 				}
-				
+
 				if(message)
 					row.prepend($('<span class="senpai" senpai-media-id="'+id+'" style="top:0px">Senpai says: ' + message + '</span>'));
 			}
