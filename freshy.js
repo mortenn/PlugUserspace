@@ -11,7 +11,7 @@
 			beta: 'plug.runsafe.no/beta'
 		},
 		channel: 'stable',
-		systems: { freshy: 60 },
+		systems: { freshy: 61 },
 		failure: {},
 		loaded: {},
 		waits: {},
@@ -267,7 +267,8 @@
 	else
 	{
 		for(var system in window.freshy.systems)
-			freshy.systems = window.freshy.systems;
+			if(system != 'freshy')
+				freshy.systems[system] = window.freshy.systems[system];
 		freshy.waits = window.freshy.waits;
 		freshy.libraries = window.freshy.libraries;
 		window.freshy = freshy;
