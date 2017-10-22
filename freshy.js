@@ -61,8 +61,11 @@
 			window.freshy.systems = { freshy: window.freshy.systems.freshy };
 			window.freshy.versionCheck();
 		},
-		currentVersion: function(name, ver)
+		currentVersion: function(name, ver, role)
 		{
+			if(role > API.getUser().role)
+				return;
+
 			if(!(name in window.freshy.systems))
 			{
 				window.freshy.systems[name] = name == 'freshy' ? ver : 0;
