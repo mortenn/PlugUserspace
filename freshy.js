@@ -175,9 +175,9 @@
 			message += '</em><br>';
 			for(var system in window.freshy.systems)
 			{
-				message += _('{system} version {version}:').replace('{system}',system).replace('{version}', window.freshy.systems[system]) + 
+				message += _('{system} version {version}:').replace('{system}',system).replace('{version}', window.freshy.systems[system]) +
 					' ' +
-					(system in window.freshy.failure && window.freshy.failure[system] ? '<em style="color:red">'+_('loading error')+'</em>' : 
+					(system in window.freshy.failure && window.freshy.failure[system] ? '<em style="color:red">'+_('loading error')+'</em>' :
 						(system in window ? '<em style="color:green">'+_('running')+'</em>' : '<em style="color:red">'+_('not running')+'</em>')) +
 					'<br>';
 			}
