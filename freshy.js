@@ -11,12 +11,12 @@
 			beta: 'plug.runsafe.no/beta'
 		},
 		channel: 'stable',
-		systems: { freshy: 62 },
+		systems: { freshy: 63 },
 		failure: {},
 		loaded: {},
 		waits: {},
 		notify: 1,
-		libraries: ['core'],
+		modules: ['core'],
 		errors: {},
 
 		host: function() { return window.freshy.channels[window.freshy.channel]; },
@@ -52,8 +52,8 @@
 
 		versionCheck: function()
 		{
-			for(var i = 0; i < window.freshy.libraries.length; ++i)
-				window.freshy.loadScript(window.freshy.libraries[i]);
+			for(var i = 0; i < window.freshy.modules.length; ++i)
+				window.freshy.loadScript(window.freshy.modules[i]);
 		},
 
 		reload: function()
@@ -101,9 +101,9 @@
 					freshy.notify = notify;
 				try
 				{
-					var libraries = JSON.parse(window.localStorage['freshy.js-libraries']);
-					if(libraries && libraries.length > 0 && libraries[0] == 'core')
-						freshy.libraries = libraries;
+					var modules = JSON.parse(window.localStorage['freshy.js-modules']);
+					if(modules && modules.length > 0 && modules[0] == 'core')
+						freshy.modules = modules;
 				}
 				catch(e)
 				{
@@ -117,7 +117,7 @@
 			{
 				window.localStorage['freshy.js-update-channel'] = window.freshy.channel;
 				window.localStorage['freshy.js-notify'] = window.freshy.notify;
-				window.localStorage['freshy.js-libraries'] = JSON.stringify(window.freshy.libraries);
+				window.localStorage['freshy.js-modules'] = JSON.stringify(window.freshy.modules);
 			}
 		},
 		onChatCommand: function(cmd)
@@ -136,11 +136,11 @@
 				var script = /^\/load +([^ ]+)/.exec(cmd);
 				if(script)
 				{
-					for(var i = 0; i < window.freshy.libraries.length; ++i)
-						if(window.freshy.libraries[i] == script[1])
+					for(var i = 0; i < window.freshy.modules.length; ++i)
+						if(window.freshy.modules[i] == script[1])
 							return;
 
-					window.freshy.libraries.push(script[1]);
+					window.freshy.modules.push(script[1]);
 					window.freshy.versionCheck();
 					window.freshy.saveSettings();
 					window.chatalert.showInformation(_('Library loaded'), _('The {library} library will be loaded each time you restart the page.').replace('{library}', script[1]));
@@ -151,17 +151,17 @@
 				var script = /^\/unload +([^ ]+)/.exec(cmd);
 				if(script)
 				{
-					var libraries = [];
+					var modules = [];
 					var removed = false;
-					for(var i = 0; i < window.freshy.libraries.length; ++i)
-						if(window.freshy.libraries[i] != script[1])
-							libraries.push(window.freshy.libraries[i]);
+					for(var i = 0; i < window.freshy.modules.length; ++i)
+						if(window.freshy.modules[i] != script[1])
+							modules.push(window.freshy.modules[i]);
 						else
 							removed = true;
 
 					if(removed)
 					{
-						window.freshy.libraries = libraries;
+						window.freshy.modules = modules;
 						window.freshy.versionCheck();
 						window.freshy.saveSettings();
 						window.chatalert.showInformation(_('Library unloaded'), _('The {library} library will not be loaded the next time you restart the page.').replace('{library}', script[1]));
@@ -173,8 +173,8 @@
 		{
 			var message = _('Currently on the <em>{channel}</em> updates channel').replace('{channel}', _(window.freshy.channel));
 			message += '<br>'+_('Libraries')+': <em style="color: green">';
-			for(var i = 0; i < window.freshy.libraries.length; ++i)
-				message += (i > 0 ? '</em>, <em style="color:green">' : '') + window.freshy.libraries[i];
+			for(var i = 0; i < window.freshy.modules.length; ++i)
+				message += (i > 0 ? '</em>, <em style="color:green">' : '') + window.freshy.modules[i];
 			message += '</em><br>';
 			for(var system in window.freshy.systems)
 			{
@@ -278,7 +278,7 @@
 			if(system != 'freshy')
 				freshy.systems[system] = window.freshy.systems[system];
 		freshy.waits = window.freshy.waits;
-		freshy.libraries = window.freshy.libraries;
+		freshy.modules = window.freshy.modules;
 		window.freshy = freshy;
 	}
 	window.freshy.systemLoaded('freshy');
