@@ -11,7 +11,7 @@
 			beta: 'plug.runsafe.no/beta'
 		},
 		channel: 'stable',
-		systems: { freshy: 61 },
+		systems: { freshy: 62 },
 		failure: {},
 		loaded: {},
 		waits: {},
@@ -28,7 +28,12 @@
 			).fail(
 				function()
 				{
-					console.log(arguments);
+					if(window.freshy.channel == 'beta')
+					{
+						window.freshy.channel = 'stable';
+						window.freshy.loadScript(script);
+						return;
+					}
 					if(!(script in window.freshy.errors))
 						window.freshy.errors[script] = 0;
 					window.freshy.errors[script]++;
