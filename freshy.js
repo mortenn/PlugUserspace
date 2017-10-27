@@ -11,7 +11,7 @@
 			beta: 'plug.runsafe.no/beta'
 		},
 		channel: 'stable',
-		systems: { freshy: 63 },
+		systems: { freshy: 64 },
 		failure: {},
 		loaded: {},
 		waits: {},
