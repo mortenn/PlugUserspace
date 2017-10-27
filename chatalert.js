@@ -2,25 +2,28 @@
 	var chatalert = {
 		showInformation: function(title, body, play)
 		{
-			window.chatalert.show('icon-volume-off', title, body, 'a5dc42');
+			var alert = window.chatalert.show('icon-volume-off', title, body, 'a5dc42');
 			if(play != undefined)
 				window.soundbank.play(play);
+			return alert;
 		},
 		showWarning: function(title, body, play)
 		{
-			window.chatalert.show('icon-volume-half', title, body, 'dca542');
+			var alert = window.chatalert.show('icon-volume-half', title, body, 'dca542');
 			if(play != undefined)
 				window.soundbank.play(play);
 			else
 				window.soundbank.play('Mo, Baka!');
+			return alert;
 		},
 		showError: function(title, body, play)
 		{
-			window.chatalert.show('icon-volume-on', title, body, 'a54242');
+			var alert = window.chatalert.show('icon-volume-on', title, body, 'a54242');
 			if(play != undefined)
 				window.soundbank.play(play);
 			else
 				window.soundbank.play('Tsukki');
+			return alert;
 		},
 		show: function(icon, title, body, color, userClass)
 		{
@@ -48,7 +51,7 @@
 				if(hour > 12)
 					hour -= 12;
 			}
-			chatLog.append($(
+			var alert = $(
 '<div class="cm userspace-chatalert'+(userClass ? ' '+userClass : '')+'" style="margin:4px;box-shadow: inset 0 0 0 1px #'+color+';background:#282c35;clear:both">'+
 	'<div class="badge-box"><i class="icon '+icon+'"></i></div>'+
 	'<div class="msg">'+
@@ -59,8 +62,10 @@
 		'<div class="text cid-undefined">'+body+'</div>'+
 	'</div>'+
 '</div>'
-			));
+			);
+			chatLog.append(alert);
 			chatLog.scrollTop(chatLog.prop('scrollHeight'));
+			return alert;
 		}
 	};
 
