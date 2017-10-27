@@ -342,7 +342,8 @@
 			var nextSong = API.getNextMedia();
 			if(!nextSong)
 			{
-				window.chatalert.show('icon-volume-off', _('Make a playlist first'), _('You do not have a song lined up, so nothing to check!'), window.senpai.colours.information, 'senpai');
+				var alert = window.chatalert.show('icon-volume-off', _('Make a playlist first'), _('You do not have a song lined up, so nothing to check!'), window.senpai.colours.information, 'senpai');
+				setTimeout(function(){ alert.remove(); }, 60000);
 				return;
 			}
 			songID = nextSong.media.cid;
@@ -516,7 +517,8 @@
 			else if(verdict.category == 'error')
 				icon = 'on';
 
-			window.chatalert.show('icon-volume-'+icon, verdict.title(result), verdict.full(result), window.senpai.colours[verdict.category], 'senpai');
+			var alert = window.chatalert.show('icon-volume-'+icon, verdict.title(result), verdict.full(result), window.senpai.colours[verdict.category], 'senpai');
+			setTimeout(function(){ alert.remove(); }, 60000);
 
 			if(verdict.play && window.senpai.pos < 5)
 				window.soundbank.play(verdict.play);
@@ -659,7 +661,8 @@
 		},
 		showAlert: function(title, message)
 		{
-			window.chatalert.show('icon-volume-off', title, message, window.senpai.colours.information, 'senpai');
+			var alert = window.chatalert.show('icon-volume-off', title, message, window.senpai.colours.information, 'senpai');
+			setTimeout(function(){ alert.remove(); }, 60000);
 		},
 		getCurrentPlaylist: function() { return $('#media-panel .header .title span').text(); },
 		getSelectedPlaylist: function() { return $('#playlist-menu .selected .name').text(); },
