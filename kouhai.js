@@ -177,7 +177,7 @@
 			else
 				report += '<br><a href="http://j.animemusic.me/animemusic/suggest.php?cid='+result.id+'" target="_new">Link this song now</a>';
 			if(result.o2 > -1)
-				report += '<br><a href="http://j.animemusic.me/animemusic/opcheck.php?media='+result.id+'" target="_blank">Overplayed2 score: ' + result.o2 + '</a>'; 
+				report += '<br><a href="http://j.animemusic.me/animemusic/opcheck.php?media='+result.id+'" target="_blank">Overplayed score: ' + result.o2 + '</a>';
 			if(result.oa1 > 0)
 				report += '<br>' + result.oa1 + ' known versions on op list!';
 			if(result.ls)

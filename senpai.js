@@ -600,7 +600,7 @@
 						message += '<em style="padding-right:5px;color:'+window.senpai.colours.warning+'" title="'+data.result.dup.title+'">Duplicate!</em>';
 
 					if('kouhai' in window && 'o2' in data.result && data.result.o2 > 0)
-						message += ' (<a href="http://j.animemusic.me/animemusic/opcheck.php?media='+data.media.cid+'" target="_blank">OP2='+data.result.o2+'</a>)';
+						message += ' (<a href="http://j.animemusic.me/animemusic/opcheck.php?media='+data.media.cid+'" target="_blank">OP='+data.result.o2+'</a>)';
 
 					if('alt' in data.result && data.result.alt)
 						message += ' <span style="display:inline;position:static;font-size:8px;color:#aaa !important">('+data.result.alt+' versions)</span>';
