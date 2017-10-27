@@ -45,7 +45,7 @@
 						);
 						return;
 					}
-					setTimeout(function(){ window.freshy.loadScript(script); }, 500);
+					setTimeout(function(){ window.freshy.loadScript(script); }, 5000);
 				}
 			);
 		},
