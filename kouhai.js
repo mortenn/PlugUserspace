@@ -236,7 +236,7 @@
 		{
 			window.kouhai.config.values = data;
 		},
-		config: 
+		config:
 		{
 			values: { mode: 'on', hipster: false, hipster_limit: 15 },
 			get: function()
@@ -269,7 +269,7 @@
 							{ type: 'textbox', name: 'hipster_limit', value: window.kouhai.config.values.hipster_limit }
 						]
 					}
-				]; 
+				];
 			},
 			set: function(config, value)
 			{
