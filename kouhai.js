@@ -214,7 +214,10 @@
 			}
 
 			if(showReport)
-				window.chatalert.show(icon, 'Kouhai DJ report', report, '00d2ff', 'kouhai');
+			{
+				var alert = window.chatalert.show(icon, 'Kouhai DJ report', report, '00d2ff', 'kouhai');
+				setTimeout(function(){ alert.remove(); }, 600000);
+			}
 
 			if(softwarn || (verdict.popup && verdict.kouhaiPlay) || (result.oa1 > 0 && result.n > 0 && result.s > 0))
 				window.soundbank.play('Master');
@@ -290,7 +293,8 @@
 			}
 			if(!userid)
 			{
-				window.chatalert.show('', 'Unknown user', 'I was not able to find a user named "'+user+'"', '00d2ff', 'kouhai');
+				var alert = window.chatalert.show('', 'Unknown user', 'I was not able to find a user named "'+user+'"', '00d2ff', 'kouhai');
+				setTimeout(function(){ alert.remove(); }, 60000);
 				return;
 			}
 			$.getJSON(
@@ -303,7 +307,8 @@
 					{
 						report = user + ' has used senpaiscript!<br>First: ' + r.firstCheck + '<br>Last: ' + r.lastCheck;
 					}
-					window.chatalert.show('', 'Senpai usage report', report, '00d2ff', 'kouhai');
+					var alert = window.chatalert.show('', 'Senpai usage report', report, '00d2ff', 'kouhai');
+					setTimeout(function(){ alert.remove(); }, 60000);
 				}
 			);
 		},
