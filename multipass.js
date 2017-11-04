@@ -58,9 +58,9 @@
 							bad.push(media.id);
 							continue;
 						}
-						if(known.result.q == '1') { r_90.push(media.id); continue; }
-						if(known.result.m == '1') { r_30.push(media.id); continue; }
 						if(known.result.w == '1') { r_7.push(media.id); continue; }
+						if(known.result.m == '1') { r_30.push(media.id); continue; }
+						if(known.result.q == '1') { r_90.push(media.id); continue; }
 						ok.push(known);
 					}
 					ok.sort(
