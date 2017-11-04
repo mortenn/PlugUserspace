@@ -344,7 +344,7 @@
 					window.multipass.statusLoaded(playlist[i].id);
 				}
 			}
-			setInterval(
+			var working = setInterval(
 				function()
 				{
 					var done = playlist.reduce(
@@ -356,6 +356,7 @@
 					);
 					if(!done)
 						return;
+					clearInterval(working);
 					window.multipass.plAlert[pl.name].remove();
 					window.multipass.plAlert[pl.name] = window.chatalert.show(
 						'icon-volume-off',
