@@ -109,7 +109,7 @@
 					{
 						var button = $('#playlist-organize-button');
 						if(button.length > 0)
-							button.children('span').text(Math.floor(100 * ids.length / total) + '%')
+							button.children('span').text(Math.floor(100 - 100 * ids.length / total) + '%')
 						if(ids.length == 0)
 						{
 							window.multipass.organizing = false;
