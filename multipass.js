@@ -77,7 +77,11 @@
 						window.chatalert.showInformation(_("Nothing to do"), '¯\_(ツ)_/¯');
 						return;
 					}
-					var working;
+					var working = window.chatalert.showInformation(
+						_("Reorganizing playlist"),
+						_("Please stand by, this will take at least {time} seconds.")
+							.replace('{time}', ids.length)
+					);
 					var next = function()
 					{
 						if(ids.length == 0)
@@ -92,7 +96,6 @@
 						var move = ids.shift();
 						window.multipass.moveSongsToEnd(playlist, move, next);
 					}
-					working = window.chatalert.showInformation(_("Reorganizing playlist"), _("Please stand by, this will take at least {time} seconds.").replace('{time}', ids.length));
 					next();
 				}
 			);
