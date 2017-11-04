@@ -123,7 +123,7 @@
 				contentType: 'application/json',
 				processData: false,
 				data: JSON.stringify({ids: ids, beforeID: -1}),
-				success: function(){ setTimeout(next, 1000); },
+				success: function(){ setTimeout(next, 500); },
 				error: function(xhr)
 				{
 					if(xhr.status == 429)
@@ -132,7 +132,7 @@
 							{
 								window.multipass.moveSongsToEnd(playlist, ids, next);
 							},
-							1000
+							2000
 						);
 					else
 						console.log(arguments);
