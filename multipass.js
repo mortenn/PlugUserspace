@@ -82,7 +82,7 @@
 					var ids = ok.map(function(i){ return i.media.id; }).reverse();
 					if(ids.length == 0)
 					{
-						window.chatalert.showInformation(_("Nothing to do", '¯\_(ツ)_/¯');
+						window.chatalert.showInformation(_("Nothing to do"), '¯\_(ツ)_/¯');
 						return;
 					}
 					var done = function()
