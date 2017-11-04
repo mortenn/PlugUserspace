@@ -55,7 +55,7 @@
 
 						known.media = media;
 						var verdict = window.senpai.getVerdict(known.result);
-						if(verdict.skip)
+						if(verdict.skip || state.verdict && state.verdict.skip)
 						{
 							bad.push(known);
 							continue;
