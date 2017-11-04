@@ -74,7 +74,7 @@
 					bad.sort(playSorter);
 					ok.sort(playSorter);
 					var ids = ok.map(function(i){ return i.media.id; })
-						.concat(bad.map(function(i){ return i.media.id; }));
+						.concat(bad.map(function(i){ return i.media.id; }))
 						.reverse();
 					var last = ids.shift();
 					var next = function()
