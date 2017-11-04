@@ -119,14 +119,14 @@
 			var request = {
 				type: 'PUT',
 				url: 'https://plug.dj/_/playlists/'+playlist.id+'/media/move',
-				dataType: 'application/json',
+				dataType: 'json',
 				contentType: 'application/json',
 				processData: false,
 				data: JSON.stringify({ids: ids, beforeID: -1}),
-				success: function(){ console.log(arguments); },
+				success: function(){ setTimeout(next, 1000); },
 				error: function(){ console.log(arguments); }
 			};
-			$.ajax(request).always(function(){ setTimeout(next, 1000); });
+			$.ajax(request);
 		},
 		loadPlaylists: function()
 		{
