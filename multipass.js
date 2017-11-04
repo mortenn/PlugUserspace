@@ -75,7 +75,7 @@
 					if(bad.length > 0) ids.push(bad);
 					if(ids.length == 0)
 					{
-						window.chatalert.showInformation(_("Nothing to do"), '¯\_(ツ)_/¯');
+						window.chatalert.showInformation(_("Nothing to do"), '¯\\_(ツ)_/¯');
 						return;
 					}
 					var working = window.chatalert.showInformation(
