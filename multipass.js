@@ -65,11 +65,11 @@
 					{
 						aw = a.result.w;
 						bw = b.result.w;
-						if(aw == 1 && bw == 1)
+						if(aw == '1' && bw == '1')
 							return 0;
-						if(aw > bw || aw == 1)
+						if(aw > bw || bw == '1')
 							return 1;
-						if(bw < aw || bw == 1)
+						if(bw < aw || aw == '1')
 							return -1;
 						return 0;
 					};
