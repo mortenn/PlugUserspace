@@ -48,7 +48,7 @@
 						var known = window.multipass.knownMedia[media.cid];
 
 						// Unknown status, leave media alone
-						if(!state || !known)
+						if(!state || !known || !media.id)
 							continue;
 
 						known.media = media;
@@ -75,7 +75,7 @@
 							return 0;
 						}
 					);
-					var ids = ok.map(function(i){ return [i.media.id]; });
+					var ids = [ok.map(function(i){ return i.media.id; })];
 					ids.push(r_90);
 					ids.push(r_30);
 					ids.push(r_7);
