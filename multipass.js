@@ -89,6 +89,7 @@
 						console.log(move, last);
 						window.multipass.moveSongs(playlist, [move], last, next);
 					}
+					next();
 				}
 			);
 		},
