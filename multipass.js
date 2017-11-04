@@ -63,9 +63,9 @@
 					}
 					var playSorter = function(a, b)
 					{
-						if(a.w > b.w)
+						if(a.result.w > b.result.w)
 							return 1;
-						if(b.w < a.w)
+						if(b.result.w < a.result.w)
 							return -1;
 						return 0;
 					};
