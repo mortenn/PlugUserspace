@@ -181,6 +181,7 @@
 		backoff: 0,
 		plQueue: [],
 		plWorker: false,
+		plAlert: {},
 		plEnqueue: function(playlist)
 		{
 			window.multipass.plQueue.push(playlist);
@@ -199,6 +200,15 @@
 				return;
 			}
 			var next = window.multipass.plQueue.pop();
+			if(pl.name in window.multipass.plAlert)
+				window.multipass.plAlert[pl.name].remove();
+			window.multipass.plAlert[pl.name] = window.chatalert.show(
+				'icon-volume-off',
+				_('Checking playlist'),
+				_('{playlist} is being checked.').replace('{playlist}', pl.name),
+				'aa74ff',
+				'senpai'
+			);
 			window.multipass.checkPlaylist(next);
 		},
 		queue: [],
@@ -224,7 +234,8 @@
 			else if(next.format == 2)
 				window.multipass.soundcloudCheck(next);
 		},
-		youtubeCheck: function(media) {
+		youtubeCheck: function(media)
+		{
 			$.getJSON(
 				'https://www.googleapis.com/youtube/v3/videos?part=status,contentDetails&id='+media.cid+'&key=AIzaSyD67usK9zHkAgG33z0bdoauSGrdXX8ByL8',
 				function(response){ window.multipass.youtubeChecked(media, response); }
@@ -297,7 +308,8 @@
 			window.multipass.mediaStatus[media.cid] = {};
 			window.multipass.statusLoaded(media.cid);
 		},
-		soundcloudError: function(media, error){
+		soundcloudError: function(media, error)
+		{
 			window.multipass.mediaStatus[media.cid] = {
 				media: media,
 				result: {id:media.cid, b:0, u:1, r:error.message, override: true, w:''},
@@ -326,7 +338,29 @@
 					window.multipass.statusLoaded(playlist[i].id);
 				}
 			}
-			window.chatalert.show('icon-volume-off', _('Playlist checked'), _('{playlist} has been checked.').replace('{playlist}', pl.name), 'aa74ff', 'senpai');
+			setInterval(
+				function()
+				{
+					var done = playlist.reduce(
+						function(a, v)
+						{
+							return (v.id in window.multipass.mediaStatus) && a;
+						},
+						true
+					);
+					if(!done)
+						return;
+					window.multipass.plAlert[pl.name].remove();
+					window.multipass.plAlert[pl.name] = window.chatalert.show(
+						'icon-volume-off',
+						_('Playlist checked'),
+						_('{playlist} has been checked.').replace('{playlist}', pl.name),
+						'aa74ff',
+						'senpai'
+					);
+				},
+				1000
+			);
 		},
 		statusLoaded: function(id)
 		{
