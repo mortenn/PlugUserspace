@@ -124,7 +124,19 @@
 				processData: false,
 				data: JSON.stringify({ids: ids, beforeID: -1}),
 				success: function(){ setTimeout(next, 1000); },
-				error: function(){ console.log(arguments); }
+				error: function(xhr)
+				{
+					if(xhr.status == 429)
+						setTimeout(
+							function()
+							{
+								window.multipass.moveSongsToEnd(playlist, ids, next);
+							},
+							1000
+						);
+					else
+						console.log(arguments);
+				}
 			};
 			$.ajax(request);
 		},
