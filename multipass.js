@@ -40,9 +40,7 @@
 				'https://plug.dj/_/playlists/'+playlist.id+'/media',
 				function(ml)
 				{
-					var bad = [];
-					var ok = [];
-					var recent = [];
+					var bad = [], r_7 = [], r_30 = [], r_90 = [], ok = [];
 					for(var i = 0; i < ml.data.length; ++i)
 					{
 						var media = ml.data[i];
@@ -57,57 +55,49 @@
 						var verdict = window.senpai.getVerdict(known.result);
 						if(verdict.skip || state.verdict && state.verdict.skip)
 						{
-							bad.push(known);
+							bad.push(media.id);
 							continue;
 						}
-						if(known.result.w == '1')
-						{
-							recent.push(known);
-							continue;
-						}
+						if(known.result.q == '1') { r_90.push(media.id); continue; }
+						if(known.result.m == '1') { r_30.push(media.id); continue; }
+						if(known.result.w == '1') { r_7.push(media.id); continue; }
 						ok.push(known);
 					}
-					var playSorter = function(a, b)
-					{
-						aw = a.result.w;
-						bw = b.result.w;
-						if(aw == '1' && bw == '1') return 0;
-						if(aw == '1' || bw == '1') return aw == '1' ? 1 : -1;
-						if(aw > bw) return 1;
-						if(bw < aw) return -1;
-						return 0;
-					};
-					bad.sort(playSorter);
-					ok.sort(playSorter);
-					var ids = ok.map(function(i){ return i.media.id; });
+					ok.sort(
+						function(a, b)
+						{
+							aw = a.result.w;
+							bw = b.result.w;
+							if(aw == '1' && bw == '1') return 0;
+							if(aw == '1' || bw == '1') return aw == '1' ? 1 : -1;
+							if(aw > bw) return 1;
+							if(bw < aw) return -1;
+							return 0;
+						}
+					);
+					var ids = ok.map(function(i){ return [i.media.id]; });
+					ids.push(r_90);
+					ids.push(r_30);
+					ids.push(r_7);
+					ids.push(bad);
 					if(ids.length == 0)
 					{
 						window.chatalert.showInformation(_("Nothing to do"), '¯\_(ツ)_/¯');
 						return;
 					}
-					var done = function()
-					{
-						window.chatalert.showInformation(_("Done!"), _("Playlist has been organized, please reload to see results."));
-					};
-					var moveBad = function()
-					{
-						window.multipass.moveSongsToEnd(playlist, bad.map(function(i){ return i.media.id; }), done);
-					};
-					var moveRecent = function()
-					{
-						window.multipass.moveSongsToEnd(playlist, recent.map(function(i){ return i.media.id; }), bad.length > 0 ? moveBad : done)
-					};
+					console.log(ids, ok);
 					var next = function()
 					{
 						if(ids.length == 0)
 						{
-							if(recent.length > 0) moveRecent();
-							else if(bad.length > 0) moveBad();
-							else done();
+							window.chatalert.showInformation(
+								_("Done!"),
+								_("Playlist has been organized, please reload to see results.")
+							);
 							return;
 						}
 						var move = ids.shift();
-						window.multipass.moveSongsToEnd(playlist, [move], next);
+						window.multipass.moveSongsToEnd(playlist, move, next);
 					}
 					window.chatalert.showInformation(_("Reorganizing playlist"), _("Please stand by, this will take at least {time} seconds.").replace('{time}', ids.length));
 					next();
