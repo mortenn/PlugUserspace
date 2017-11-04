@@ -73,9 +73,22 @@
 					};
 					bad.sort(playSorter);
 					ok.sort(playSorter);
-					console.log(bad.map(function(i){ return i.result.w; }));
-					console.log(ok.map(function(i){ return i.result.w; }));
+					var ids = ok.map(function(i){ return i.media.id; })
+						.concat(bad.map(function(i){ return i.media.id; }));
+						.reverse();
+					var last = ids.shift();
+					var next = function()
+					{
+						if(ids.length == 0)
+						{
+							window.chatalert.showInformation(_("Done!"), _("Playlist has been organized, please reload to see results."));
+							return;
+						}
+						var move = ids.shift();
+						window.multipass.moveSongs(playlist, [move], last, next);
+					}
 				}
+
 			);
 		},
 		checkAll: function()
