@@ -115,7 +115,7 @@
 				dataType: 'application/json',
 				contentType: 'application/json',
 				processData: false,
-				data: JSON.stringify({ids: [id], beforeID: before}),
+				data: JSON.stringify({ids: [id], beforeID: -1}),
 				success: function(){ console.log(arguments); },
 				error: function(){ console.log(arguments); }
 			};
