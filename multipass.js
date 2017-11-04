@@ -45,7 +45,7 @@
 					for(var i = 0; i < ml.data.length; ++i)
 					{
 						var media = ml.data[i];
-						var state = window.multipass.mediaStatus[meda.cid];
+						var state = window.multipass.mediaStatus[media.cid];
 						var known = window.multipass.knownMedia[media.cid];
 						var verdict = window.senpai.getVerdict(known.result);
 
@@ -75,9 +75,6 @@
 					console.log(ok);
 				}
 			);
-
-			var known = [id];
-
 		},
 		checkAll: function()
 		{
