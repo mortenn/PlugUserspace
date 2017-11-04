@@ -78,19 +78,25 @@
 						window.chatalert.showInformation(_("Nothing to do"), '¯\\_(ツ)_/¯');
 						return;
 					}
-					var working = window.chatalert.showInformation(
+					var working = window.multipass.plAlert[pl.name] = window.chatalert.show(
+						'icon-volume-off',
 						_("Reorganizing playlist"),
 						_("Please stand by, this will take at least {time} seconds.")
-							.replace('{time}', ids.length)
+							.replace('{time}', ids.length),
+						'aa74ff',
+						'senpai'
 					);
 					var next = function()
 					{
 						if(ids.length == 0)
 						{
 							working.remove();
-							window.chatalert.showInformation(
+							window.chatalert.show(
+								'icon-volume-off',
 								_("Done!"),
-								_("Playlist has been organized, please reload to see results.")
+								_("Playlist has been organized, please reload to see results."),
+								'aa74ff',
+								'senpai'
 							);
 							return;
 						}
