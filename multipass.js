@@ -79,7 +79,7 @@
 					};
 					bad.sort(playSorter);
 					ok.sort(playSorter);
-					var ids = ok.map(function(i){ return i.media.id; }).reverse();
+					var ids = ok.map(function(i){ return i.media.id; });
 					if(ids.length == 0)
 					{
 						window.chatalert.showInformation(_("Nothing to do"), '¯\_(ツ)_/¯');
