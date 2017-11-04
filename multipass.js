@@ -109,7 +109,7 @@
 						var move = ids.shift();
 						window.multipass.moveSongsToEnd(playlist, [move], next);
 					}
-					window.chatalert.showInformation(_("Reorganizing playlist", _("Please stand by, this will take at least {time} seconds.").replace('{time}', ids.length)));
+					window.chatalert.showInformation(_("Reorganizing playlist"), _("Please stand by, this will take at least {time} seconds.").replace('{time}', ids.length));
 					next();
 				}
 			);
