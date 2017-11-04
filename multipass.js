@@ -227,10 +227,10 @@
 		youtubeCheck: function(media) {
 			$.getJSON(
 				'https://www.googleapis.com/youtube/v3/videos?part=status,contentDetails&id='+media.cid+'&key=AIzaSyD67usK9zHkAgG33z0bdoauSGrdXX8ByL8',
-				window.multipass.youtubeChecked
-			).fail(window.multipass.youtubeError);
+				function(response){ window.multipass.youtubeChecked(media, response); }
+			).fail(function(error){ window.multipass.youtubeError(media, error); });
 		},
-		youtubeChecked: function(response)
+		youtubeChecked: function(media, response)
 		{
 			var warning = null;
 			window.multipass.mediaStatus[media.cid] = {};
@@ -277,7 +277,7 @@
 			}
 			window.multipass.statusLoaded(media.cid);
 		},
-		youtubeError: function(response)
+		youtubeError: function(media, response)
 		{
 			window.multipass.mediaStatus[media.cid] = {
 				media: media,
@@ -289,15 +289,15 @@
 		soundcloudCheck: function(media)
 		{
 			SC.get('/tracks/'+media.cid)
-				.then(window.multipass.soundcloudChecked)
-				.catch(window.multipass.soundcloudError);
+				.then(function(){ window.multipass.soundcloudChecked(media); })
+				.catch(function(error){ window.multipass.soundcloudError(error); });
 		},
-		soundcloudChecked: function()
+		soundcloudChecked: function(media)
 		{
 			window.multipass.mediaStatus[media.cid] = {};
 			window.multipass.statusLoaded(media.cid);
 		},
-		soundcloudError: function(error){
+		soundcloudError: function(media, error){
 			window.multipass.mediaStatus[media.cid] = {
 				media: media,
 				result: {id:media.cid, b:0, u:1, r:error.message, override: true, w:''},
