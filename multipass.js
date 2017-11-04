@@ -39,7 +39,7 @@
 				button.remove();
 			if(window.senpai.getActivePlaylist() != window.senpai.getCurrentPlaylist())
 				return;
-			button = $('<div id="playlist-organize-button" class="button" style="right:450px;"><span>'+_('Organize')+'</span></div>');
+			button = $('<div id="playlist-organize-button" class="button" style="right:550px;"><span>'+_('Organize')+'</span></div>');
 			$('#playlist-edit-button').before(button);
 			button.click(
 				function()
@@ -57,7 +57,7 @@
 				button.remove();
 			if(window.senpai.getActivePlaylist() != window.senpai.getCurrentPlaylist())
 				return;
-			button = $('<div id="playlist-checkall-button" class="button" style="right:600px;"><span>'+_('Check all').replace(' ','&nbsp;')+'</span></div>');
+			button = $('<div id="playlist-checkall-button" class="button" style="right:450px;"><span>'+_('Check all').replace(' ','&nbsp;')+'</span></div>');
 			$('#playlist-edit-button').before(button);
 			button.click(
 				function()
