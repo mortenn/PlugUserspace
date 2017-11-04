@@ -108,10 +108,12 @@
 					var next = function()
 					{
 						var button = $('#playlist-organize-button');
-						if(button.length > 0)
+						if(button.length > 0 && ids.length > 0)
 							button.children('span').text(Math.floor(100 - 100 * ids.length / total) + '%')
 						if(ids.length == 0)
 						{
+							if(button.length > 0)
+								button.children('span').text(_('Organize'));
 							window.multipass.organizing = false;
 							working.remove();
 							window.chatalert.show(
