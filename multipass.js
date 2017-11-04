@@ -78,9 +78,10 @@
 						window.chatalert.showInformation(_("Nothing to do"), '¯\\_(ツ)_/¯');
 						return;
 					}
-					var working = window.multipass.plAlert[pl.name] = window.chatalert.show(
+					var working = window.multipass.plAlert[playlist.name] = window.chatalert.show(
 						'icon-volume-off',
-						_("Reorganizing playlist"),
+						_("Reorganizing playlist {playlist}")
+							.replace('{playlist}', playlist.name),
 						_("Please stand by, this will take at least {time} seconds.")
 							.replace('{time}', ids.length),
 						'aa74ff',
@@ -94,7 +95,8 @@
 							window.chatalert.show(
 								'icon-volume-off',
 								_("Done!"),
-								_("Playlist has been organized, please reload to see results."),
+								_("Playlist {playlist} has been organized, please reload to see results.")
+									.replace('{playlist}', playlist.name),
 								'aa74ff',
 								'senpai'
 							);
