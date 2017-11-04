@@ -75,8 +75,8 @@
 					};
 					bad.sort(playSorter);
 					ok.sort(playSorter);
-					console.log(bad);
-					console.log(ok);
+					console.log(bad.map(function(i){ return i.result.w; }));
+					console.log(ok.map(function(i){ return i.result.w; }));
 				}
 			);
 		},
