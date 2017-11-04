@@ -200,12 +200,12 @@
 				return;
 			}
 			var next = window.multipass.plQueue.pop();
-			if(pl.name in window.multipass.plAlert)
-				window.multipass.plAlert[pl.name].remove();
-			window.multipass.plAlert[pl.name] = window.chatalert.show(
+			if(next.name in window.multipass.plAlert)
+				window.multipass.plAlert[next.name].remove();
+			window.multipass.plAlert[next.name] = window.chatalert.show(
 				'icon-volume-off',
 				_('Checking playlist'),
-				_('{playlist} is being checked.').replace('{playlist}', pl.name),
+				_('{playlist} is being checked.').replace('{playlist}', next.name),
 				'aa74ff',
 				'senpai'
 			);
