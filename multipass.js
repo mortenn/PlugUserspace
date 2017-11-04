@@ -108,7 +108,7 @@
 					success: next
 				}
 			);
-		}
+		},
 		loadPlaylists: function()
 		{
 			$.getJSON('https://plug.dj/_/playlists', function(pl) { window.multipass.onPlaylistsLoaded(pl); });
