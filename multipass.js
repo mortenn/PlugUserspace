@@ -47,13 +47,13 @@
 						var media = ml.data[i];
 						var state = window.multipass.mediaStatus[media.cid];
 						var known = window.multipass.knownMedia[media.cid];
-						var verdict = window.senpai.getVerdict(known.result);
 
 						// Unknown status, leave media alone
 						if(!state || !known)
 							continue;
 
 						known.media = media;
+						var verdict = window.senpai.getVerdict(known.result);
 						if(verdict.skip)
 						{
 							bad.push(known);
