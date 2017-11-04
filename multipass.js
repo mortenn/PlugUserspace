@@ -63,23 +63,15 @@
 						if(known.result.q == '1') { r_90.push(media.id); continue; }
 						ok.push(known);
 					}
-					ok.sort(
-						function(a, b)
-						{
-							aw = a.result.w;
-							bw = b.result.w;
-							if(aw == '1' && bw == '1') return 0;
-							if(aw == '1' || bw == '1') return aw == '1' ? 1 : -1;
-							if(aw > bw) return 1;
-							if(bw < aw) return -1;
-							return 0;
-						}
-					);
-					var ids = [ok.map(function(i){ return i.media.id; })];
-					ids.push(r_90);
-					ids.push(r_30);
-					ids.push(r_7);
-					ids.push(bad);
+					ok.sort(function(a, b) {
+						return a.result.w == b.result.w ? 0 :
+						 	(a.result.w > b.result.w ? 1 : -1);
+					});
+					var ids = ok.map(function(i){ return [i.media.id]; });
+					if(r_90.length > 0) ids.push(r_90);
+					if(r_30.length > 0) ids.push(r_30);
+					if(r_7.length > 0) ids.push(r_7);
+					if(bad.length > 0) ids.push(bad);
 					if(ids.length == 0)
 					{
 						window.chatalert.showInformation(_("Nothing to do"), '¯\_(ツ)_/¯');
