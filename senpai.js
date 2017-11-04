@@ -362,24 +362,24 @@
 			var restrict = response.items[0].contentDetails.regionRestriction;
 			var score = 0;
 			var result = {};
-			var allowlist = "allowed" in restrict;
+			var default_allow = true;
 
-			if(allowlist)
+			if("allowed" in restrict)
+			{
+				default_allow = false;
 				for(var c = 0; c < restrict.allowed.length; ++c)
-					result[restrict.allowed[c]] = true;
-
+					if(restrict.allowed[c] in window.senpai.countryList)
+						result[restrict.allowed[c]] = true;
+			}
 			if("blocked" in restrict)
+			{
 				for(var c = 0; c < restrict.blocked.length; ++c)
-					result[restrict.blocked[c]] = false;
-
+					if(restrict.blocked[c] in window.senpai.countryList)
+						result[restrict.blocked[c]] = false;
+			}
 			for(var country in window.senpai.countryList)
-				if(!(country in result))
-					result[country] = !allowlist;
-
-			for(var country in result)
-				if(!result[country] && country in window.senpai.countryList)
+				if(!(result[country] === undefined ? default_allow : result[country]))
 					score += window.senpai.countryList[country];
-
 			return score;
 		},
 		startCheck: function(media) {
