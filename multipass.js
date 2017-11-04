@@ -143,7 +143,6 @@
 		{
 			if(window.multipass.checking)
 				return;
-			window.multipass.checking = true;
 			if(!window.multipass.playlists)
 				return window.multipass.loadPlaylists(organize);
 
@@ -152,6 +151,7 @@
 				var pl = window.multipass.playlists.data[i];
 				if(pl.active)
 				{
+					window.multipass.checking = true;
 					if(organize)
 						window.multipass.orgQueue[pl.id] = true;
 					window.multipass.plEnqueue(pl);
