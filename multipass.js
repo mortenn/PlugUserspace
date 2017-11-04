@@ -33,7 +33,7 @@
 					if(window.multipass.playlists.data[i].active)
 						return window.multipass.organizePlaylist(window.multipass.playlists.data[i]);
 
-			window.chatalert.showInformation(_('Unable to comply'), _('You need to complete /checkall first'));
+			window.multipass.checkAll(true);
 		},
 		organizePlaylist(playlist)
 		{
@@ -101,18 +101,23 @@
 				}
 			);
 		},
-		checkAll: function()
+		checkAll: function(organize)
 		{
 			if(!window.multipass.playlists)
-				return window.multipass.loadPlaylists();
+				return window.multipass.loadPlaylists(organize);
 
 			for(var i = 0; i < window.multipass.playlists.data.length; ++i)
-				if(window.multipass.playlists.data[i].active)
+			{
+				var pl = window.multipass.playlists.data[i];
+				if(pl.active)
 				{
-					window.multipass.plEnqueue(window.multipass.playlists.data[i]);
-					window.multipass.checked[window.multipass.playlists.data[i].name] = true;
+					if(organize)
+						window.multipass.orgQueue[pl.id] = true;
+					window.multipass.plEnqueue(pl);
+					window.multipass.checked[pl.name] = true;
 					return;
 				}
+			}
 		},
 		checkPlaylist: function(playlist)
 		{
@@ -152,14 +157,14 @@
 			};
 			$.ajax(request);
 		},
-		loadPlaylists: function()
+		loadPlaylists: function(organize)
 		{
-			$.getJSON('https://plug.dj/_/playlists', function(pl) { window.multipass.onPlaylistsLoaded(pl); });
+			$.getJSON('https://plug.dj/_/playlists', function(pl) { window.multipass.onPlaylistsLoaded(pl, organize); });
 		},
-		onPlaylistsLoaded: function(playlists)
+		onPlaylistsLoaded: function(playlists, organize)
 		{
 			window.multipass.playlists = playlists;
-			window.multipass.checkAll();
+			window.multipass.checkAll(organize);
 		},
 		onPlaylistLoaded: function(playlist, medialist)
 		{
@@ -179,6 +184,7 @@
 			);
 		},
 		backoff: 0,
+		orgQueue: [],
 		plQueue: [],
 		plWorker: false,
 		plAlert: {},
@@ -358,6 +364,8 @@
 						'aa74ff',
 						'senpai'
 					);
+					if(pl.id in window.multipass.orgQueue)
+						window.multipass.organizePlaylist(pl);
 				},
 				1000
 			);
