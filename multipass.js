@@ -76,7 +76,6 @@
 					var ids = ok.map(function(i){ return i.media.id; })
 						.concat(bad.map(function(i){ return i.media.id; }))
 						.reverse();
-					console.log(ids, last);
 					var next = function()
 					{
 						if(ids.length == 0)
