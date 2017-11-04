@@ -37,7 +37,7 @@
 			{
 				button = $('<div id="playlist-organize-button" class="button" style="right:450px;"><span>'+_('Organize')+'</span></div>');
 				$('#playlist-edit-button').before(button);
-				button.click(function() { window.multipass.organize(); });
+				button.click(function() { window.multipass.checkAll(true); });
 			}
 		},
 		organize: function()
