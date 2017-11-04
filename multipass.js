@@ -84,7 +84,7 @@
 							return;
 						}
 						var move = ids.shift();
-						window.multipass.moveSongs(playlist, [move], -1, next);
+						window.multipass.moveSongToEnd(playlist, move, next);
 					}
 					next();
 				}
@@ -107,18 +107,19 @@
 		{
 			$.getJSON('https://plug.dj/_/playlists/'+playlist.id+'/media', function(ml){ window.multipass.onPlaylistLoaded(playlist, ml); });
 		},
-		moveSongs: function(playlist, ids, before, next)
+		moveSongToEnd: function(playlist, id, next)
 		{
-			console.log('Doing ajax call');
 			var request = {
 				type: 'PUT',
 				url: 'https://plug.dj/_/playlists/'+playlist.id+'/media/move',
 				dataType: 'application/json',
-				data: {ids:ids, beforeID:before},
+				contentType: 'application/json',
+				processData: false,
+				data: JSON.stringify({ids: [id], beforeID: before}),
 				success: function(){ console.log(arguments); },
 				error: function(){ console.log(arguments); }
 			};
-			$.ajax(request).done(function(){ setTimeout(next, 1000); });
+			$.ajax(request).always(function(){ setTimeout(next, 1000); });
 		},
 		loadPlaylists: function()
 		{
