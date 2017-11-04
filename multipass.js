@@ -26,25 +26,45 @@
 				window.multipass.organize();
 			}
 		},
+		managePlaylistButton: function()
+		{
+			window.multipass.manageOrganizeButton();
+			window.multipass.manageCheckAllButton();
+		},
 		manageOrganizeButton: function()
 		{
 			if(!window.senpai.enabled()) return;
 			var button = $('#playlist-organize-button');
 			if (button.length)
 				button.remove();
-
-			if(window.senpai.getActivePlaylist() == window.senpai.getCurrentPlaylist())
-			{
-				button = $('<div id="playlist-organize-button" class="button" style="right:450px;"><span>'+_('Organize')+'</span></div>');
-				$('#playlist-edit-button').before(button);
-				button.click(
-					function()
-					{
-						button.children('span').text('0%');
-						window.multipass.checkAll(true);
-					}
-				);
-			}
+			if(window.senpai.getActivePlaylist() != window.senpai.getCurrentPlaylist())
+				return;
+			button = $('<div id="playlist-organize-button" class="button" style="right:450px;"><span>'+_('Organize')+'</span></div>');
+			$('#playlist-edit-button').before(button);
+			button.click(
+				function()
+				{
+					button.children('span').text('0%');
+					window.multipass.checkAll(true);
+				}
+			);
+		},
+		manageCheckAllButton: function()
+		{
+			if(!window.senpai.enabled()) return;
+			var button = $('#playlist-checkall-button');
+			if (button.length)
+				button.remove();
+			if(window.senpai.getActivePlaylist() != window.senpai.getCurrentPlaylist())
+				return;
+			button = $('<div id="playlist-checkall-button" class="button" style="right:550px;"><span>'+_('Check all')+'</span></div>');
+			$('#playlist-edit-button').before(button);
+			button.click(
+				function()
+				{
+					window.multipass.checkAll();
+				}
+			);
 		},
 		organize: function()
 		{

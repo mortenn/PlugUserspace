@@ -308,8 +308,6 @@
 			if(!window.senpai.enabled()) return;
 			window.senpai.waitForPlaylistChange(function() {
 				window.senpai.manageCheckButton();
-				if('multipass' in window)
-					window.multipass.manageOrganizeButton();
 			});
 		},
 		onPlaylistActivate: function()
@@ -317,14 +315,15 @@
 			if(!window.senpai.enabled()) return;
 			window.senpai.waitForPlaylistChange(function() {
 				window.senpai.manageCheckButton();
-				if('multipass' in window)
-					window.multipass.manageOrganizeButton();
 				window.senpai.manualCheck();
 			});
 		},
 		manageCheckButton: function()
 		{
 			if(!window.senpai.enabled()) return;
+			if('multipass' in window)
+				window.multipass.managePlaylistButton();
+
 			var button = $('#playlist-check-button');
 			if (button.length)
 				button.remove();
