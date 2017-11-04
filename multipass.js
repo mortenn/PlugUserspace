@@ -42,6 +42,7 @@
 				{
 					var bad = [];
 					var ok = [];
+					var recent = [];
 					for(var i = 0; i < ml.data.length; ++i)
 					{
 						var media = ml.data[i];
@@ -59,6 +60,11 @@
 							bad.push(known);
 							continue;
 						}
+						if(known.result.w == '1')
+						{
+							recent.push(known);
+							continue;
+						}
 						ok.push(known);
 					}
 					var playSorter = function(a, b)
@@ -73,19 +79,37 @@
 					};
 					bad.sort(playSorter);
 					ok.sort(playSorter);
-					var ids = ok.map(function(i){ return i.media.id; })
-						.concat(bad.map(function(i){ return i.media.id; }))
-						.reverse();
+					var ids = ok.map(function(i){ return i.media.id; }).reverse();
+					if(ids.length == 0)
+					{
+						window.chatalert.showInformation(_("Nothing to do", '¯\_(ツ)_/¯');
+						return;
+					}
+					var done = function()
+					{
+						window.chatalert.showInformation(_("Done!"), _("Playlist has been organized, please reload to see results."));
+					};
+					var moveBad = function()
+					{
+						window.multipass.moveSongsToEnd(playlist, bad.map(function(i){ return i.media.id; }), done);
+					};
+					var moveRecent = function()
+					{
+						window.multipass.moveSongsToEnd(playlist, recent.map(function(i){ return i.media.id; }), bad.length > 0 ? moveBad : done)
+					};
 					var next = function()
 					{
 						if(ids.length == 0)
 						{
-							window.chatalert.showInformation(_("Done!"), _("Playlist has been organized, please reload to see results."));
+							if(recent.length > 0) moveRecent();
+							else if(bad.length > 0) moveBad();
+							else done();
 							return;
 						}
 						var move = ids.shift();
-						window.multipass.moveSongToEnd(playlist, move, next);
+						window.multipass.moveSongsToEnd(playlist, [move], next);
 					}
+					window.chatalert.showInformation(_("Reorganizing playlist", _("Please stand by, this will take at least {time} seconds.").replace('{time}', ids.length)));
 					next();
 				}
 			);
@@ -107,7 +131,7 @@
 		{
 			$.getJSON('https://plug.dj/_/playlists/'+playlist.id+'/media', function(ml){ window.multipass.onPlaylistLoaded(playlist, ml); });
 		},
-		moveSongToEnd: function(playlist, id, next)
+		moveSongsToEnd: function(playlist, ids, next)
 		{
 			var request = {
 				type: 'PUT',
@@ -115,7 +139,7 @@
 				dataType: 'application/json',
 				contentType: 'application/json',
 				processData: false,
-				data: JSON.stringify({ids: [id], beforeID: -1}),
+				data: JSON.stringify({ids: ids, beforeID: -1}),
 				success: function(){ console.log(arguments); },
 				error: function(){ console.log(arguments); }
 			};
