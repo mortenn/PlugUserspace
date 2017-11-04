@@ -307,7 +307,9 @@
 		{
 			if(!window.senpai.enabled()) return;
 			window.senpai.waitForPlaylistChange(function() {
-				 window.senpai.manageCheckButton();
+				window.senpai.manageCheckButton();
+				if('multipass' in window)
+					window.multipass.manageOrganizeButton();
 			});
 		},
 		onPlaylistActivate: function()
@@ -315,6 +317,8 @@
 			if(!window.senpai.enabled()) return;
 			window.senpai.waitForPlaylistChange(function() {
 				window.senpai.manageCheckButton();
+				if('multipass' in window)
+					window.multipass.manageOrganizeButton();
 				window.senpai.manualCheck();
 			});
 		},

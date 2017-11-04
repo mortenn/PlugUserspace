@@ -26,6 +26,20 @@
 				window.multipass.organize();
 			}
 		},
+		manageOrganizeButton: function()
+		{
+			if(!window.senpai.enabled()) return;
+			var button = $('#playlist-organize-button');
+			if (button.length)
+				button.remove();
+
+			if(window.senpai.getActivePlaylist() == window.senpai.getCurrentPlaylist())
+			{
+				button = $('<div id="playlist-organize-button" class="button" style="right:420px;"><span>'+_('Organize')+'</span></div>');
+				$('#playlist-edit-button').before(button);
+				button.click(function() { window.multipass.organize(); });
+			}
+		},
 		organize: function()
 		{
 			if(window.multipass.playlists.data)
@@ -78,6 +92,7 @@
 						window.chatalert.showInformation(_("Nothing to do"), '¯\\_(ツ)_/¯');
 						return;
 					}
+					var total = ids.length;
 					var working = window.multipass.plAlert[playlist.name] = window.chatalert.show(
 						'icon-volume-off',
 						_("Reorganizing playlist {playlist}")
@@ -89,8 +104,12 @@
 					);
 					var next = function()
 					{
+						var button = $('#playlist-organize-button');
+						if(button.length)
+							button.text(Math.floor(100 * ids.length / total) + '%')
 						if(ids.length == 0)
 						{
+							window.multipass.organizing = false;
 							working.remove();
 							window.chatalert.show(
 								'icon-volume-off',
@@ -192,6 +211,7 @@
 			);
 		},
 		backoff: 0,
+		organizing: false,
 		orgQueue: [],
 		plQueue: [],
 		plWorker: false,
