@@ -76,7 +76,6 @@
 					var ids = ok.map(function(i){ return i.media.id; })
 						.concat(bad.map(function(i){ return i.media.id; }))
 						.reverse();
-					var last = ids.shift();
 					console.log(ids, last);
 					var next = function()
 					{
@@ -86,8 +85,7 @@
 							return;
 						}
 						var move = ids.shift();
-						console.log(move, last);
-						window.multipass.moveSongs(playlist, [move], last, next);
+						window.multipass.moveSongs(playlist, [move], -1, next);
 					}
 					next();
 				}
@@ -117,7 +115,7 @@
 				type: 'PUT',
 				url: 'https://plug.dj/_/playlists/'+playlist.id+'/media/move',
 				dataType: 'application/json',
-				data: JSON.stringify({ids:ids, beforeID:before}),
+				data: {ids:ids, beforeID:before},
 				success: function(){ console.log(arguments); },
 				error: function(){ console.log(arguments); }
 			};
