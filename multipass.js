@@ -88,7 +88,6 @@
 						window.multipass.moveSongs(playlist, [move], last, next);
 					}
 				}
-
 			);
 		},
 		checkAll: function()
@@ -110,16 +109,13 @@
 		},
 		moveSongs: function(playlist, ids, before, next)
 		{
-			$.ajax(
-				{
-					type: 'PUT',
-					url: 'https://plug.dj/_/playlists/'+playlist.id+'/media/move',
-					contentType: 'application/json',
-					dataType: 'application/json',
-					data: JSON.stringify({ids:ids, beforeID:before}),
-					success: next
-				}
-			);
+			var request = {
+				type: 'PUT',
+				url: 'https://plug.dj/_/playlists/'+playlist.id+'/media/move',
+				dataType: 'application/json',
+				data: JSON.stringify({ids:ids, beforeID:before})
+			};
+			$.ajax(request).done(next);
 		},
 		loadPlaylists: function()
 		{
