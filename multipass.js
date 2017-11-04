@@ -57,7 +57,7 @@
 				button.remove();
 			if(window.senpai.getActivePlaylist() != window.senpai.getCurrentPlaylist())
 				return;
-			button = $('<div id="playlist-checkall-button" class="button" style="right:550px;"><span>'+_('Check all')+'</span></div>');
+			button = $('<div id="playlist-checkall-button" class="button" style="right:600px;"><span>'+_('Check all').replace(' ','&nbsp;')+'</span></div>');
 			$('#playlist-edit-button').before(button);
 			button.click(
 				function()
