@@ -37,7 +37,13 @@
 			{
 				button = $('<div id="playlist-organize-button" class="button" style="right:450px;"><span>'+_('Organize')+'</span></div>');
 				$('#playlist-edit-button').before(button);
-				button.click(function() { window.multipass.checkAll(true); });
+				button.click(
+					function()
+					{
+						button.children('span').text('0%');
+						window.multipass.checkAll(true);
+					}
+				);
 			}
 		},
 		organize: function()
@@ -135,6 +141,9 @@
 		},
 		checkAll: function(organize)
 		{
+			if(window.multipass.checking)
+				return;
+			window.multipass.checking = true;
 			if(!window.multipass.playlists)
 				return window.multipass.loadPlaylists(organize);
 
@@ -216,6 +225,7 @@
 			);
 		},
 		backoff: 0,
+		checking: false,
 		organizing: false,
 		orgQueue: [],
 		plQueue: [],
@@ -390,6 +400,7 @@
 					if(!done)
 						return;
 					clearInterval(working);
+					window.multipass.checking = false;
 					window.multipass.plAlert[pl.name].remove();
 					window.multipass.plAlert[pl.name] = window.chatalert.show(
 						'icon-volume-off',
