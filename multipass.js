@@ -120,6 +120,14 @@
 		},
 		moveSongsToEnd: function(playlist, ids, next)
 		{
+			window.multipass.backoff++;
+			setTimeout(function(){ window.multipass.backoff--; }, 60000);
+			var backoff = function()
+			{
+				if(window.multipass.backoff > 28)
+					return setTimeout(backoff, 1000);
+				return setTimeout(next, 100);
+			};
 			var request = {
 				type: 'PUT',
 				url: 'https://plug.dj/_/playlists/'+playlist.id+'/media/move',
@@ -127,7 +135,7 @@
 				contentType: 'application/json',
 				processData: false,
 				data: JSON.stringify({ids: ids, beforeID: -1}),
-				success: function(){ setTimeout(next, 500); },
+				success: backoff,
 				error: function(xhr)
 				{
 					if(xhr.status == 429)
@@ -170,6 +178,7 @@
 				'json'
 			);
 		},
+		backoff: 0,
 		plQueue: [],
 		plWorker: false,
 		plEnqueue: function(playlist)
