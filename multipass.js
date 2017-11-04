@@ -208,7 +208,7 @@
 		{
 			window.multipass.queue.push(media);
 			if(!window.multipass.worker)
-				window.multipass.worker = setInterval(window.multipass.checkNext, 100);
+				window.multipass.worker = setTimeout(window.multipass.checkNext, 100);
 		},
 		checkNext: function()
 		{
@@ -227,78 +227,83 @@
 		youtubeCheck: function(media) {
 			$.getJSON(
 				'https://www.googleapis.com/youtube/v3/videos?part=status,contentDetails&id='+media.cid+'&key=AIzaSyD67usK9zHkAgG33z0bdoauSGrdXX8ByL8',
-				function(response)
-				{
-					var warning = null;
-					window.multipass.mediaStatus[media.cid] = {};
-					if('pageInfo' in response)
-					{
-						var bad = null;
-						var item = response.items && response.items.length > 0 ? response.items[0] : {};
-						if(response.pageInfo.totalResults == 0 || response.items.length == 0)
-							bad = 'Video not found';
-						else if(item.status.uploadStatus == 'rejected')
-							bad = 'Video removed (' + item.status.rejectionReason + ')';
-						else if(!item.status.embeddable)
-							bad = 'Video not embeddable';
-						else if(item.contentDetails && item.contentDetails.contentRating && item.contentDetails.contentRating.ytRating)
-							warning = item.contentDetails.contentRating.ytRating;
+				window.multipass.youtubeChecked
+			).fail(window.multipass.youtubeError);
+		},
+		youtubeChecked: function(response)
+		{
+			var warning = null;
+			window.multipass.mediaStatus[media.cid] = {};
+			if('pageInfo' in response)
+			{
+				var bad = null;
+				var item = response.items && response.items.length > 0 ? response.items[0] : {};
+				if(response.pageInfo.totalResults == 0 || response.items.length == 0)
+					bad = 'Video not found';
+				else if(item.status.uploadStatus == 'rejected')
+					bad = 'Video removed (' + item.status.rejectionReason + ')';
+				else if(!item.status.embeddable)
+					bad = 'Video not embeddable';
+				else if(item.contentDetails && item.contentDetails.contentRating && item.contentDetails.contentRating.ytRating)
+					warning = item.contentDetails.contentRating.ytRating;
 
-						if(bad)
-						{
-							window.multipass.mediaStatus[media.cid] = {
-								media: media,
-								result: {id:media.cid, b:0, u:1, r: bad, w: '', override: true},
-								verdict: window.senpai.messages.unavailable
-							};
-							window.multipass.statusLoaded(media.cid);
-							return;
-						}
-					}
-					var score = window.senpai.parseRestrictions(response);
-					if(score > 16)
-					{
-						window.multipass.mediaStatus[media.cid] = {
-							media: media,
-							result: {id:media.cid, b:0, u:1, r: 'Blocked in too many countries!', w: '', override: true},
-							verdict: window.senpai.messages.unavailable
-						};
-					}
-					if(warning)
-					{
-						window.multipass.mediaStatus[media.cid] = {
-							media: media,
-							result: {id:media.cid, b:0, u:0, r: '', w: '', override: true, warning:warning},
-							verdict: window.senpai.messages.warning
-						};
-					}
+				if(bad)
+				{
+					window.multipass.mediaStatus[media.cid] = {
+						media: media,
+						result: {id:media.cid, b:0, u:1, r: bad, w: '', override: true},
+						verdict: window.senpai.messages.unavailable
+					};
 					window.multipass.statusLoaded(media.cid);
+					return;
 				}
-			).fail(function(response)
+			}
+			var score = window.senpai.parseRestrictions(response);
+			if(score > 16)
 			{
 				window.multipass.mediaStatus[media.cid] = {
 					media: media,
-					result: {id:media.cid, b:0, u: 1, r:response.responseJSON.error.message, override: true, w:''},
+					result: {id:media.cid, b:0, u:1, r: 'Blocked in too many countries!', w: '', override: true},
 					verdict: window.senpai.messages.unavailable
 				};
-				window.multipass.statusLoaded(media.cid);
-			}).fail(function(){console.log(arguments);});
+			}
+			if(warning)
+			{
+				window.multipass.mediaStatus[media.cid] = {
+					media: media,
+					result: {id:media.cid, b:0, u:0, r: '', w: '', override: true, warning:warning},
+					verdict: window.senpai.messages.warning
+				};
+			}
+			window.multipass.statusLoaded(media.cid);
+		},
+		youtubeError: function(response)
+		{
+			window.multipass.mediaStatus[media.cid] = {
+				media: media,
+				result: {id:media.cid, b:0, u: 1, r:response.responseJSON.error.message, override: true, w:''},
+				verdict: window.senpai.messages.unavailable
+			};
+			window.multipass.statusLoaded(media.cid);
 		},
 		soundcloudCheck: function(media)
 		{
 			SC.get('/tracks/'+media.cid)
-				.then(function(){
-					window.multipass.mediaStatus[media.cid] = {};
-					window.multipass.statusLoaded(media.cid);
-				})
-				.catch(function(error){
-					window.multipass.mediaStatus[media.cid] = {
-						media: media,
-						result: {id:media.cid, b:0, u:1, r:error.message, override: true, w:''},
-						verdict: window.senpai.messages.unavailable
-					};
-					window.multipass.statusLoaded(media.cid);
-				});
+				.then(window.multipass.soundcloudChecked)
+				.catch(window.multipass.soundcloudError);
+		},
+		soundcloudChecked: function()
+		{
+			window.multipass.mediaStatus[media.cid] = {};
+			window.multipass.statusLoaded(media.cid);
+		},
+		soundcloudError: function(error){
+			window.multipass.mediaStatus[media.cid] = {
+				media: media,
+				result: {id:media.cid, b:0, u:1, r:error.message, override: true, w:''},
+				verdict: window.senpai.messages.unavailable
+			};
+			window.multipass.statusLoaded(media.cid);
 		},
 		onMediaChecked: function(playlist, mediamap, pl)
 		{
@@ -343,6 +348,7 @@
 					window.multipass.pushCache(known.media, known.result, verdict);
 				window.senpai.startTagPlaylist();
 			}
+			window.multipass.worker = setTimeout(window.multipass.checkNext, 100);
 		},
 		pushCache: function(media, result, verdict)
 		{
