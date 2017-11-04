@@ -273,7 +273,7 @@
 					verdict: window.senpai.messages.unavailable
 				};
 				window.multipass.statusLoaded(media.cid);
-			});
+			}).fail(function(){console.log(arguments);});
 		},
 		soundcloudCheck: function(media)
 		{
