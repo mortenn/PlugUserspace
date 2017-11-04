@@ -65,12 +65,10 @@
 					{
 						aw = a.result.w;
 						bw = b.result.w;
-						if(aw == '1' && bw == '1')
-							return 0;
-						if(aw > bw || aw == '1')
-							return 1;
-						if(bw < aw || bw == '1')
-							return -1;
+						if(aw == '1' && bw == '1') return 0;
+						if(aw == '1' || bw == '1') return 1;
+						if(aw > bw) return 1;
+						if(bw < aw) return -1;
 						return 0;
 					};
 					bad.sort(playSorter);
