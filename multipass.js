@@ -418,6 +418,9 @@
 	else if(window.multipass.playlists)
 	{
 		multipass.playlists = window.multipass.playlists;
+		multipass.mediaStatus = window.multipass.mediaStatus;
+		multipass.knownMedia = window.multipass.knownMedia;
+		multipass.idmap = window.multipass.idmap;
 		if(window.multipass.worker)
 			clearInterval(window.multipass.worker);
 		if(window.multipass.plWorker)
