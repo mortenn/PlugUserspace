@@ -28,9 +28,10 @@
 		},
 		organize: function()
 		{
-			for(var i = 0; i < window.multipass.playlists.data.length; ++i)
-				if(window.multipass.playlists.data[i].active)
-					return window.multipass.organizePlaylist(window.multipass.playlists.data[i]);
+			if(window.multipass.playlists.data)
+				for(var i = 0; i < window.multipass.playlists.data.length; ++i)
+					if(window.multipass.playlists.data[i].active)
+						return window.multipass.organizePlaylist(window.multipass.playlists.data[i]);
 
 			window.chatalert.showInformation(_('Unable to comply'), _('You need to complete /checkall first'));
 		},
