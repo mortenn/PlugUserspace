@@ -21,6 +21,63 @@
 				window.multipass.playlists = false;
 				window.multipass.checkAll();
 			}
+			if(command == '/organize')
+			{
+				window.multipass.organize();
+			}
+		},
+		organize: function()
+		{
+			for(var i = 0; i < window.multipass.playlists.data.length; ++i)
+				if(window.multipass.playlists.data[i].active)
+					return window.multipass.organizePlaylist(window.multipass.playlists.data[i]);
+
+			window.chatalert.showInformation(_('Unable to comply'), _('You need to complete /checkall first'));
+		},
+		organizePlaylist(playlist)
+		{
+			$.getJSON(
+				'https://plug.dj/_/playlists/'+playlist.id+'/media',
+				function(ml)
+				{
+					var bad = [];
+					var ok = [];
+					for(var i = 0; i < ml.data.length; ++i)
+					{
+						var media = ml.data[i];
+						var state = window.multipass.mediaStatus[meda.cid];
+						var known = window.multipass.knownMedia[media.cid];
+						var verdict = window.senpai.getVerdict(known.result);
+
+						// Unknown status, leave media alone
+						if(!state || !known)
+							continue;
+
+						known.media = media;
+						if(verdict.skip)
+						{
+							bad.push(known);
+							continue;
+						}
+						ok.push(known);
+					}
+					var playSorter = function(a, b)
+					{
+						if(a.w > b.w)
+							return 1;
+						if(b.w < a.w)
+							return -1;
+						return 0;
+					};
+					bad.sort(playSorter);
+					ok.sort(playSorter);
+					console.log(bad);
+					console.log(ok);
+				}
+			);
+
+			var known = [id];
+
 		},
 		checkAll: function()
 		{
@@ -39,6 +96,19 @@
 		{
 			$.getJSON('https://plug.dj/_/playlists/'+playlist.id+'/media', function(ml){ window.multipass.onPlaylistLoaded(playlist, ml); });
 		},
+		moveSongs: function(playlist, ids, before, next)
+		{
+			$.ajax(
+				{
+					type: 'PUT',
+					url: 'https://plug.dj/_/playlists/'+playlist.id+'/media/move',
+					contentType: 'application/json',
+					dataType: 'application/json',
+					data: JSON.stringify({ids:ids, beforeID:before}),
+					success: next
+				}
+			);
+		}
 		loadPlaylists: function()
 		{
 			$.getJSON('https://plug.dj/_/playlists', function(pl) { window.multipass.onPlaylistsLoaded(pl); });
