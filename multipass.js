@@ -213,15 +213,20 @@
 		{
 			var state = window.multipass.mediaStatus[id];
 			var known = window.multipass.knownMedia[id];
+			var verdict = null;
+			if(known)
+			{
+				verdict = window.senpai.getVerdict(known.result);
+				if(verdict.category != 'information')
+					window.multipass.pushCache(known.media, known.result, verdict);
+			}
+
 			if(state && known)
 			{
 				if(state.result && state.result.override)
 					window.multipass.pushCache(state.media, state.result, state.verdict);
-				else
-				{
-					var verdict = window.senpai.getVerdict(known.result);
+				else if(verdict)
 					window.multipass.pushCache(known.media, known.result, verdict);
-				}
 				window.senpai.startTagPlaylist();
 			}
 		},
