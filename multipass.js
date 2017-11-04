@@ -35,13 +35,15 @@
 
 			if(window.senpai.getActivePlaylist() == window.senpai.getCurrentPlaylist())
 			{
-				button = $('<div id="playlist-organize-button" class="button" style="right:420px;"><span>'+_('Organize')+'</span></div>');
+				button = $('<div id="playlist-organize-button" class="button" style="right:450px;"><span>'+_('Organize')+'</span></div>');
 				$('#playlist-edit-button').before(button);
 				button.click(function() { window.multipass.organize(); });
 			}
 		},
 		organize: function()
 		{
+			if(window.multipass.organizing)
+				return;
 			if(window.multipass.playlists.data)
 				for(var i = 0; i < window.multipass.playlists.data.length; ++i)
 					if(window.multipass.playlists.data[i].active)
@@ -51,6 +53,7 @@
 		},
 		organizePlaylist(playlist)
 		{
+			window.multipass.organizing = true;
 			$.getJSON(
 				'https://plug.dj/_/playlists/'+playlist.id+'/media',
 				function(ml)
@@ -105,8 +108,8 @@
 					var next = function()
 					{
 						var button = $('#playlist-organize-button');
-						if(button.length)
-							button.text(Math.floor(100 * ids.length / total) + '%')
+						if(button.length > 0)
+							button.children('span').text(Math.floor(100 * ids.length / total) + '%')
 						if(ids.length == 0)
 						{
 							window.multipass.organizing = false;
