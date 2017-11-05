@@ -293,7 +293,8 @@
 				return value;
 			}
 		},
-		senpaiReport: function(user) {
+		senpaiReport: function(user)
+		{
 			var users = API.getUsers();
 			var userid = false;
 			for(var i = 0; i < users.length; ++i)
@@ -327,7 +328,8 @@
 				}
 			);
 		},
-		onChatCommand: function(value) {
+		onChatCommand: function(value)
+		{
 			if(!window.kouhai.enabled()) return;
 			if(value == "/report")
 			{
@@ -342,11 +344,13 @@
 				window.kouhai.senpaiReport(user);
 			}
 		},
-		onWaitlist: function() {
+		onWaitlist: function()
+		{
 			if(!window.kouhai.enabled()) return;
 			setTimeout(window.kouhai.pollWaitlist, 1000);
 		},
-		pollWaitlist: function() {
+		pollWaitlist: function()
+		{
 			var users = $('#waitlist div.user');
 			if(users.length == 0)
 				return;
