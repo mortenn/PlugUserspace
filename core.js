@@ -14,5 +14,5 @@
 	window.freshy.currentVersion('linkify', 6, API.ROLE.NONE);
 	window.freshy.currentVersion('emoji', 11, API.ROLE.NONE);
 	window.freshy.currentVersion('chatfix', 23, API.ROLE.NONE);
-	window.freshy.currentVersion('kouhai', 154, API.ROLE.BOUNCER);
+	window.freshy.currentVersion('kouhai', 155, API.ROLE.BOUNCER);
 })();

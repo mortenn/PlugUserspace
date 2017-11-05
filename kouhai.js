@@ -216,7 +216,8 @@
 			if(showReport)
 			{
 				var alert = window.chatalert.show(icon, 'Kouhai DJ report', report, '00d2ff', 'kouhai');
-				setTimeout(function(){ alert.remove(); }, 600000);
+				if(window.kouhai.config.values.dismiss)
+					setTimeout(function(){ alert.remove(); }, 600000);
 			}
 
 			if(softwarn || (verdict.popup && verdict.kouhaiPlay) || (result.oa1 > 0 && result.n > 0 && result.s > 0))
@@ -238,7 +239,7 @@
 		},
 		config:
 		{
-			values: { mode: 'on', hipster: false, hipster_limit: 15 },
+			values: { mode: 'on', hipster: false, dismiss: true, hipster_limit: 15 },
 			get: function()
 			{
 				return [
@@ -268,6 +269,18 @@
 							},
 							{ type: 'textbox', name: 'hipster_limit', value: window.kouhai.config.values.hipster_limit }
 						]
+					},
+					{
+						title: 'Dismiss kouhai',
+						type: 'right',
+						options: [
+							{ type: 'select', name: 'dismiss', value: window.kouhai,config.values.dismiss,
+								options: [
+									{value:0, label:'No'},
+									{value:1, label:'Yes'}
+								]
+							}
+						]
 					}
 				];
 			},
@@ -294,7 +307,8 @@
 			if(!userid)
 			{
 				var alert = window.chatalert.show('', 'Unknown user', 'I was not able to find a user named "'+user+'"', '00d2ff', 'kouhai');
-				setTimeout(function(){ alert.remove(); }, 60000);
+				if(window.kouhai.config.values.dismiss)
+					setTimeout(function(){ alert.remove(); }, 60000);
 				return;
 			}
 			$.getJSON(
@@ -308,7 +322,8 @@
 						report = user + ' has used senpaiscript!<br>First: ' + r.firstCheck + '<br>Last: ' + r.lastCheck;
 					}
 					var alert = window.chatalert.show('', 'Senpai usage report', report, '00d2ff', 'kouhai');
-					setTimeout(function(){ alert.remove(); }, 60000);
+					if(window.kouhai.config.values.dismiss)
+						setTimeout(function(){ alert.remove(); }, 60000);
 				}
 			);
 		},
