@@ -94,10 +94,16 @@
 						var state = window.multipass.mediaStatus[media.cid];
 						var known = window.multipass.knownMedia[media.cid];
 
+						// Media not available
+						if(media.id && state && state.verdict.skip)
+						{
+							bad.push(media.id);
+							continue;
+						}
+
 						// Unknown status, leave media alone
 						if(!state || !known || !media.id)
 						{
-							console.log('unknown status:', state, known, media);
 							continue;
 						}
 						known.media = media;
