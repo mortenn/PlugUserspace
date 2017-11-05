@@ -156,7 +156,7 @@
 							window.chatalert.show(
 								'icon-volume-off',
 								_("Done!"),
-								_("Playlist {playlist} has been organized, please reload to see results.")
+								_("Playlist {playlist} has been organized, please switch playlists to see results.")
 									.replace('{playlist}', playlist.name),
 								'aa74ff',
 								'senpai'
