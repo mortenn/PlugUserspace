@@ -95,7 +95,7 @@
 						var known = window.multipass.knownMedia[media.cid];
 
 						// Media not available
-						if(media.id && state && state.verdict.skip)
+						if(media.id && state && state.verdict && state.verdict.skip)
 						{
 							bad.push(media.id);
 							continue;
