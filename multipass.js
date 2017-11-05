@@ -372,7 +372,7 @@
 		{
 			SC.get('/tracks/'+media.cid)
 				.then(function(){ window.multipass.soundcloudChecked(media); })
-				.catch(function(error){ window.multipass.soundcloudError(error); });
+				.catch(function(error){ window.multipass.soundcloudError(media, error); });
 		},
 		soundcloudChecked: function(media)
 		{
