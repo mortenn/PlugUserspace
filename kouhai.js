@@ -274,7 +274,7 @@
 						title: 'Dismiss kouhai',
 						type: 'right',
 						options: [
-							{ type: 'select', name: 'dismiss', value: window.kouhai,config.values.dismiss,
+							{ type: 'select', name: 'dismiss', value: window.kouhai.config.values.dismiss,
 								options: [
 									{value:0, label:'No'},
 									{value:1, label:'Yes'}
