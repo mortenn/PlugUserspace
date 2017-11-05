@@ -81,6 +81,7 @@
 		},
 		organizePlaylist(playlist)
 		{
+			window.multipass.orgQueue[pl.id] = false;
 			window.multipass.organizing = true;
 			$.getJSON(
 				'https://plug.dj/_/playlists/'+playlist.id+'/media',
@@ -431,7 +432,7 @@
 						'aa74ff',
 						'senpai'
 					);
-					if(pl.id in window.multipass.orgQueue)
+					if(pl.id in window.multipass.orgQueue && window.multipass.orgQueue[pl.id])
 						window.multipass.organizePlaylist(pl);
 				},
 				1000
