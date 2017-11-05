@@ -81,7 +81,7 @@
 		},
 		organizePlaylist(playlist)
 		{
-			window.multipass.orgQueue[pl.id] = false;
+			window.multipass.orgQueue[playlist.id] = false;
 			window.multipass.organizing = true;
 			$.getJSON(
 				'https://plug.dj/_/playlists/'+playlist.id+'/media',
