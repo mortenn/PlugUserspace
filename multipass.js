@@ -96,8 +96,10 @@
 
 						// Unknown status, leave media alone
 						if(!state || !known || !media.id)
+						{
+							console.log('unknown status:', state, known, media);
 							continue;
-
+						}
 						known.media = media;
 						var verdict = window.senpai.getVerdict(known.result);
 						if(verdict.skip || state.verdict && state.verdict.skip)
