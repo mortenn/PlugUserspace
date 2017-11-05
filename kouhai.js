@@ -239,7 +239,7 @@
 		},
 		config:
 		{
-			values: { mode: 'on', hipster: false, dismiss: true, hipster_limit: 15 },
+			values: { mode: 'on', hipster: 0, dismiss: 1, hipster_limit: 15 },
 			get: function()
 			{
 				return [
