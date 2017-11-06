@@ -1,5 +1,6 @@
 (function(){
-	window.freshy.currentVersion('freshy', 64, API.ROLE.NONE);
+	window.freshy.moduleLoaded('core');
+	window.freshy.currentVersion('freshy', 65, API.ROLE.NONE);
 	window.freshy.currentVersion('soundbank', 97, API.ROLE.NONE);
 	window.freshy.currentVersion('chatalert', 35, API.ROLE.NONE);
 	window.freshy.currentVersion('noisy', 72, API.ROLE.NONE);

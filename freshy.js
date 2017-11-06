@@ -11,7 +11,7 @@
 			beta: 'plug.runsafe.no/beta'
 		},
 		channel: 'stable',
-		systems: { freshy: 64 },
+		systems: { freshy: 65 },
 		failure: {},
 		loaded: {},
 		waits: {},
@@ -136,14 +136,23 @@
 				var script = /^\/load +([^ ]+)/.exec(cmd);
 				if(script)
 				{
-					for(var i = 0; i < window.freshy.modules.length; ++i)
-						if(window.freshy.modules[i] == script[1])
-							return;
+					var library = script[1];
+					if(window.freshy.modules.indexOf(library) >= 0)
+						return;
 
-					window.freshy.modules.push(script[1]);
-					window.freshy.versionCheck();
-					window.freshy.saveSettings();
-					window.chatalert.showInformation(_('Library loaded'), _('The {library} library will be loaded each time you restart the page.').replace('{library}', script[1]));
+					$.ajax({
+						url: 'https://'+window.freshy.host()+'/'+library+'.js',
+						dataType: 'script',
+						timeout: 2000
+					}).fail(function(){ window.freshy.moduleError(library); });
+					setTimeout(
+						function()
+						{
+							if(window.freshy.modules.indexOf(library) == -1)
+								window.freshy.moduleError(library);
+						},
+						2000
+					)
 				}
 			}
 			if(/^\/unload +[^ ]+/.test(cmd))
@@ -168,6 +177,22 @@
 					}
 				}
 			}
+		},
+		moduleLoaded: function(library)
+		{
+			if(window.freshy.modules.indexOf(library) >= 0)
+				return;
+			window.freshy.modules.push(library);
+			window.freshy.saveSettings();
+			window.chatalert.showInformation(_('Library loaded'), _('The {library} library will be loaded each time you restart the page.').replace('{library}', script[1]));
+		},
+		moduleError: function(library)
+		{
+			window.chatalert.showInformation(
+				_('Userspace script not loaded'),
+				_('The library {library} does not appear to exist. Please check your spelling.')
+					.replace('{library}', library)
+			);
 		},
 		statusMessage: function()
 		{
