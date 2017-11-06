@@ -1,4 +1,4 @@
 (function(){
 	window.freshy.moduleLoaded && window.freshy.moduleLoaded('linker');
-	window.freshy.currentVersion('linkage', 8);
+	window.freshy.currentVersion('linkage', 8, API.ROLE.NONE);
 })();
