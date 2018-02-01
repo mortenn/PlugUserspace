@@ -286,7 +286,7 @@
 			},
 			set: function(config, value)
 			{
-				if(config.name == 'hipster_limit')
+				if(config.name == 'hipster' || config.name == 'hipster_limit' || config.name == 'dismiss')
 					value = value * 1;
 				window.kouhai.config.values[config.name] = value;
 				window.kouhai.save();
