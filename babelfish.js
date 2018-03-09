@@ -43,14 +43,14 @@
 			var defaults = { language: null };
 			window.freshy.waitFor('settings', function() { window.settings.setDefaults('babelfish', defaults); });
 			$.getJSON(
-				'https://j.animemusic.me/animemusic/tr.php?load=languages',
+				'https://i.animemusic.me/animemusic/tr.php?load=languages',
 				function(languages)
 				{
 					window.babelfish.config.translations = languages;
 				}
 			);
 			$.getJSON(
-				'https://j.animemusic.me/animemusic/tr.php?load=strings',
+				'https://i.animemusic.me/animemusic/tr.php?load=strings',
 				function(strings)
 				{
 					for(var i in strings)
@@ -69,7 +69,7 @@
 					report.push(string);
 				}
 			$.post(
-				'https://j.animemusic.me/animemusic/tr.php',
+				'https://i.animemusic.me/animemusic/tr.php',
 				JSON.stringify(report),
 				function(){},
 				'json'
@@ -92,7 +92,7 @@
 		{
 			console.log('Got request to load language file '+language);
 			$.getJSON(
-				'https://j.animemusic.me/animemusic/tr.php?load=lang&lang='+language+'&_='+(new Date().getTime()),
+				'https://i.animemusic.me/animemusic/tr.php?load=lang&lang='+language+'&_='+(new Date().getTime()),
 				function(messages)
 				{
 					window.babelfish.messages = messages;
