@@ -402,7 +402,7 @@
 							else if(!item.status.embeddable)
 								bad = 'Video not embeddable';
 							else if(item.contentDetails && item.contentDetails.contentRating && item.contentDetails.contentRating.ytRating)
-								warning = item.contentDetails.contentRating.ytRating;
+								warning = 'Warning - this video is age restricted on YouTube!';
 
 							if(bad)
 							{
