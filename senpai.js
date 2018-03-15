@@ -552,7 +552,7 @@
 			}
 			if(window.senpai.getActivePlaylist() != window.senpai.getCurrentPlaylist())
 				return;
-			var targets = $('#media-panel .media-list .row .meta:not(#media-panel .media-list .row .meta:has(.senpai))');
+			var targets = $('#media-panel .media-list .row:not(.fi_na) .meta:not(:has(.senpai))');
 			if(!targets || targets.length == 0)
 				return;
 			for(var i = 0; i < targets.length; ++i)
