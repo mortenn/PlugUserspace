@@ -18,11 +18,12 @@
 		{
 			if(command == '/checkall')
 			{
-				window.multipass.playlists = false;
+				window.multipass.activatePlaylist();
 				window.multipass.checkAll();
 			}
 			if(command == '/organize')
 			{
+				window.multipass.activatePlaylist();
 				window.multipass.organize();
 			}
 		},
@@ -46,6 +47,7 @@
 				function()
 				{
 					button.children('span').text('0%');
+					window.multipass.activatePlaylist();
 					window.multipass.checkAll(true);
 				}
 			);
@@ -64,14 +66,24 @@
 			button.click(
 				function()
 				{
+					window.multipass.activatePlaylist();
 					window.multipass.checkAll();
 				}
 			);
+		},
+		activatePlaylist: function()
+		{
+			if(!window.multipass.playlists)
+				return;
+			var active = window.senpai.getActivePlaylist();
+			for(var i = 0; i < window.multipass.playlists.data.length; ++i)
+				window.multipass.playlists.data[i].active = window.multipass.playlists.data[i].name == active;
 		},
 		organize: function()
 		{
 			if(window.multipass.organizing)
 				return;
+
 			if(window.multipass.playlists.data)
 				for(var i = 0; i < window.multipass.playlists.data.length; ++i)
 					if(window.multipass.playlists.data[i].active)
