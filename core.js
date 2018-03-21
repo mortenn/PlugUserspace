@@ -10,7 +10,7 @@
 	window.freshy.currentVersion('cubicle', 49, API.ROLE.NONE);
 	window.freshy.currentVersion('babelfish', 44, API.ROLE.NONE);
 	window.freshy.currentVersion('socialite', 20, API.ROLE.NONE);
-	window.freshy.currentVersion('multipass', 175, API.ROLE.NONE);
+	window.freshy.currentVersion('multipass', 176, API.ROLE.NONE);
 	window.freshy.currentVersion('fastmode', 5, API.ROLE.NONE);
 	window.freshy.currentVersion('linkify', 6, API.ROLE.NONE);
 	window.freshy.currentVersion('emoji', 11, API.ROLE.NONE);
