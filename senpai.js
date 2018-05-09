@@ -250,7 +250,7 @@
 		{
 			API.on(API.CHAT_COMMAND, function(e){ window.senpai.onChatCommand(e); });
 			API.on(API.ADVANCE, function(e){ window.senpai.advance(e); });
-			$('#room').delegate('#dj-button.is-wait', 'click', function() { window.senpai.onJoinWaitlist(); });
+			$('#room').delegate('.dj-button.is-wait', 'click', function() { window.senpai.onJoinWaitlist(); });
 			$('#playlist-button').on('click', function() { window.senpai.onPlaylistChanged(); });
 			$('#playlist-meta .bar-button').on('click', function(){ window.senpai.onPlaylistChanged(); });
 			$('#playlist-menu .row').on('click', function(){ window.senpai.onPlaylistChanged(); });
