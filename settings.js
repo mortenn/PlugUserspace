@@ -15,7 +15,7 @@
 					'<i class="nav-left__item-icon fa fa-cogs" title="'+_('Userspace addons')+'"></i>'+
 				'</li>'
 			);
-			button.click(function(){ window.settings.open(); });
+			button.click(function(){ window.settings.toggle(); });
 			$('.nav--desktop .list-unstyled.nav').append(button);
 			window.freshy.systemLoaded('settings');
 		},
@@ -69,6 +69,13 @@
 				if(!(setting in window.settings.configuration[system]))
 					window.settings.configuration[system][setting] = defaults[setting];
 			window.settings.pushConfiguration(system);
+		},
+		toggle: function()
+		{
+			if($('#the-user-addons').length === 0)
+				window.settings.open();
+			else
+				window.settings.cleanup();
 		},
 		open: function()
 		{
