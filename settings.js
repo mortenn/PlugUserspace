@@ -10,16 +10,9 @@
 		defaults: {},
 		hook: function()
 		{
-			var button = $(
-'<div class="item addons" data-value="addons">'+
-	'<i class="icon icon-import" />'+
-	'<span class="label">'+_('Userspace addons')+'</span>'+
-'</div>'
-			);
+			var button = $('<li id="userspace"><i class="nav-left__item-icon fa fa-cogs" title="'+_('Userspace addons')+'"></i></li>');
 			button.click(function(){ window.settings.open(); });
-
-			$('#user-menu div.addons').remove();
-			$('#user-menu').append(button);
+			$('.nav--desktop .list-unstyled.nav').append(button);
 			window.freshy.systemLoaded('settings');
 		},
 		loadConfiguration: function()
