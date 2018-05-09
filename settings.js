@@ -11,15 +11,12 @@
 		hook: function()
 		{
 			var button = $(
-'<div class="item addons" data-value="addons">'+
-	'<i class="icon icon-import" />'+
-	'<span class="label">'+_('Userspace addons')+'</span>'+
-'</div>'
+				'<li id="userspace" class="nav-left__item">'+
+					'<i class="nav-left__item-icon fa fa-cogs" title="'+_('Userspace addons')+'"></i>'+
+				'</li>'
 			);
-			button.click(function(){ window.settings.open(); });
-
-			$('#user-menu div.addons').remove();
-			$('#user-menu').append(button);
+			button.click(function(){ window.settings.toggle(); });
+			$('.nav--desktop .list-unstyled.extension').append(button);
 			window.freshy.systemLoaded('settings');
 		},
 		loadConfiguration: function()
@@ -72,6 +69,13 @@
 				if(!(setting in window.settings.configuration[system]))
 					window.settings.configuration[system][setting] = defaults[setting];
 			window.settings.pushConfiguration(system);
+		},
+		toggle: function()
+		{
+			if($('#the-user-addons').length === 0)
+				window.settings.open();
+			else
+				window.settings.cleanup();
 		},
 		open: function()
 		{
