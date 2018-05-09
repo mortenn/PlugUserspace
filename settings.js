@@ -10,7 +10,11 @@
 		defaults: {},
 		hook: function()
 		{
-			var button = $('<li id="userspace"><i class="nav-left__item-icon fa fa-cogs" title="'+_('Userspace addons')+'"></i></li>');
+			var button = $(
+				'<li id="userspace" class="nav-left__item">'+
+					'<i class="nav-left__item-icon fa fa-cogs" title="'+_('Userspace addons')+'"></i>'+
+				'</li>'
+			);
 			button.click(function(){ window.settings.open(); });
 			$('.nav--desktop .list-unstyled.nav').append(button);
 			window.freshy.systemLoaded('settings');
