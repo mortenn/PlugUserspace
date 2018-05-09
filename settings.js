@@ -16,7 +16,7 @@
 				'</li>'
 			);
 			button.click(function(){ window.settings.toggle(); });
-			$('.nav--desktop .list-unstyled.nav').append(button);
+			$('.nav--desktop .list-unstyled.extension').append(button);
 			window.freshy.systemLoaded('settings');
 		},
 		loadConfiguration: function()
