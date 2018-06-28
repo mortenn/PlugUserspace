@@ -292,7 +292,8 @@
 				window.senpai.save();
 			}
 		},
-		onChatCommand: function(value) {
+		onChatCommand: function(value)
+		{
 			if(!window.senpai.enabled()) return;
 			if (value != "/check")
 				return;
@@ -341,7 +342,8 @@
 
 			window.senpai.tagNextMedia();
 		},
-		manualCheck: function() {
+		manualCheck: function()
+		{
 			if(!window.senpai.enabled()) return;
 			var nextSong = API.getNextMedia();
 			if(!nextSong)
@@ -382,7 +384,8 @@
 					score += window.senpai.countryList[country];
 			return score;
 		},
-		startCheck: function(media) {
+		startCheck: function(media)
+		{
 			if(!window.senpai.enabled()) return;
 			if(media.format == 1)
 				$.getJSON(
@@ -634,7 +637,8 @@
 				}
 			}
 		},
-		waitForPlaylistChange: function(callback) {
+		waitForPlaylistChange: function(callback)
+		{
 			var tries = 20;
 			var spinFunction = function() {
 				if (window.senpai.getCurrentPlaylist() == window.senpai.getSelectedPlaylist())
@@ -644,7 +648,8 @@
 			};
 			setTimeout(spinFunction, 500);
 		},
-		advance: function(value) {
+		advance: function(value)
+		{
 			if(!senpai.enabled()) return;
 			window.senpai.pos = API.getWaitListPosition() + 1;
 			var user = API.getUser();
