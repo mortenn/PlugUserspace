@@ -292,7 +292,8 @@
 				window.senpai.save();
 			}
 		},
-		onChatCommand: function(value) {
+		onChatCommand: function(value)
+		{
 			if(!window.senpai.enabled()) return;
 			if (value != "/check")
 				return;
@@ -331,7 +332,7 @@
 			if(window.senpai.getActivePlaylist() == window.senpai.getCurrentPlaylist())
 			{
 				var tooltip = _('Check to see if your upcoming song is available and abides by the rules.');
-				button = $('<div id="playlist-check-button" class="button" style="right:350px;"><span title="'+tooltip+'">'+_('Check')+'</span></div>');
+				button = $('<div id="playlist-check-button" class="button" title="'+tooltip+'"><i class="fa fa-check"></i></div>');
 				$('#playlist-edit-button').before(button);
 				button.click(function() { window.senpai.manualCheck(); });
 				window.senpai.startTagPlaylist();
@@ -341,7 +342,8 @@
 
 			window.senpai.tagNextMedia();
 		},
-		manualCheck: function() {
+		manualCheck: function()
+		{
 			if(!window.senpai.enabled()) return;
 			var nextSong = API.getNextMedia();
 			if(!nextSong)
@@ -382,7 +384,8 @@
 					score += window.senpai.countryList[country];
 			return score;
 		},
-		startCheck: function(media) {
+		startCheck: function(media)
+		{
 			if(!window.senpai.enabled()) return;
 			if(media.format == 1)
 				$.getJSON(
@@ -634,7 +637,8 @@
 				}
 			}
 		},
-		waitForPlaylistChange: function(callback) {
+		waitForPlaylistChange: function(callback)
+		{
 			var tries = 20;
 			var spinFunction = function() {
 				if (window.senpai.getCurrentPlaylist() == window.senpai.getSelectedPlaylist())
@@ -644,7 +648,8 @@
 			};
 			setTimeout(spinFunction, 500);
 		},
-		advance: function(value) {
+		advance: function(value)
+		{
 			if(!senpai.enabled()) return;
 			window.senpai.pos = API.getWaitListPosition() + 1;
 			var user = API.getUser();
@@ -669,8 +674,8 @@
 			setTimeout(function(){ alert.remove(); }, 60000);
 		},
 		getCurrentPlaylist: function() { return $('#media-panel .header .title span').text(); },
-		getSelectedPlaylist: function() { return $('#playlist-menu .selected .name').text(); },
-		getActivePlaylist: function() { return $('#playlist-menu .icon-check-purple').parent().parent().children('.name').text(); },
+		getSelectedPlaylist: function() { return $('#playlist-menu .row.selected .name').text(); },
+		getActivePlaylist: function() { return $('#playlist-menu .row .activate-button .active').parent().parent().children('.name').text(); },
 		enabled: function() { if(/plug.dj\/(hummingbird-me|anime)(|#.*)$/.test(document.location)) return true; else { console.log('Senpai disabled in '+document.location); return false; } },
 		cache: {},
 		cooldown: false,
