@@ -251,7 +251,7 @@
 			API.on(API.CHAT_COMMAND, function(e){ window.senpai.onChatCommand(e); });
 			API.on(API.ADVANCE, function(e){ window.senpai.advance(e); });
 			$('#app .dj-button--desktop').on('click','.dj-button.is-wait button', function() { window.senpai.onJoinWaitlist(); });
-			$('#playlist-button').on('click', function() { window.senpai.onPlaylistChanged(); });
+			$('#community__playlist--desktop').on('click', function() { window.senpai.onPlaylistChanged(); });
 			$('#playlist-meta .bar-button').on('click', function(){ window.senpai.onPlaylistChanged(); });
 			$('#playlist-menu .row').on('click', function(){ window.senpai.onPlaylistChanged(); });
 			$('#playlist-menu .activate-button').on('click', function(){ window.senpai.onPlaylistActivate(); });
