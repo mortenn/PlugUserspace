@@ -332,7 +332,7 @@
 			if(window.senpai.getActivePlaylist() == window.senpai.getCurrentPlaylist())
 			{
 				var tooltip = _('Check to see if your upcoming song is available and abides by the rules.');
-				button = $('<div id="playlist-check-button" class="button"><span title="'+tooltip+'"><i class="fa fa-shield-check"></i><small>'+_('Check')+'</small></span></div>');
+				button = $('<div id="playlist-check-button" class="button" title="'+tooltip+'"><i class="fa fa-shield-check"></i></div>');
 				$('#playlist-edit-button').before(button);
 				button.click(function() { window.senpai.manualCheck(); });
 				window.senpai.startTagPlaylist();
