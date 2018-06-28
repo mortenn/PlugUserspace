@@ -321,7 +321,6 @@
 		},
 		manageCheckButton: function()
 		{
-			console.log('active:'+window.senpai.getActivePlaylist()+', current:'+window.senpai.getCurrentPlaylist());
 			if(!window.senpai.enabled()) return;
 			if('multipass' in window)
 				window.multipass.managePlaylistButton();
@@ -333,7 +332,7 @@
 			if(window.senpai.getActivePlaylist() == window.senpai.getCurrentPlaylist())
 			{
 				var tooltip = _('Check to see if your upcoming song is available and abides by the rules.');
-				button = $('<div id="playlist-check-button" class="button" style="right:350px;"><span title="'+tooltip+'">'+_('Check')+'</span></div>');
+				button = $('<div id="playlist-check-button" class="button"><span title="'+tooltip+'"><i class="fa fa-shield-check"></i><small>'+_('Check')+'</small></span></div>');
 				$('#playlist-edit-button').before(button);
 				button.click(function() { window.senpai.manualCheck(); });
 				window.senpai.startTagPlaylist();
