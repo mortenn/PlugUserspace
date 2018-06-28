@@ -41,7 +41,7 @@
 			if(window.senpai.getActivePlaylist() != window.senpai.getCurrentPlaylist())
 				return;
 			var tooltip = _('Places songs that have been played recently, are banned or that are unavailable to the bottom of your playlist.');
-			button = $('<div id="playlist-organize-button" class="button" title="'+tooltip+'"><i class="fa fa-sort-amount-down"></i></div>');
+			button = $('<div id="playlist-organize-button" class="button" title="'+tooltip+'"><i class="fa fa-ambulance"></i></div>');
 			$('#playlist-edit-button').before(button);
 			button.click(
 				function()
@@ -61,7 +61,7 @@
 			if(window.senpai.getActivePlaylist() != window.senpai.getCurrentPlaylist())
 				return;
 			var tooltip = _('Check all of your playlist to ensure they are available and abide by the rules.');
-			button = $('<div id="playlist-checkall-button" class="button" title="'+tooltip+'"><i class="fa fa-tasks"></i></div>');
+			button = $('<div id="playlist-checkall-button" class="button" title="'+tooltip+'"><i class="fa fa-microchip"></i></div>');
 			$('#playlist-edit-button').before(button);
 			button.click(
 				function()
