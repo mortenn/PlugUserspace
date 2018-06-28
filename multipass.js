@@ -41,7 +41,7 @@
 			if(window.senpai.getActivePlaylist() != window.senpai.getCurrentPlaylist())
 				return;
 			var tooltip = _('Places songs that have been played recently, are banned or that are unavailable to the bottom of your playlist.');
-			button = $('<div id="playlist-organize-button" class="button" title="'+tooltip+'"><i class="fa fa-ambulance"></i></div>');
+			button = $('<div id="playlist-organize-button" class="button" title="'+tooltip+'"><i class="fa fa-magic"></i></div>');
 			$('#playlist-edit-button').before(button);
 			button.click(
 				function()
