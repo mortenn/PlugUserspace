@@ -675,8 +675,8 @@
 			setTimeout(function(){ alert.remove(); }, 60000);
 		},
 		getCurrentPlaylist: function() { return $('#media-panel .header .title span').text(); },
-		getSelectedPlaylist: function() { return $('#playlist-menu .selected .name').text(); },
-		getActivePlaylist: function() { return $('#playlist-menu .icon-check-purple').parent().parent().children('.name').text(); },
+		getSelectedPlaylist: function() { return $('#playlist-menu .row.selected .name').text(); },
+		getActivePlaylist: function() { return $('#playlist-menu .row .activate-button .active').parent().parent().children('.name').text(); },
 		enabled: function() { if(/plug.dj\/(hummingbird-me|anime)(|#.*)$/.test(document.location)) return true; else { console.log('Senpai disabled in '+document.location); return false; } },
 		cache: {},
 		cooldown: false,
