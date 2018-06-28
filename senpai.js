@@ -321,6 +321,7 @@
 		},
 		manageCheckButton: function()
 		{
+			console.log(window.senpai.getActivePlaylist(),window.senpai.getCurrentPlaylist());
 			if(!window.senpai.enabled()) return;
 			if('multipass' in window)
 				window.multipass.managePlaylistButton();
