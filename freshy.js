@@ -11,7 +11,7 @@
 			beta: 'plug.runsafe.no/beta'
 		},
 		channel: 'stable',
-		systems: { freshy: 65 },
+		systems: { freshy: 66 },
 		failure: {},
 		loaded: {},
 		waits: {},
@@ -101,7 +101,9 @@
 					freshy.notify = notify;
 				try
 				{
-					var modules = JSON.parse(window.localStorage['freshy.js-modules']);
+					var modules = window.localStorage['freshy.js-modules'];
+					if(modules)
+						modules = JSON.parse(modules);
 					if(modules && modules.length > 0 && modules[0] == 'core')
 						freshy.modules = modules;
 				}
