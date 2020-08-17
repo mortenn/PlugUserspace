@@ -322,7 +322,10 @@
 			}
 			var next = window.multipass.queue.pop();
 			if(next.format == 1)
-				window.multipass.youtubeCheck(next);
+			{
+				window.multipass.mediaStatus[next.cid] = {};
+				window.multipass.statusLoaded(next.cid);
+			}
 			else if(next.format == 2)
 				window.multipass.soundcloudCheck(next);
 		},
