@@ -388,40 +388,7 @@
 		{
 			if(!window.senpai.enabled()) return;
 			if(media.format == 1)
-				$.getJSON(
-					'https://www.googleapis.com/youtube/v3/videos?part=status,contentDetails&id='+media.cid+'&key=AIzaSyD67usK9zHkAgG33z0bdoauSGrdXX8ByL8',
-					function(response)
-					{
-						var warning = null;
-						if('pageInfo' in response)
-						{
-							var bad = null;
-							var item = response.items ? response.items[0] || {} : {};
-
-							if(response.pageInfo.totalResults == 0 || response.items.length == 0)
-								bad = 'Video not found';
-							else if(item.status.uploadStatus == 'rejected')
-								bad = 'Video removed (' + item.status.rejectionReason + ')';
-							else if(!item.status.embeddable)
-								bad = 'Video not embeddable';
-							else if(item.contentDetails && item.contentDetails.contentRating && item.contentDetails.contentRating.ytRating)
-								warning = 'Warning - this video is age restricted on YouTube!';
-
-							if(bad)
-							{
-								window.senpai.checkResult({id:media.cid, b:0, u:1, r: bad, w: ''}, media);
-								return;
-							}
-						}
-						var score = window.senpai.parseRestrictions(response);
-						if(score > 16)
-						{
-							window.senpai.checkResult({id:media.cid, b:0, u:1, r: 'Blocked in too many countries!', w: ''}, media);
-							return;
-						}
-						window.senpai.continueCheck(media, warning);
-					}
-				).fail(function(e){ window.senpai.checkResult({id:media.cid, b:0, u:1, r: e.responseJSON.error.message}); }, media);
+				window.senpai.continueCheck(media);
 			else if(media.format == 2)
 				SC.get('/tracks/'+media.cid).then(
 					function(response) { window.senpai.continueCheck(media); }
